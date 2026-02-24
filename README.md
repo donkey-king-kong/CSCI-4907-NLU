@@ -1,2 +1,2 @@
-# CSCI-4907---NLU
+# CSCI-4907-NLU
 (GWU) CSCI 4907 - NLU Project 
