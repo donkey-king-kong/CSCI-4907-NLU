@@ -30,25 +30,49 @@ To develop and compare multiple machine learning and deep learning models for mu
 ## Datasets
 Our dataset is taken from Kaggle: [Cyberbullying Classification](https://www.kaggle.com/datasets/andrewmvd/cyberbullying-classification)
 
-## Repository Overview
-1. [Source Code]()
-2. [Data Preparation & Cleaning]()
-3. [Exploratory Analysis]()
-    - [Number Game]()
-    - [Tokenization]()
-    - [Word Cloud]()
-    - [Sentiment Analysis]()
-4. [Machine Learning]()
-    - [Naive Bayes]()
-    - [Multinomial Logistic Regression]()
-    - [Support Vector Machine]()
-    - [Random Forest Classifier]()
-    - [Bi-LSTM]()
+## <a id ="repository">🔎 Repository Overview </a>
+> - Use this section links to quickly and conveniently jump to each section.  
+> - At every section there is the "[Back to `Main` Content Page](#repository)" to jump back and forth seeamlessly.
+1) [Source Code](#source)  
+2) [Data Preparation & Cleaning](#data)
+3) [Exploratory Analysis](#analysis)
+   - [Number Game](#number)
+   - [Tokenization](#token)
+   - [Word Cloud](#word)
+   - [Sentiment Analysis](#sentiment)
+4) [Machine Learning](#machine)
+   - [Naive Bayes](#naive)
+   - [Multinomial Logistic Regression](#logistic)
+   - [Support Vector Machine](#support)
+   - [Random Forest Classifier](#random)
+   - [Bi-LSTM](#bert)
 
-## Source Code
+## <a id="source"> 💻 Source Code </a>
 Source Code on Google Colab:
 > https://colab.research.google.com/drive/1KTm6iu-XBtcy4Y7H8wsIBvkC3YWAYt4G
 
-## Data Preparation & Cleaning
+## <a id = "data">🧼 Data Preparation & Cleaning</a>
+[Back to `Main` Content Page]
+### What we removed
+> - Remove mentions (@username)  
+> - Remove punctuations  
+> - Remove URLs  
+> - Remove extra whitespaces  
+> - Remove stopwords  
+> - Remove HTML characters (EG: "&amp")  
+> - Remove numbers  
+> - Remove picture links (EG: pic.twitter.com)  
+> - Remove shortwords (Length <= 2)  
 
-## Exploratory Analysis
+## <a id = "analysis">🔬 Exploratory Analysis</a> 
+[Back to `Main` Content Page]  
+
+To analyse and visualze the data we have cleaned in order to understand its underlying patterns, relationships and anomalies. We will be using data visualization techniques in hopes of generating insights that could help us better understand the data before applying any models or conducting any hypothesis testing.
+
+### <a id = "number">🔢 Number Game</a>
+> The "numbers game" is used in our exploratory data analysis where we systematically examine the numerical data to identify patterns, trends and anmoalies. 
+>
+> Here, we plot the number of tweets belonging to each category in the dataset as well as their relative percentages. 
+
+### <a id = "token">🪙 Tokenization</a>
+> Here, we used tokenization to break down a piece of text like sentences or paragraphs into individual worlds or "tokens". From this plot, we can see the most common words in the tweets of our data.
