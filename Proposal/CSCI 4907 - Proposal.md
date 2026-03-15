@@ -130,5 +130,4 @@
 > - Phase 5 (1 Week): Final results, report, presentation
 
 ## 8. GitHub Repository
-
-## References
+> Github Link: https://github.com/donkey-king-kong/CSCI-4907-NLU.git
