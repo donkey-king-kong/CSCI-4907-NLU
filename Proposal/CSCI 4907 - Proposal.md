@@ -114,6 +114,13 @@
 
 ## 6. Team Members & Responsibilities
 
+| S/N | Team Members | Part |
+| :-: | :- | :- |
+| 1 | Zhan You Lau | Data Preparation & Cleaning, Data Visualization, Structured Error Analysis |
+| 2 | Yu Chen Law | Naive Bayes, Logistic Regression, Structured Error Analysis |
+| 3 | Kieran E Kai Voo | Data Preparation & Cleaning, SVM, Structured Error Analysis |
+| 4 | Joshua, Tse Ern Foo | Data Visualization, Bi-LSTM, Structured Error Analysis |
+
 ## 7. Project Timeline & Milestones
 
 ## 8. GitHub Repository
