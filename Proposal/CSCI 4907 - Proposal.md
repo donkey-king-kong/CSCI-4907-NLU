@@ -45,7 +45,7 @@
 
 ### Preprocessing
 > - Converting all text to lowercase
-> - Removing user mentions (e.g., `@username`)
+> - Removing user mentions (e.g., @username)
 > - Removing URLs and picture links
 > - Removing punctuation
 > - Removing stray HTML entities
@@ -61,8 +61,31 @@
 
 ## 4. Plans for Models
 ### Baseline Models
+> The simplest baseline model will be `Naive Bayes`. 
+>
+> Other classical machine learning models:
+>
+> - Logistic Regression  
+> - Support Vector Machine
+> - Random Forest Classifier  
+
 ### Proposed Architecture
+> On top of the aforementioned classical models, we will implement a `Bidirectional Long Short-Term Memory (Bi-LSTM)` neural network. 
+>
+> Bi-LSTM models process text sequences in both forward and backward directions. This allows the model to capture contextual information from the surrounding words in a sentence.
+>
+> This is especially useful for natural language processing tasks where word order and context are critical in determining meaning.
+
 ### Implementation
+> Tools and libraries we plan to use:
+> 
+> - `scikit-learn` - For classical machine learning models and TF-IDF feature extraction
+> - `PyTorch` - For implementing Bi-LSTM
+> - `NLTK` - For text preprocessing tasks
+> - `gensim` - For training Word2Vec embeddings
+> - `imbalanced-learn (imblearn)` - For handling class imbalance through oversampling techniques
+> 
+> We will be using **Google Colab** to facilitate model training, evaluation and analysis.
 
 ## 5. Plans for Evaluation
 ### Metrics
