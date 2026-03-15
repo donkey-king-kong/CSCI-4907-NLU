@@ -21,6 +21,24 @@
 > Hence, rather than just evaluating the models' predictive performance, we also aim to provide insights into model behaviour and limitations when detecting cyberbullying in noisy tweets.
 
 ## 2. Related Work
+> Cyberbullying detection on social media have been widely studied in natural language processing. For example, Waseem and Hovy (2016) applied logistic regression with character n-gram features to detect racist and sexist content on Twitter. This demonstrated that traditional machine learning models can also perform effectively when combined with engineered textual features. In later years, Salawu et al. (2021) introduced a large-scale multi-label dataset for cyberbullying and online abuse detection. This enabled more fine-grained categorization of abusive behaviors.
+>
+> In a similar vein, deep learning models have also been used to explore abusive language detection. For example, Pavlopoulos et al. (2017) used neural network models for moderation tasks. This showed that deep learning architectures can better capture contextual relationships in text. Similarly, Park and Fung (2017) investigated the use of convolutional neural networks for abusive language detection on Twitter. They subsequently reported that there were improvements over traditional bag-of-words methods. In terms of challenges, Wiegand et al. (2018) highlighted a few challenges in abusive language detection, particularly how abusive language is annotated in datasets.
+
+### Gap Analysis
+> From what we have read, these studies often focus primarily on improving detection performance or introducing new datasets. For our project, we instead focus on the comparative analysis of classical machine learning models and a neural architecture within a multilabel cyberbullying detection setting. Additionally, we would also conduct a structured error analysis to better understand model limitations when handling subtle and overlapping forms of cyberbullying in tweets.
+
+### References
+> Park, J. H., & Fung, P. (2017). **One-step and two-step classification for abusive language detection on Twitter.** In Proceedings of the First Workshop on Abusive Language Online (pp. 41–45). https://aclanthology.org/W17-3006/
+>
+> Pavlopoulos, J., Malakasiotis, P., & Androutsopoulos, I. (2017). **Deep learning for user comment moderation.** In Proceedings of the First Workshop on Abusive Language Online (pp. 25–35). https://aclanthology.org/W17-3004/
+>
+> Salawu, S., Lumsden, J., & He, Y. (2021). **A large-scale English multi-label Twitter dataset for cyberbullying and online abuse detection.** In Proceedings of the 5th Workshop on Online Abuse and Harms (pp. 58–69). https://aclanthology.org/2021.woah-1.16/
+>
+> Waseem, Z., & Hovy, D. (2016). **Hateful symbols or hateful people? Predictive features for hate speech detection on Twitter.** In Proceedings of NAACL-HLT 2016 (pp. 88–93). https://aclanthology.org/N16-2013/
+>
+> Wiegand, M., Ruppenhofer, J., & Kleinbauer, T. (2019). **Detection of abusive language: The problem of biased datasets.** In Proceedings of the 2nd Workshop on Abusive Language Online (pp. 138–148). https://aclanthology.org/N19-1060/
+
 
 ## 3. Data Strategy
 ### Source
