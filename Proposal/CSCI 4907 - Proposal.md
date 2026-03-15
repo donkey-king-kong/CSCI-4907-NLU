@@ -39,10 +39,25 @@
 >
 > Wiegand, M., Ruppenhofer, J., & Kleinbauer, T. (2019). **Detection of abusive language: The problem of biased datasets.** In Proceedings of the 2nd Workshop on Abusive Language Online (pp. 138–148). https://aclanthology.org/N19-1060/
 
-
 ## 3. Data Strategy
 ### Source
+> The dataset is obtained from Kaggle: [`Cyberbullying Classification Dataset`](https://www.kaggle.com/datasets/andrewmvd/cyberbullying-classification)
+
 ### Preprocessing
+> - Converting all text to lowercase
+> - Removing user mentions (e.g., `@username`)
+> - Removing URLs and picture links
+> - Removing punctuation
+> - Removing stray HTML entities
+> - Removing numbers
+> - Removing English stopwords
+> - Removing short words with length less than or equal to 2
+> - Removing extra whitespace
+
+### After Preprocessing
+> - Cleaned data will be tokenized and converted into numerical representations suitable for model training. 
+> 
+> For classical machine learning models, TF-IDF vectorization will be used to transform the text into feature vectors.
 
 ## 4. Plans for Models
 ### Baseline Models
