@@ -33,26 +33,57 @@ Our dataset is taken from Kaggle: [Cyberbullying Classification](https://www.kag
 ## <a id ="repository">🔎 Repository Overview </a>
 > - Use this section links to quickly and conveniently jump to each section.  
 > - At every section there is the "[Back to `Main` Content Page](#repository)" to jump back and forth seeamlessly.
-1) [Source Code](#source)  
-2) [Data Preparation & Cleaning](#data)
-3) [Exploratory Analysis](#analysis)
+1) [Set up](#setup)  
+2) [Source Code](#source)  
+3) [Data Preparation & Cleaning](#data)
+4) [Exploratory Analysis](#analysis)
    - [Number Game](#number)
    - [Tokenization](#token)
    - [Word Cloud](#word)
    - [Sentiment Analysis](#sentiment)
-4) [Machine Learning](#machine)
+5) [Machine Learning](#machine)
    - [Naive Bayes](#naive)
    - [Multinomial Logistic Regression](#logistic)
    - [Support Vector Machine](#support)
    - [Random Forest Classifier](#random)
    - [Bi-LSTM](#bert)
 
+## <a id="setup"> ⚙️ Set up </a>
+[Back to `Main` Content Page](#repository)
+
+Clone the repository and install dependencies:
+
+```bash
+# Clone the repo
+git clone https://github.com/donkey-king-kong/CSCI-4907-NLU.git
+cd CSCI-4907-NLU
+
+# Create and activate a virtual environment
+# Windows:
+python -m venv venv
+.\venv\Scripts\activate
+
+# macOS/Linux:
+python3 -m venv venv && source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+If you use **NLTK** in the notebooks, run once in Python to download stopwords:
+
+```python
+import nltk
+nltk.download('stopwords')
+```
+
 ## <a id="source"> 💻 Source Code </a>
-Source Code on Google Colab:
-> https://colab.research.google.com/drive/1KTm6iu-XBtcy4Y7H8wsIBvkC3YWAYt4G
+[Back to `Main` Content Page](#repository)  
+
+> Source Code on Google Colab: https://colab.research.google.com/drive/1KTm6iu-XBtcy4Y7H8wsIBvkC3YWAYt4G
 
 ## <a id = "data">🧼 Data Preparation & Cleaning</a>
-[Back to `Main` Content Page]
+[Back to `Main` Content Page](#repository)
 ### What we removed
 > - Remove mentions (@username)  
 > - Remove punctuations  
@@ -65,7 +96,7 @@ Source Code on Google Colab:
 > - Remove shortwords (Length <= 2)  
 
 ## <a id = "analysis">🔬 Exploratory Analysis</a> 
-[Back to `Main` Content Page]  
+[Back to `Main` Content Page](#repository)
 
 To analyse and visualze the data we have cleaned in order to understand its underlying patterns, relationships and anomalies. We will be using data visualization techniques in hopes of generating insights that could help us better understand the data before applying any models or conducting any hypothesis testing.
 
@@ -91,7 +122,7 @@ To analyse and visualze the data we have cleaned in order to understand its unde
 
 ### <a id = "sentiment">📈 Sentiment Analysis</a>
 > - For sentiment analysis, we used the the module TextBlob for natural language processing tasks. The sentiment analysis model considers various factors such as word polarity, intensity of sentiment, and context to determine the sentiment score for a given text.  
-
+>
 > - This would help us in identifying sentiments - positive, negative and neutral, from a piece of text.
     
 The sentiment score represents the polarity of the text (Positive, Negative, Neutral). It is a floating point number ranging from -1.0 to +1.0. 
