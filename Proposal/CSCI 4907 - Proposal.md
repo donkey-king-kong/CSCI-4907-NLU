@@ -122,6 +122,12 @@
 | 4 | Joshua, Tse Ern Foo | Data Visualization, Bi-LSTM, Structured Error Analysis |
 
 ## 7. Project Timeline & Milestones
+> - Setup (2 Weeks): Topic selection, approval, project proposal
+> - Phase 1 (1 Week): Data preparation and cleaning
+> - Phase 2 (1 Week): Exploratory data analysis
+> - Phase 3 (2 Weeks): Model Training & tuning
+> - Phase 4 (2 Weeks): Evaluation and analysis
+> - Phase 5 (1 Week): Final results, report, presentation
 
 ## 8. GitHub Repository
 
