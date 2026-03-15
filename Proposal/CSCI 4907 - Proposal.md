@@ -89,7 +89,28 @@
 
 ## 5. Plans for Evaluation
 ### Metrics
-### Validation Strategy
+
+> **Evaluation Metrics**
+>
+> - Precision
+> - Recall
+> - F1-score
+> - Accuracy
+>
+> Precision, recall, and F1-score are particularly important because they provide a clearer indication of how well the model identifies harmful content across different categories.
+>
+> **Analysis Methods**
+>
+> - `Classification reports` - analyze model performance for each class
+> - `Confusion matrices` - identify common misclassification patterns
+> - `ROC curves` - compare the models' ability to distinguish between classes
+
+### Validation Set
+> - To ensure that the models do not overfit to the training data, we will split the dataset into training and test sets using a split ratio.
+>
+> - For Bi-LSTM, the training data will be further divided into a training set and validation set. The validation set will be used to monitor model performance during training and help assess generalization on unseen data.
+>
+> - Learning curves will be used to compare training and validation performance. This can help identify potential overfitting or underfitting.
 
 ## 6. Team Members & Responsibilities
 
