@@ -180,5 +180,10 @@ Difference between Learning Curve & ROC Curve
   
 ### <a id = "naive"> 1️⃣ Naive Bayes</a>
  
-- It is a classificaiton algorithm that assumes all predictors are independent of one another.  
+- It is a classification algorithm that assumes all predictors are independent of one another.  
 - Naive Bayes Model is a simple yet powerful machine learning algorithm used for NLP applications like text classification tasks, particularly in natural language processing (NLP). It's based on Bayes' theorem with the "naive" assumption of feature independence. Despite its simplicity, Naive Bayes often performs well in practice. In our classification, it performs moderately accurate.
+
+### <a id = "logistic"> 2️⃣ Multinomial Logistic Regression</a>
+  
+- Multinomial Logistic Regression extends Logistic Regression to handle multi-class classification tasks.  
+- This is done by predicting probabilities for each class and selecting the class with the highest probability as the predicted output. 
