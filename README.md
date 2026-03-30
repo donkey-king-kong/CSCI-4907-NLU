@@ -187,3 +187,8 @@ Difference between Learning Curve & ROC Curve
   
 - Multinomial Logistic Regression extends Logistic Regression to handle multi-class classification tasks.  
 - This is done by predicting probabilities for each class and selecting the class with the highest probability as the predicted output. 
+
+### <a id = "support"> 3️⃣ Support Vector Machine</a>
+    
+- SVM classification finds the best hyperplane to separate data into different classes, maximizing the margin between them.  
+- It's effective for various classification tasks due to its ability to handle linear and non-linear separations through kernel functions. 
