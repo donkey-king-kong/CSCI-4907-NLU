@@ -174,3 +174,11 @@ Difference between Learning Curve & ROC Curve
 > - Plots the true positive rate (TPR) against the false positive rate (FPR) for various threshold values.  
 > - Provides insights into the trade-off between sensitivity (true positive rate) and specificity (true negative rate).  
 > - The area under the ROC curve (AUC-ROC) summarizes the overall performance of the classifier.
+
+[Back to Machine Learning Content Page](#machine)  
+[Back to `Main` Content Page](#repository) 
+  
+### <a id = "naive"> 1️⃣ Naive Bayes</a>
+ 
+- It is a classificaiton algorithm that assumes all predictors are independent of one another.  
+- Naive Bayes Model is a simple yet powerful machine learning algorithm used for NLP applications like text classification tasks, particularly in natural language processing (NLP). It's based on Bayes' theorem with the "naive" assumption of feature independence. Despite its simplicity, Naive Bayes often performs well in practice. In our classification, it performs moderately accurate.
