@@ -134,4 +134,31 @@ The sentiment score represents the polarity of the text (Positive, Negative, Neu
 ## <a id = "machine">🤖 Machine Learning</a>
 [Back to `Main` Content Page](#repository) 
 
-TO BE UPDATED
+We used algorithms and statistical models that allow us to learn from our data and make any predicitons or decisions without explicitly programming it. It helps us identify patterns across our large datasets efficiently.
+
+> - [Naive Bayes](#naive)  
+> - [Multinomial Logistic Regression](#logistic)  
+> - [Support Vector Machine](#support)  
+> - [Random Forest Classifier](#random)  
+> - [Bi-LSTM](#bert)
+
+#### 📇 Results for each model are:
+Statistical Results  
+> - Shows a classification report on:
+>   - Precision
+>   - Recall
+>   - f1-score
+>   - Support
+>   - Accuracy
+>   - Macro average
+>   - Weighted average 
+
+Confusion Matrix  
+> Shows the matrix of true vs predicted for each category    
+  
+ROC Curve
+> - We included this ROC curve to illustrate the balance between true positive rate (TPR) and false positive rate (FPR) across different thresholds.
+> - A model excels when its curve hugs the top-left corner, indicating high TPR and low FPR. Conversely, a curve closer to the diagonal line signifies poor ability to discriminate, no better than random chance.
+  
+Learning Curve
+> A learning curve is a plot that shows how a model's performance, often measured by accuracy, changes as the size of the training dataset increases. It helps assess if the model benefits from more data and can reveal issues like overfitting or underfitting. Cross-validation scores are often included for a more reliable estimate of performance.
