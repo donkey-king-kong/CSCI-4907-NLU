@@ -162,3 +162,15 @@ ROC Curve
   
 Learning Curve
 > A learning curve is a plot that shows how a model's performance, often measured by accuracy, changes as the size of the training dataset increases. It helps assess if the model benefits from more data and can reveal issues like overfitting or underfitting. Cross-validation scores are often included for a more reliable estimate of performance.
+
+Difference between Learning Curve & ROC Curve  
+> Learning Curve:  
+> - Shows how a model's performance changes with varying training dataset sizes.  
+> - Plots training and validation (or test) error/accuracy against the size of the training dataset.  
+> - Helps identify whether a model suffers from underfitting (high bias) or overfitting (high variance).
+>   
+> ROC Curve:  
+> - Evaluates the performance of a binary classification model across different classification thresholds.  
+> - Plots the true positive rate (TPR) against the false positive rate (FPR) for various threshold values.  
+> - Provides insights into the trade-off between sensitivity (true positive rate) and specificity (true negative rate).  
+> - The area under the ROC curve (AUC-ROC) summarizes the overall performance of the classifier.
