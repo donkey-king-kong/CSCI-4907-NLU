@@ -134,4 +134,67 @@ The sentiment score represents the polarity of the text (Positive, Negative, Neu
 ## <a id = "machine">🤖 Machine Learning</a>
 [Back to `Main` Content Page](#repository) 
 
-TO BE UPDATED
+We used algorithms and statistical models that allow us to learn from our data and make any predicitons or decisions without explicitly programming it. It helps us identify patterns across our large datasets efficiently.
+
+> - [Naive Bayes](#naive)  
+> - [Multinomial Logistic Regression](#logistic)  
+> - [Support Vector Machine](#support)  
+> - [Random Forest Classifier](#random)  
+> - [Bi-LSTM](#bert)
+
+#### 📇 Results for each model are:
+Statistical Results  
+> - Shows a classification report on:
+>   - Precision
+>   - Recall
+>   - f1-score
+>   - Support
+>   - Accuracy
+>   - Macro average
+>   - Weighted average 
+
+Confusion Matrix  
+> Shows the matrix of true vs predicted for each category    
+  
+ROC Curve
+> - We included this ROC curve to illustrate the balance between true positive rate (TPR) and false positive rate (FPR) across different thresholds.
+> - A model excels when its curve hugs the top-left corner, indicating high TPR and low FPR. Conversely, a curve closer to the diagonal line signifies poor ability to discriminate, no better than random chance.
+  
+Learning Curve
+> A learning curve is a plot that shows how a model's performance, often measured by accuracy, changes as the size of the training dataset increases. It helps assess if the model benefits from more data and can reveal issues like overfitting or underfitting. Cross-validation scores are often included for a more reliable estimate of performance.
+
+Difference between Learning Curve & ROC Curve  
+> Learning Curve:  
+> - Shows how a model's performance changes with varying training dataset sizes.  
+> - Plots training and validation (or test) error/accuracy against the size of the training dataset.  
+> - Helps identify whether a model suffers from underfitting (high bias) or overfitting (high variance).
+>   
+> ROC Curve:  
+> - Evaluates the performance of a binary classification model across different classification thresholds.  
+> - Plots the true positive rate (TPR) against the false positive rate (FPR) for various threshold values.  
+> - Provides insights into the trade-off between sensitivity (true positive rate) and specificity (true negative rate).  
+> - The area under the ROC curve (AUC-ROC) summarizes the overall performance of the classifier.
+
+[Back to Machine Learning Content Page](#machine)  
+[Back to `Main` Content Page](#repository) 
+  
+### <a id = "naive"> 1️⃣ Naive Bayes</a>
+ 
+- It is a classification algorithm that assumes all predictors are independent of one another.  
+- Naive Bayes Model is a simple yet powerful machine learning algorithm used for NLP applications like text classification tasks, particularly in natural language processing (NLP). It's based on Bayes' theorem with the "naive" assumption of feature independence. Despite its simplicity, Naive Bayes often performs well in practice. In our classification, it performs moderately accurate.
+
+### <a id = "logistic"> 2️⃣ Multinomial Logistic Regression</a>
+  
+- Multinomial Logistic Regression extends Logistic Regression to handle multi-class classification tasks.  
+- This is done by predicting probabilities for each class and selecting the class with the highest probability as the predicted output. 
+
+### <a id = "support"> 3️⃣ Support Vector Machine</a>
+    
+- SVM classification finds the best hyperplane to separate data into different classes, maximizing the margin between them.  
+- It's effective for various classification tasks due to its ability to handle linear and non-linear separations through kernel functions. 
+
+### <a id = "random"> 4️⃣ Random Forrest Classifier</a>
+      
+- Random Forest Classifier is an ensemble learning technique for classification tasks.  
+- It builds multiple decision trees and outputs the mode of the classes predicted by individual trees.  
+- It's effective, versatile, and resistant to overfitting.tions through kernel functions.   
