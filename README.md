@@ -192,3 +192,9 @@ Difference between Learning Curve & ROC Curve
     
 - SVM classification finds the best hyperplane to separate data into different classes, maximizing the margin between them.  
 - It's effective for various classification tasks due to its ability to handle linear and non-linear separations through kernel functions. 
+
+### <a id = "random"> 4️⃣ Random Forrest Classifier</a>
+      
+- Random Forest Classifier is an ensemble learning technique for classification tasks.  
+- It builds multiple decision trees and outputs the mode of the classes predicted by individual trees.  
+- It's effective, versatile, and resistant to overfitting.tions through kernel functions.   
