@@ -202,4 +202,11 @@ Difference between Learning Curve & ROC Curve
 ### <a id = "bert"> 5️⃣ Bi-LSTM</a>
     
 - Also known as Bidirectional Long Short-Term Memory.    
-- A type of recurrent neural network (RNN) that consists of 2 LSTM layers - processing in forward and backward directions.  
+- A type of recurrent neural network (RNN) that consists of 2 LSTM layers - processing in forward and backward directions.
+
+## <a id = "results"> 🏆 Comparison of Results</a>
+[Back to `Main` Content Page](#repository)  
+  
+<img width="794" alt="comparison1" src="">  
+
+<img width="784" alt="Comparison2" src="">  
