@@ -210,3 +210,11 @@ Difference between Learning Curve & ROC Curve
 <img width="794" alt="comparison1" src="">  
 
 <img width="784" alt="Comparison2" src="">  
+
+## <a id = "challenges"> 😢 Challenges Faced</a>
+[Back to `Main` Content Page](#repository)  
+  
+> - This was our first proper NLP project! So the learning curve was very steep, especially involving natural language proccessing w/ text data.  
+> - We had to come up with unique exploratory data analysis that is relevant for our topic unlike conventional projects.  
+> - We also faced a few issues in handling the installation of several of the packages used initially. We had to troubleshoot a few times at the start.  
+> - Naturally working on such realistic projects that we did not have experience for results in a plethora of errors. The error handling was very time consuming.  
