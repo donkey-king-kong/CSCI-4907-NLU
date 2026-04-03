@@ -205,16 +205,16 @@ Difference between Learning Curve & ROC Curve
 ### <a id = "bert"> 5️⃣ Bi-LSTM</a>
     
 - Also known as Bidirectional Long Short-Term Memory.    
-- A type of recurrent neural network (RNN) that consists of 2 LSTM layers - processing in forward and backward directions.
+- A type of recurrent neural network (RNN) that consists of 2 LSTM layers - processing in forward and backward directions.  
 
 ## <a id = "results"> 🏆 Comparison of Results</a>
 [Back to `Main` Content Page](#repository)  
   
 | PARAMETER     | Naive Bayes | Logistic Regression | SVM  | Random Forest | Bi-LSTM |
 |--------------|------------|---------------------|------|---------------|--------|
-| Accuracy     | 0.728      | 0.813               | 0.811| 0.812         | 0.81   |
+| Accuracy     | 0.724      | 0.815               | 0.811| 0.812         | 0.81   |
 | Precision    | 0.71       | 0.82                | 0.82 | 0.82          | 0.81   |
-| Recall       | 0.73       | 0.81                | 0.81 | 0.81          | 0.81   |
+| Recall       | 0.73       | 0.82                | 0.81 | 0.81          | 0.81   |
 | F1-Score     | 0.70       | 0.82                | 0.81 | 0.81          | 0.81   |
 | Support      | 11923      | 11923               | 11923| 11923         | 11904  |
 | Running Time | 5–10s      | 1.5–2 min           | 20 min | 30 min      | 2 hours|
@@ -225,8 +225,8 @@ However, Bi-LSTM, due to its ability to capture sequential and contextual inform
 
 | PRECISION            | Religion | Age  | Ethnicity | Gender | Other Cyberbullying | Not Cyberbullying |
 |---------------------|----------|------|-----------|--------|---------------------|-------------------|
-| Naive Bayes         | 0.77     | 0.66 | 0.82      | 0.79   | 0.60                | 0.65              |
-| Logistic Regression | 0.96     | 0.96 | 0.97      | 0.93   | 0.57                | 0.57              |
+| Naive Bayes         | 0.76     | 0.64 | 0.81      | 0.79   | 0.61                | 0.66              |
+| Logistic Regression | 0.94     | 0.95 | 0.97      | 0.92   | 0.57                | 0.58              |
 | SVM                 | 0.97     | 0.96 | 0.97      | 0.93   | 0.53                | 0.58              |
 | Random Forest       | 0.95     | 0.97 | 0.98      | 0.90   | 0.53                | 0.58              |
 | Bi-LSTM             | 0.91     | 0.97 | 0.97      | 0.89   | 0.60                | 0.55              |
