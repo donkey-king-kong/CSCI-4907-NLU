@@ -218,3 +218,30 @@ Difference between Learning Curve & ROC Curve
 > - We had to come up with unique exploratory data analysis that is relevant for our topic unlike conventional projects.  
 > - We also faced a few issues in handling the installation of several of the packages used initially. We had to troubleshoot a few times at the start.  
 > - Naturally working on such realistic projects that we did not have experience for results in a plethora of errors. The error handling was very time consuming.  
+
+## <a id = "conclusion"> 🥳 Conclusion</a>
+[Back to `Main` Content Page](#repository)  
+  
+### Data Driven Insights & Recommendations
+> Our project could assist in identifying and curbing cyberbullying on social media platforms.
+
+`Targeted Intervention`  
+The identification of demographic-specific patterns in cyberbullying behavior can inform targeted intervention strategies tailored to address the vulnerabilities of different groups.  
+  
+`Model Refinement`  
+Continuously refining and updating the cyberbullying detection models based on new data and insights is essential for maintaining their effectiveness over time.    
+  
+`Community Engagement`  
+Engaging with community stakeholders, including social media platforms, is essential for fostering collaboration and implementing effective measures to combat cyberbullying.   
+
+### Moving Forward
+> There are significant areas for improvement in our project that can be done in order to enhance its working and application in the broader view. Here are some features we wish to integrate in the future.  
+  
+`Advanceed Machine Learning Techniques`  
+Incorporating user feedback and preferences into cyberbullying detection systems can enhance their effectiveness and user acceptance.    
+  
+`Multimodal Analysis`  
+Integrating multimodal data sources, such as text, images, and videos, can provide a more comprehensive understanding of cyberbullying behaviors.    
+  
+`User-Centric Approaches`  
+Incorporating user feedback and preferences into cyberbullying detection systems can enhance their effectiveness and user acceptance.  
