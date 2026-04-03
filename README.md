@@ -198,3 +198,8 @@ Difference between Learning Curve & ROC Curve
 - Random Forest Classifier is an ensemble learning technique for classification tasks.  
 - It builds multiple decision trees and outputs the mode of the classes predicted by individual trees.  
 - It's effective, versatile, and resistant to overfitting.tions through kernel functions.   
+
+### <a id = "bert"> 5️⃣ Bi-LSTM</a>
+    
+- Also known as Bidirectional Long Short-Term Memory.    
+- A type of recurrent neural network (RNN) that consists of 2 LSTM layers - processing in forward and backward directions.  
