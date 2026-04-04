@@ -236,6 +236,107 @@ We can infer that the classification models are generally strong in identifying 
 
 These patterns are further supported by the confusion matrices, which show substantial misclassification between these ambiguous classes. The ROC and learning curves also supports this, which indicate similar performance trends across models.
 
+## <a id = "error-analysis">🧠 Structured Error Analysis</a>
+[Back to `Main` Content Page](#repository)
+
+While evaluation metrics such as accuracy, precision, and recall provide a high-level overview of model performance, they do not fully explain *why* models make mistakes. To address this, we perform a structured error analysis to systematically examine model behavior, identify recurring failure patterns, and uncover underlying linguistic challenges.
+
+---
+
+### 🔍 Error Partitioning
+
+We first categorize predictions into:
+- Correct predictions across all models  
+- Incorrect predictions across all models  
+- Mixed cases where models disagree  
+
+This allows us to distinguish between:
+- **Easy samples** (clear patterns)
+- **Difficult samples** (ambiguous or noisy)
+- **Model-dependent cases** (different model behaviors)
+
+---
+
+### 🔁 Misclassification Pattern Analysis
+
+We analyze the most frequent confusion pairs (true label → predicted label) to identify systematic errors.
+
+**Key observation:**
+- The most dominant confusion occurs between `not_cyberbullying` and `other_cyberbullying`
+
+This suggests that:
+- The boundary between non-abusive and implicitly abusive content is not well-defined  
+- These categories contain overlapping linguistic signals  
+
+---
+
+### 🧪 Qualitative Error Analysis
+
+We examine representative misclassified tweets to understand *why* these errors occur.
+
+#### Key Findings:
+- Models rely heavily on **surface-level lexical cues** (e.g., profanity)
+- Subtle or **implicit cyberbullying** is often missed
+- Models struggle to identify the **target of abuse** (e.g., gender-specific)
+- Short or ambiguous tweets lack sufficient context for accurate classification  
+
+---
+
+### 🧩 Error Categories Identified
+
+From qualitative analysis, errors can be grouped into:
+
+- **Lexical bias errors**  
+  Misclassification due to strong words (e.g., profanity without abuse)
+
+- **Keyword-triggered errors (Naive Bayes)**  
+  Over-reliance on isolated keywords without context
+
+- **Target ambiguity errors**  
+  Difficulty identifying *who* the abuse is directed at
+
+- **Implicit abuse errors**  
+  Failure to detect subtle or indirect cyberbullying
+
+- **Short or context-poor text errors**  
+  Insufficient information for classification
+
+- **Class boundary overlap errors**  
+  Ambiguity between `not_cyberbullying` and `other_cyberbullying`
+
+---
+
+### ⚖️ Cross-Model Behaviour Analysis
+
+We compare how different models perform across categories:
+
+- **Naive Bayes**
+  - Strength: Captures strong lexical signals  
+  - Weakness: Over-relies on keywords, poor with ambiguity  
+
+- **Logistic Regression**
+  - Strength: Balanced performance across categories  
+  - Weakness: Still struggles with implicit cases  
+
+- **SVM**
+  - Strength: Strong performance on difficult classes  
+  - Weakness: Slight bias toward predicting cyberbullying  
+
+---
+
+### 🎯 Key Insight
+
+Across all analyses, a consistent pattern emerges:
+
+> The primary challenge is not model performance, but the inherent ambiguity in the dataset—particularly in distinguishing between `not_cyberbullying` and `other_cyberbullying`.
+
+This indicates that:
+- Errors are **systematic, not random**
+- Improving performance requires:
+  - Better contextual understanding  
+  - Clearer class definitions  
+  - More expressive models  
+
 ## <a id = "challenges"> 😢 Challenges Faced</a>
 [Back to `Main` Content Page](#repository)  
   
