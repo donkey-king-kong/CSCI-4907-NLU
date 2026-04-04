@@ -3,10 +3,10 @@
 ## Team Contributors
 | S/N | Team Members | Part |
 | :-: | :- | :- |
-| 1 | Zhan You Lau | Data Preparation & Cleaning, Data Visualization |
-| 2 | Yu Chen Law | Data Preparation & Cleaning, Machine Learning Models |
-| 3 | Kieran E Kai Voo | Machine Learning Models |
-| 4 | Joshua, Tse Ern Foo | Data Visualization, Machine Learning Models |
+| 1 | Zhan You Lau | Data Preparation & Cleaning, Data Visualization, Error Partitioning, Conclusion, Consolidation |
+| 2 | Yu Chen Law | Data Preparation & Cleaning, Machine Learning Models, Master Error Table, Cross Model Behaviour Analysis |
+| 3 | Kieran E Kai Voo | Machine Learning Models, Weights saving, Misclassification Pattern Analyiss |
+| 4 | Joshua, Tse Ern Foo | Data Visualization, Machine Learning Models, Qualitative Error Analysis |
 
 ## About/ Problem Statement
 Social media has become ubiquitous in our everyday communication which contributes to the increased prevalence of cyberbullying. However, cyberbullying detection is particularly challenging in a multilabel setting as harmful content may belong to multiple overlapping categories like threats, insults, or implicit aggression. These categories often rely on subtle linguistic cues such as sarcasm and contextual ambiguity. This makes accurate classification difficult.
