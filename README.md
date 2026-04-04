@@ -47,9 +47,10 @@ Our dataset is taken from Kaggle: [Cyberbullying Classification](https://www.kag
    - [Support Vector Machine](#support)
    - [Random Forest Classifier](#random)
    - [Bi-LSTM](#bert)
-6) [Results + Comparison](#results)
-7) [Challenges Faced](#challenges)
-8) [Conclusion](#conclusion)
+6) [Model Results + Comparison](#results)
+7) [Structured Error Analysis](#error-analysis)
+8) [Challenges Faced](#challenges)
+9) [Conclusion](#conclusion)
 
 ## <a id="setup"> ⚙️ Set up </a>
 [Back to `Main` Content Page](#repository)
