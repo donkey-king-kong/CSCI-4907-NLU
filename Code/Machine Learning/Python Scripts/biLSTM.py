@@ -98,7 +98,11 @@ print("Embedding Matrix Shape:", embedding_matrix.shape)
 
 # ### **Setting up Model Parameters and Architecture for Training**
 
+<<<<<<< HEAD
+# In[28]:
+=======
 # In[26]:
+>>>>>>> 24fa04366ba698fa5f5e2a80d4a1f17113c3f9b2
 
 
 from torch.utils.data import TensorDataset, DataLoader
@@ -126,7 +130,11 @@ valid_loader = DataLoader(valid_data, shuffle=False, batch_size=BATCH_SIZE, drop
 test_loader = DataLoader(test_data, shuffle=False, batch_size=BATCH_SIZE, drop_last=True)
 
 
+<<<<<<< HEAD
+# In[29]:
+=======
 # In[27]:
+>>>>>>> 24fa04366ba698fa5f5e2a80d4a1f17113c3f9b2
 
 
 import torch.nn as nn
@@ -179,7 +187,11 @@ class LSTM_Sentiment_Classifier(nn.Module):
         c0 = torch.zeros(self.num_layers * factor, batch_size, self.hidden_dim).to(DEVICE)
 
 
+<<<<<<< HEAD
+# In[30]:
+=======
 # In[28]:
+>>>>>>> 24fa04366ba698fa5f5e2a80d4a1f17113c3f9b2
 
 
 NUM_CLASSES = 6
@@ -204,7 +216,11 @@ optimizer = torch.optim.AdamW(model.parameters(), lr=LR, weight_decay=5e-6)
 print(model)
 
 
+<<<<<<< HEAD
+# In[31]:
+=======
 # In[29]:
+>>>>>>> 24fa04366ba698fa5f5e2a80d4a1f17113c3f9b2
 
 
 print(DEVICE)
@@ -212,7 +228,11 @@ print(DEVICE)
 
 # ### **Model Training**
 
+<<<<<<< HEAD
+# In[32]:
+=======
 # In[30]:
+>>>>>>> 24fa04366ba698fa5f5e2a80d4a1f17113c3f9b2
 
 
 # Train the model
@@ -282,7 +302,11 @@ for e in range(EPOCHS):
 
 # ### **Model Evaluation**
 
+<<<<<<< HEAD
+# In[33]:
+=======
 # In[31]:
+>>>>>>> 24fa04366ba698fa5f5e2a80d4a1f17113c3f9b2
 
 
 model.load_state_dict(torch.load('./state_dict.pt'))
@@ -327,3 +351,45 @@ print('Classification Report for Bi-LSTM :\n', classification_report(y_test_list
 # - Complex models with multiple layers and bidirectional processing, make them less interpretable compared to simpler models.
 # 
 # - Prone to overfitting, especially when trained on small datasets or when the model capacity is too high relative to the dataset size.
+<<<<<<< HEAD
+
+# ### **Saving the complete model checkpoint into Weights (.pt) and Artifacts (.pkl)**
+# Save the model weights into `biLSTM_model_weights.pt`, and bundle the model hyperparameters, vocabulary, and embedding matrix into `biLSTM_artifacts.pkl` so it can be fully reconstructed later.
+
+# In[37]:
+
+
+import torch
+import pickle
+
+# 1. Save ONLY the model weights using PyTorch
+torch.save(model.state_dict(), './biLSTM_model_weights.pt')
+print("Model weights saved to ./biLSTM_model_weights.pt")
+files.download('./biLSTM_model_weights.pt')
+print("Model weights downloaded to local machine")
+
+# 2. Bundle the rest of the artifacts into a dictionary
+artifacts = {
+    'vocabulary': vocabulary,
+    'embedding_matrix': embedding_matrix,
+    'model_args': {
+        'vocab_size': VOCAB_SIZE,
+        'embedding_dim': EMBEDDING_DIM,
+        'hidden_dim': HIDDEN_DIM,
+        'num_classes': NUM_CLASSES,
+        'lstm_layers': LSTM_LAYERS,
+        'dropout': DROPOUT,
+        'is_bidirectional': IS_BIDIRECTIONAL
+    },
+    'class_names': sentiments
+}
+
+# 3. Save the artifacts dictionary using the standard pickle library
+with open('./biLSTM_artifacts.pkl', 'wb') as f:
+    pickle.dump(artifacts, f)
+print("Artifacts saved to ./biLSTM_artifacts.pkl")
+files.download('./biLSTM_artifacts.pkl')
+print("Artifacts downloaded to local machine")
+
+=======
+>>>>>>> 24fa04366ba698fa5f5e2a80d4a1f17113c3f9b2
