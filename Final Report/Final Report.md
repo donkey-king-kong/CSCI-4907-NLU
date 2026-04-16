@@ -28,3 +28,13 @@ This project contributes to this space by providing:
 - An evaluation using the standard **multi-class classification metrics** such as precision, recall, F1-score, and accuracy
 - A structured error analysis to better understand model behavior beyond its overall scores
 - Insights into the linguistic and data driven challenges of cyberbullying detection
+
+### 1.3.1 Member Contributions
+| S/N | Team Members | Part |
+| :-: | :- | :- |
+| 1 | Zhan You Lau | Data Preparation & Cleaning, Data Visualization, Error Partitioning, Conclusion, Consolidation |
+| 2 | Yu Chen Law | Data Preparation & Cleaning, Machine Learning Models, Master Error Table, Cross Model Behaviour Analysis |
+| 3 | Kieran E Kai Voo | Machine Learning Models, Weights saving, Misclassification Pattern Analyiss |
+| 4 | Joshua, Tse Ern Foo | Data Visualization, Machine Learning Models, Qualitative Error Analysis |
+
+---
