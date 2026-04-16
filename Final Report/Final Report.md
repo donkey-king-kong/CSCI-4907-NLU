@@ -19,3 +19,12 @@ In today's world, social media platforms have become central to modern communica
 In reality, a single twitter post may contain multiple different forms of abuse at once. However, the dataset used in this project constrains the task to a **single-label classification**. This means that each tweet is assigned only one annotated category. This therefore makes the task more tractable for modeling while also introducing important limitations in how well the dataset reflects real cyberbullying behavior.
 
 ---
+
+## 1.3 Contributions
+
+This project contributes to this space by providing:
+
+- A comparative evaluation of multiple classical machine learning models (**Naive Bayes, Logistic Regression, Support Vector Machine, Random Forest**) and a deep learning model (**Bi-LSTM**)
+- An evaluation using the standard **multi-class classification metrics** such as precision, recall, F1-score, and accuracy
+- A structured error analysis to better understand model behavior beyond its overall scores
+- Insights into the linguistic and data driven challenges of cyberbullying detection
