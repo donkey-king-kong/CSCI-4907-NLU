@@ -186,3 +186,17 @@ Random Forest is also suitable for this dataset as it is possible for it to capt
 Nevertheless, Random Forest serves as a useful comparison to evaluate whether modeling non-linear feature interactions can improve classification performance for complex or ambiguous categories.
 
 ---
+
+### 3.5.5 Bidirectional Long Short-Term Memory (Bi-LSTM)
+
+The Bidirectional Long Short-Term Memory (Bi-LSTM) model was chosen as the primary deep learning architecture due to its ability to capture sequential dependencies in text.
+
+Unlike classical models that rely on bag-of-words representations, the Bi-LSTM processes text in both forward and backward directions. This allows it to incorporate word order and surrounding context into its predictions.
+
+This is particularly relevant for this dataset as the short and ambiguous tweets meaning would depend on how words are used together rather than on isolated keywords. By modeling sequential context, the Bi-LSTM may be able to better distinguish between closely related categories.
+
+However, Bi-LSTM requires way more data and computational resources. It may also be sensitive to noise in informal text.
+
+Nevertheless, the Bi-LSTM allows us to evaluate whether incorporating contextual and sequential information can improve classification performance over classical approaches.
+
+---
