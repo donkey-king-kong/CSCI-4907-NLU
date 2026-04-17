@@ -222,3 +222,16 @@ These are standard multi-class classification metrics and were chosen because ea
 As cyberbullying categories may differ in frequency and difficulty, merely using accuracy alone would be insufficient. Considering precision, recall, and F1-score would therefore provide a more complete picture of model performance across categories.
 
 ---
+
+## 4.2 Evaluation Methods
+
+To complement the numerical evaluation metrics, several evaluation methods were used and each serves a different purpose.
+
+- **Classification reports** to examine per-class performance  
+- **Confusion matrices** to identify which classes are commonly mistaken for one another  
+- **ROC curves** to analyze discrimination ability across classes and thresholds  
+- **Learning curves** to assess model behavior with respect to training and validation performance  
+
+Classification reports help compare performance across classes. Confusion matrices reveal concrete error patterns whereas ROC curves show how well classes can be separated. Lastly, learning curves can help diagnose underfitting or overfitting.
+
+---
