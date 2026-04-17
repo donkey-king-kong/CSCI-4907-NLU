@@ -289,6 +289,16 @@ This suggests that:
 - The boundary between non-abusive and implicitly abusive content is not well-defined  
 - These categories contain overlapping linguistic signals  
 
+**Statistical Support:**
+- Across all models, `other_cyberbullying` and `not_cyberbullying` consistently show:
+  - Lower recall ($\approx$ 0.32–0.70)
+  - Lower F1-scores ($\approx$ 0.43–0.62)
+- In contrast, explicit categories (religion, age, ethnicity) achieve near-saturated performance (F1 $\approx$ 0.95+)
+
+This suggests that:
+- Errors are not random  
+- They are concentrated in ambiguous class boundaries   
+
 ---
 
 ### 🧪 Qualitative Error Analysis
@@ -329,34 +339,32 @@ From qualitative analysis, errors can be grouped into:
 
 ### ⚖️ Cross-Model Behaviour Analysis
 
-We compare how different models perform across categories:
+We compare model performance using class-wise precision, recall, and F1-score.
 
 - **Naive Bayes**
-  - Strength: Captures strong lexical signals  
-  - Weakness: Over-relies on keywords, poor with ambiguity  
+  - Performs adequately on explicit categories  
+  - Very low recall and F1-score for ambiguous classes (as low as $\approx$ 0.32–0.45)  
+  - Indicates strong reliance on surface-level lexical cues  
 
 - **Logistic Regression**
-  - Strength: Balanced performance across categories  
-  - Weakness: Still struggles with implicit cases  
+  - Balanced performance across all categories  
+  - Significant improvement over Naive Bayes on ambiguous classes  
+  - However, performance remains moderate for these classes (F1 $\approx$ 0.55–0.60)  
 
 - **SVM**
-  - Strength: Strong performance on difficult classes  
-  - Weakness: Slight bias toward predicting cyberbullying  
+  - Strong and consistent performance across most categories  
+  - Slightly better handling of difficult cases  
+  - Still limited by ambiguity in implicit cyberbullying  
 
----
+- **Random Forest**
+  - High performance on explicit categories  
+  - Similar behaviour to SVM with minimal additional gains  
+  - Indicates diminishing returns from increased model complexity  
 
-### 🎯 Key Insight
-
-Across all analyses, a consistent pattern emerges:
-
-> The primary challenge is not model performance, but the inherent ambiguity in the dataset—particularly in distinguishing between `not_cyberbullying` and `other_cyberbullying`.
-
-This indicates that:
-- Errors are **systematic, not random**
-- Improving performance requires:
-  - Better contextual understanding  
-  - Clearer class definitions  
-  - More expressive models 
+- **Bi-LSTM**
+  - Captures contextual patterns  
+  - Does not significantly outperform classical models  
+  - Suggests dataset ambiguity is the primary bottleneck  
 
 ---
 
@@ -399,27 +407,42 @@ This suggests that:
 
 ## <a id = "conclusion"> 🥳 Conclusion</a>
 [Back to `Main` Content Page](#repository)  
-  
-### Data Driven Insights & Recommendations
-> Our project could assist in identifying and curbing cyberbullying on social media platforms.
 
-`Targeted Intervention`  
-The identification of demographic-specific patterns in cyberbullying behavior can inform targeted intervention strategies tailored to address the vulnerabilities of different groups.  
-  
-`Model Refinement`  
-Continuously refining and updating the cyberbullying detection models based on new data and insights is essential for maintaining their effectiveness over time.    
-  
-`Community Engagement`  
-Engaging with community stakeholders, including social media platforms, is essential for fostering collaboration and implementing effective measures to combat cyberbullying.   
+The findings from both the statistical analysis and structured error analysis converge to provide a comprehensive understanding of model behaviour.
 
-### Moving Forward
-> There are significant areas for improvement in our project that can be done in order to enhance its working and application in the broader view. Here are some features we wish to integrate in the future.  
-  
-`Advanceed Machine Learning Techniques`  
-Incorporating user feedback and preferences into cyberbullying detection systems can enhance their effectiveness and user acceptance.    
-  
-`Multimodal Analysis`  
-Integrating multimodal data sources, such as text, images, and videos, can provide a more comprehensive understanding of cyberbullying behaviors.    
-  
-`User-Centric Approaches`  
-Incorporating user feedback and preferences into cyberbullying detection systems can enhance their effectiveness and user acceptance.  
+### Model Behaviour Summary
+
+| Model | Strengths | Weaknesses |
+|------|--------|----------|
+| Naive Bayes | Fast, captures strong keywords | Over-relies on lexical cues, severely underperforms on ambiguous classes |
+| Logistic Regression | Balanced performance, most efficient | Still struggles with implicit and ambiguous cases |
+| SVM | Strong performance on difficult classes | Higher computational cost, only marginal improvement over Logistic Regression |
+| Random Forest | High accuracy on explicit classes | Limited gains on ambiguous categories despite higher complexity |
+| BiLSTM | Captures contextual patterns | Does not significantly outperform simpler models |
+
+**Key Insights:**
+> - Across all analyses, a consistent pattern emerges: the primary challenge lies in distinguishing between not_cyberbullying and other_cyberbullying, rather than identifying explicit categories.  
+> - Improvements across models are not uniform. Even though all models perform similarly well on explicit classes (age, ethnicity, religion), performance gains from stronger models are concentrated almost entirely on the ambiguous classes.  
+> - This is clearly reflected in the cross-model comparison, where correct predictions for ambiguous categories increase significantly from Naive Bayes to Logistic Regression, SVM, and other models, while performance on explicit categories remains largely saturated.
+
+**Why the errors occurs:**  
+> - While most tweets are correctly classified, a substantial portion of errors arises from ambiguity in language, where the distinction between non-abusive and implicitly abusive content is unclear.  
+> - The misclassification pattern analysis and qualitative error analysis show that these errors are driven by emotionally charged but non-abusive language, as well as subtle or indirect forms of cyberbullying that lack explicit indicators.  
+> - These cases do not contain strong lexical signals, making them inherently difficult for models that rely primarily on surface-level textual features.
+
+**What the model comparison tells us:**  
+> - Although Logistic Regression, SVM, Random Forest, and Bi-LSTM significantly outperform Naive Bayes, the performance gap among these stronger models remains relatively small.  
+> - This suggests that increasing model complexity yields diminishing returns, as improvements are mainly limited to ambiguous classes rather than across all categories.  
+> - Even the best-performing models fail to achieve strong performance on these classes, indicating that the limitation is not purely due to model choice.  
+> - These observations highlight that improvements across models are not uniform, but concentrated on specific challenging cases.
+
+**What this means:**  
+> - The main limitation lies in the nature of the task itself.  
+> - Cyberbullying detection requires understanding context, intent, and nuance. There are factors that are difficult to capture using surface-level textual features.  
+> - This suggests that the challenge is not solely a modeling problem, but also a task formulation issue, where class definitions and boundaries may be inherently ambiguous.
+
+### Potential Future Directions
+
+- Improving performance may require more context-aware approaches, such as transformer-based models, as well as clearer class definitions or additional contextual information.  
+- Incorporating richer contextual signals (e.g., conversational context or user intent) may help reduce ambiguity between labels that overlap each other.  
+- More importantly, addressing dataset ambiguity through refined labeling guidelines or hierarchical class structures may be necessary to achieve substantial performance improvements.
