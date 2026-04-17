@@ -235,3 +235,25 @@ To complement the numerical evaluation metrics, several evaluation methods were 
 Classification reports help compare performance across classes. Confusion matrices reveal concrete error patterns whereas ROC curves show how well classes can be separated. Lastly, learning curves can help diagnose underfitting or overfitting.
 
 ---
+
+## 4.3 Results Summary
+
+---
+
+# 5. Discussion and Analysis
+
+## 5.1 Difficulty of Distinguishing Similar Classes
+
+## 5.2 Model Behvaiour Differences
+
+## 5.3 Linguistic Challenges
+
+## 5.4 Error Patterns
+
+## 5.5 Interpretation of the Results
+
+# 6. Lessons Learned
+
+# 7. Limitations
+
+# 8. Future Work
