@@ -286,6 +286,8 @@ This suggests that:
 - Performance improvements plateau after a certain level of model complexity  
 - Remaining errors are driven more by task ambiguity than model capability 
 
+These findings directly support the patterns observed in the Structured Error Analysis section.
+
 ## <a id = "error-analysis">🧠 Structured Error Analysis</a>
 [Back to `Main` Content Page](#repository)
 
@@ -314,9 +316,9 @@ We analyze the most frequent confusion pairs (true label → predicted label) to
 **Key observation:**
 - The most dominant confusion occurs between `not_cyberbullying` and `other_cyberbullying`
 
-This suggests that:
-- The boundary between non-abusive and implicitly abusive content is not well-defined  
-- These categories contain overlapping linguistic signals  
+This indicates that:
+- The boundary between non-abusive and implicitly abusive content is difficult to model  
+- These categories exhibit overlapping linguistic patterns  
 
 **Statistical Support:**
 - Across all models, `other_cyberbullying` and `not_cyberbullying` consistently show:
@@ -394,6 +396,8 @@ We compare model performance using class-wise precision, recall, and F1-score.
   - Captures contextual patterns  
   - Does not significantly outperform classical models  
   - Suggests dataset ambiguity is the primary bottleneck  
+
+Overall, improvements across models are concentrated on ambiguous classes rather than uniformly across all categories.
 
 ---
 
