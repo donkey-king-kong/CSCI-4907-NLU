@@ -3,10 +3,10 @@
 ## Team Contributors
 | S/N | Team Members | Part |
 | :-: | :- | :- |
-| 1 | Zhan You Lau | Data Preparation & Cleaning, Data Visualization, Error Partitioning, Conclusion, Consolidation |
-| 2 | Yu Chen Law | Data Preparation & Cleaning, Machine Learning Models, Master Error Table, Cross Model Behaviour Analysis |
-| 3 | Kieran E Kai Voo | Machine Learning Models, Weights saving, Misclassification Pattern Analyiss |
-| 4 | Joshua, Tse Ern Foo | Data Visualization, Machine Learning Models, Qualitative Error Analysis |
+| 1 | Zhan You Lau | Data Preparation & Cleaning, Data Visualization, Error Partitioning, Conclusion, Consolidation, Statistical Analysis, Final Report |
+| 2 | Yu Chen Law | Data Preparation & Cleaning, Machine Learning Models, Master Error Table, Cross Model Behaviour Analysis, Statistical Analysis |
+| 3 | Kieran E Kai Voo | Machine Learning Models, Weights saving, Misclassification Pattern Analysis, Bi-LSTM refinemeent, Final Report |
+| 4 | Joshua, Tse Ern Foo | Data Visualization, Machine Learning Models, Qualitative Error Analysis, LLM Benchmarking |
 
 ## About/ Problem Statement
 Social media has become ubiquitous in our everyday communication which contributes to the increased prevalence of cyberbullying. However, cyberbullying detection is particularly challenging in a multilabel setting as harmful content may belong to multiple overlapping categories like threats, insults, or implicit aggression. These categories often rely on subtle linguistic cues such as sarcasm and contextual ambiguity. This makes accurate classification difficult.
@@ -48,9 +48,10 @@ Our dataset is taken from Kaggle: [Cyberbullying Classification](https://www.kag
    - [Random Forest Classifier](#random)
    - [Bi-LSTM](#bert)
 6) [Model Results + Comparison](#results)
-7) [Structured Error Analysis](#error-analysis)
-8) [Challenges Faced](#challenges)
-9) [Conclusion](#conclusion)
+7) [Statistical Analysis](#statistical-analysis)
+8) [Structured Error Analysis](#error-analysis)
+9) [Challenges Faced](#challenges)
+10) [Conclusion](#conclusion)
 
 ## <a id="setup"> ⚙️ Set up </a>
 [Back to `Main` Content Page](#repository)
@@ -220,9 +221,9 @@ Difference between Learning Curve & ROC Curve
 | Support      | 11923      | 11923               | 11923| 11923         | 11904  |
 | Running Time | 5–10s      | 1.5–2 min           | 20 min | 30 min      | 2 hours|
 
-Trading off both running time and predictive performance, Logistic Regression appears to be the most efficient model for this dataset. It achieves the highest F1-score (0.82) with significantly lower training time compared to more complex models such as SVM, Random Forest, and Bi-LSTM.
+Considering both predictive performance and computational cost, `Logistic Regression` appears to be the most efficient model for this dataset. It achieves the highest overall F1-score (0.82), the highest accuracy (0.815), and comparable precision and recall to SVM, while requiring significantly less training time than SVM, Random Forest, and Bi-LSTM.
 
-However, Bi-LSTM, due to its ability to capture sequential and contextual information, may generalize better to more complex or unseen data if trained further or on larger datasets.
+Although `SVM` achieves nearly identical overall performance, its training time is substantially longer. Random Forest and Bi-LSTM also perform competitively, but they do not provide sufficient improvement to justify their additional computational cost. Therefore, `Logistic Regression` offers the best balance between effectiveness and efficiency for this task.
 
 | PRECISION            | Religion | Age  | Ethnicity | Gender | Other Cyberbullying | Not Cyberbullying |
 |---------------------|----------|------|-----------|--------|---------------------|-------------------|
@@ -232,9 +233,60 @@ However, Bi-LSTM, due to its ability to capture sequential and contextual inform
 | Random Forest       | 0.95     | 0.97 | 0.98      | 0.90   | 0.53                | 0.57              |
 | Bi-LSTM             | 0.94     | 0.97 | 0.95      | 0.90   | 0.52                | 0.57              |
 
-We can infer that the classification models are generally strong in identifying explicit forms of cyberbullying, such as religion, age, ethnicity, and gender-based categories. This is reflected by their consistently high precision scores (typically above 0.90). However, they struggle to accurately classify more ambiguous categories, such as other cyberbullying and non-cyberbullying, where precision drops significantly.
+| RECALL               | Religion | Age  | Ethnicity | Gender | Other Cyberbullying | Not Cyberbullying |
+|----------------------|----------|------|-----------|--------|---------------------|-------------------|
+| Naive Bayes          | 0.97     | 0.99 | 0.91      | 0.82   | 0.35                | 0.32              |
+| Logistic Regression  | 0.95     | 0.97 | 0.98      | 0.83   | 0.63                | 0.55              |
+| SVM                  | 0.94     | 0.98 | 0.98      | 0.81   | 0.70                | 0.53              |
+| Random Forest        | 0.95     | 0.98 | 0.98      | 0.83   | 0.67                | 0.46              |
+| Bi-LSTM              | 0.95     | 0.98 | 0.98      | 0.79   | 0.66                | 0.51              |
 
-These patterns are further supported by the confusion matrices, which show substantial misclassification between these ambiguous classes. The ROC and learning curves also supports this, which indicate similar performance trends across models.
+| F1-SCORE            | Religion | Age  | Ethnicity | Gender | Other Cyberbullying | Not Cyberbullying |
+|---------------------|----------|------|-----------|--------|---------------------|-------------------|
+| Naive Bayes         | 0.85     | 0.78 | 0.86      | 0.81   | 0.45                | 0.43              |
+| Logistic Regression | 0.95     | 0.96 | 0.97      | 0.87   | 0.60                | 0.56              |
+| SVM                 | 0.95     | 0.97 | 0.97      | 0.86   | 0.62                | 0.53              |
+| Random Forest       | 0.95     | 0.98 | 0.98      | 0.86   | 0.59                | 0.51              |
+| Bi-LSTM             | 0.94     | 0.97 | 0.97      | 0.86   | 0.60                | 0.53              |
+
+We can infer that the classification models are generally strong in identifying more explicit forms of cyberbullying, such as religion, age, ethnicity, and gender-based categories. This is reflected by their consistently high precision, recall, and F1-scores for these classes, indicating that such categories are both accurately predicted and reliably detected across most models.
+
+In contrast, all models perform noticeably worse on the more ambiguous categories, namely other cyberbullying and not cyberbullying. These classes show substantially lower precision, recall, and F1-scores, suggesting that the models struggle both to distinguish them clearly and to capture all true instances. This is especially evident in Naive Bayes, which records particularly low recall and F1-scores for these classes, indicating weaker performance on subtle or context-dependent language.
+
+Among the stronger models, Logistic Regression provides the most balanced overall performance, combining high scores on the clearer classes with relatively better consistency across the harder categories, while remaining computationally efficient. SVM and Random Forest achieve similar strengths on explicit categories and in some cases slightly better recall for other cyberbullying, but these gains are modest when compared against their higher training cost.
+
+These findings are further supported by the confusion matrices, which show substantial misclassification between other cyberbullying and not cyberbullying. The ROC and learning curves also align with these results, indicating similar overall performance trends across models and highlighting the continued difficulty of handling nuanced and overlapping language in cyberbullying detection.
+
+## <a id="statistical-analysis">📊 Statistical Analysis</a>
+[Back to `Main` Content Page](#repository)
+
+This section presents a quantitative evaluation of model performance using class wise precision, recall, F1-score, and statistical significance testing. 
+
+### 📌 Class-wise Performance
+
+Refer to tables [above](#results).
+
+### 📊 Key Observations
+
+- All models achieve strong performance on explicit categories (religion, age, ethnicity, gender), with F1-scores close to 0.95 and above  
+- Performance drops significantly for:
+  - `other_cyberbullying`
+  - `not_cyberbullying`  
+- Naive Bayes shows the weakest performance on these ambiguous classes, particularly in recall  
+- Logistic Regression, SVM, Random Forest, and Bi-LSTM show clear improvements, but gains are relatively modest among them  
+
+### 📈 Statistical Significance Testing
+
+We conducted McNemar’s Test to compare model predictions across pairs of classifiers.
+
+- Improvements from Naive Bayes to other models are statistically significant  
+- Differences among Logistic Regression, SVM, Random Forest, and Bi-LSTM are comparatively small  
+
+This suggests that:
+- Performance improvements plateau after a certain level of model complexity  
+- Remaining errors are driven more by task ambiguity than model capability 
+
+These quantitative findings motivate the deeper investigation conducted in the Structured Error Analysis section.
 
 ## <a id = "error-analysis">🧠 Structured Error Analysis</a>
 [Back to `Main` Content Page](#repository)
@@ -264,9 +316,19 @@ We analyze the most frequent confusion pairs (true label → predicted label) to
 **Key observation:**
 - The most dominant confusion occurs between `not_cyberbullying` and `other_cyberbullying`
 
+This indicates that:
+- The boundary between non-abusive and implicitly abusive content is difficult to model  
+- These categories exhibit overlapping linguistic patterns  
+
+**Statistical Support:**
+- Across all models, `other_cyberbullying` and `not_cyberbullying` consistently show:
+  - Lower recall ($\approx$ 0.32–0.70)
+  - Lower F1-scores ($\approx$ 0.43–0.62)
+- In contrast, explicit categories (religion, age, ethnicity) achieve near-saturated performance (F1 $\approx$ 0.95+)
+
 This suggests that:
-- The boundary between non-abusive and implicitly abusive content is not well-defined  
-- These categories contain overlapping linguistic signals  
+- Errors are not random  
+- They are concentrated in ambiguous class boundaries   
 
 ---
 
@@ -308,34 +370,36 @@ From qualitative analysis, errors can be grouped into:
 
 ### ⚖️ Cross-Model Behaviour Analysis
 
-We compare how different models perform across categories:
+We compare model performance using class-wise precision, recall, and F1-score.
 
 - **Naive Bayes**
-  - Strength: Captures strong lexical signals  
-  - Weakness: Over-relies on keywords, poor with ambiguity  
+  - Performs adequately on explicit categories  
+  - Very low recall and F1-score for ambiguous classes (as low as $\approx$ 0.32–0.45)  
+  - Indicates strong reliance on surface-level lexical cues  
 
 - **Logistic Regression**
-  - Strength: Balanced performance across categories  
-  - Weakness: Still struggles with implicit cases  
+  - Balanced performance across all categories  
+  - Significant improvement over Naive Bayes on ambiguous classes  
+  - However, performance remains moderate for these classes (F1 $\approx$ 0.55–0.60)  
 
 - **SVM**
-  - Strength: Strong performance on difficult classes  
-  - Weakness: Slight bias toward predicting cyberbullying  
+  - Strong and consistent performance across most categories  
+  - Slightly better handling of difficult cases  
+  - Still limited by ambiguity in implicit cyberbullying  
+
+- **Random Forest**
+  - High performance on explicit categories  
+  - Similar behaviour to SVM with minimal additional gains  
+  - Indicates diminishing returns from increased model complexity  
+
+- **Bi-LSTM**
+  - Captures contextual patterns  
+  - Does not significantly outperform classical models  
+  - Suggests dataset ambiguity is the primary bottleneck  
+
+Overall, improvements across models are concentrated on ambiguous classes rather than uniformly across all categories.
 
 ---
-
-### 🎯 Key Insight
-
-Across all analyses, a consistent pattern emerges:
-
-> The primary challenge is not model performance, but the inherent ambiguity in the dataset—particularly in distinguishing between `not_cyberbullying` and `other_cyberbullying`.
-
-This indicates that:
-- Errors are **systematic, not random**
-- Improving performance requires:
-  - Better contextual understanding  
-  - Clearer class definitions  
-  - More expressive models  
 
 ## <a id = "challenges"> 😢 Challenges Faced</a>
 [Back to `Main` Content Page](#repository)  
@@ -347,27 +411,42 @@ This indicates that:
 
 ## <a id = "conclusion"> 🥳 Conclusion</a>
 [Back to `Main` Content Page](#repository)  
-  
-### Data Driven Insights & Recommendations
-> Our project could assist in identifying and curbing cyberbullying on social media platforms.
 
-`Targeted Intervention`  
-The identification of demographic-specific patterns in cyberbullying behavior can inform targeted intervention strategies tailored to address the vulnerabilities of different groups.  
-  
-`Model Refinement`  
-Continuously refining and updating the cyberbullying detection models based on new data and insights is essential for maintaining their effectiveness over time.    
-  
-`Community Engagement`  
-Engaging with community stakeholders, including social media platforms, is essential for fostering collaboration and implementing effective measures to combat cyberbullying.   
+The findings from both the statistical analysis and structured error analysis converge to provide a comprehensive understanding of model behaviour.
 
-### Moving Forward
-> There are significant areas for improvement in our project that can be done in order to enhance its working and application in the broader view. Here are some features we wish to integrate in the future.  
-  
-`Advanceed Machine Learning Techniques`  
-Incorporating user feedback and preferences into cyberbullying detection systems can enhance their effectiveness and user acceptance.    
-  
-`Multimodal Analysis`  
-Integrating multimodal data sources, such as text, images, and videos, can provide a more comprehensive understanding of cyberbullying behaviors.    
-  
-`User-Centric Approaches`  
-Incorporating user feedback and preferences into cyberbullying detection systems can enhance their effectiveness and user acceptance.  
+### Model Behaviour Summary
+
+| Model | Strengths | Weaknesses |
+|------|--------|----------|
+| Naive Bayes | Fast, captures strong keywords | Over-relies on lexical cues, severely underperforms on ambiguous classes |
+| Logistic Regression | Balanced performance, most efficient | Still struggles with implicit and ambiguous cases |
+| SVM | Strong performance on difficult classes | Higher computational cost, only marginal improvement over Logistic Regression |
+| Random Forest | High accuracy on explicit classes | Limited gains on ambiguous categories despite higher complexity |
+| BiLSTM | Captures contextual patterns | Does not significantly outperform simpler models |
+
+**Key Insights:**
+> - Across all analyses, a consistent pattern emerges: the primary challenge lies in distinguishing between not_cyberbullying and other_cyberbullying, rather than identifying explicit categories.  
+> - Improvements across models are not uniform. Even though all models perform similarly well on explicit classes (age, ethnicity, religion), performance gains from stronger models are concentrated almost entirely on the ambiguous classes.  
+> - This is clearly reflected in the cross-model comparison, where correct predictions for ambiguous categories increase significantly from Naive Bayes to Logistic Regression, SVM, and other models, while performance on explicit categories remains largely saturated.
+
+**Why the errors occurs:**  
+> - While most tweets are correctly classified, a substantial portion of errors arises from ambiguity in language, where the distinction between non-abusive and implicitly abusive content is unclear.  
+> - The misclassification pattern analysis and qualitative error analysis show that these errors are driven by emotionally charged but non-abusive language, as well as subtle or indirect forms of cyberbullying that lack explicit indicators.  
+> - These cases do not contain strong lexical signals, making them inherently difficult for models that rely primarily on surface-level textual features.
+
+**What the model comparison tells us:**  
+> - Although Logistic Regression, SVM, Random Forest, and Bi-LSTM significantly outperform Naive Bayes, the performance gap among these stronger models remains relatively small.  
+> - This suggests that increasing model complexity yields diminishing returns, as improvements are mainly limited to ambiguous classes rather than across all categories.  
+> - Even the best-performing models fail to achieve strong performance on these classes, indicating that the limitation is not purely due to model choice.  
+> - These observations highlight that improvements across models are not uniform, but concentrated on specific challenging cases.
+
+**What this means:**  
+> - The main limitation lies in the nature of the task itself.  
+> - Cyberbullying detection requires understanding context, intent, and nuance. There are factors that are difficult to capture using surface-level textual features.  
+> - This suggests that the challenge is not solely a modeling problem, but also a task formulation issue, where class definitions and boundaries may be inherently ambiguous.
+
+### Potential Future Directions
+
+- Improving performance may require more context-aware approaches, such as transformer-based models, as well as clearer class definitions or additional contextual information.  
+- Incorporating richer contextual signals (e.g., conversational context or user intent) may help reduce ambiguity between labels that overlap each other.  
+- More importantly, addressing dataset ambiguity through refined labeling guidelines or hierarchical class structures may be necessary to achieve substantial performance improvements.
