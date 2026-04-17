@@ -134,3 +134,15 @@ In this project, two main text representation strategies were used:
 TF-IDF was chosen because it is a strong baseline for text classification. This is especially so when working with sparse textual features. This is because it is able to capture word importance relative to the corpus and often performs well on short text tasks.
 
 For Bi-LSTM, word embeddings were used to provide dense semantic representations of the tokens. This allows the model to not just determine the word counts but learn the contextual relationships within tweet sequences.
+
+---
+
+## 3.5 Models
+
+### 3.5.1 Naive Bayes
+
+Naive Bayes was chosen as the simplest baseline model. It is computationally efficient and very easy to implement. 
+
+Although the Naive Bayes independence assumption is unrealistic, it it still well-suited for high-dimensional sparse data such as TF-IDF representations. In such settings, word occurrences often provide strong signals for classification. This therefore makes it particularly effective as a benchmark model for comparing more complex approaches.
+
+Naive Bayes therefore serves as a useful reference point for evaluating more advanced models. In particular, it allows us to assess whether these models better capture dependencies between words and thus improve classification performance, especially in this project.
