@@ -162,3 +162,15 @@ However, as a linear model it may struggle to capture complex relationships betw
 Nevertheless, Logistic Regression serves as a useful comparison to Naive Bayes. This is done by evaluating whether learning feature weights can improve classification performance, particularly for closely related categories.
 
 ---
+
+### 3.5.3 Support Vector Machine (SVM)
+
+SVM was selected due to its strong performance in high-dimensional feature spaces which are typical in text classification tasks.
+
+It is well suited for text classification as it seeks to find an optimal decision boundary that maximizes the margin between classes. This makes it effective when classes are separable in feature space. This leads to strong generalization performance.
+
+SVM is also suitable for this dataset as clear decision boundaries may exist based on key features. However, similar to linear regression models, it may struggle to capture contextual relationships between words, especially in cases involving ambiguous or overlapping labels.
+
+Nevertheless, SVM still provides a strong benchmark for evaluating whether margin based classification can improve performance over simpler models such as Naive Bayes and Logistic Regression.
+
+---
