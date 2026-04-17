@@ -64,6 +64,8 @@ Most prior work focuses primarily on improving benchmark performance or proposin
 
 The dataset used in this project is the [Cyberbullying Classification Dataset](https://www.kaggle.com/datasets/andrewmvd/cyberbullying-classification) from Kaggle. It consists of tweets that are labeled in the `cyberbullying_type` column. Each tweet is assigned exactly one class. The classes would include categories that different forms of cyberbullying associates with as well as a non-cyberbullying category.
 
+---
+
 ## 3.2 Preprocessing
 
 This is carried out so that we can standardize the tweets while retaining its linguistically meaningful content as much as possible. Since such tweets are often noisy and irregular, preprocessing is therefore neccessary in order to ensure that the data is usable for downstream models.
@@ -78,4 +80,47 @@ Therefore, in order to reduce noise and improve the quality of the text represen
 - Removal of English stopwords  
 - Removal of short words with length less than or equal to 2  
 - Removal of extra whitespace 
+
+---
+
+## 3.3 Exploratory Analysis
+
+Before training the models, exploratory data analysis was conducted to better understand the dataset and its label structure. This included examining the distribution of tweets across labels and visualizing vocabulary patterns using word clouds. These analyses help identify class imbalance, common language usage, and potential sources of ambiguity between labels.
+
+<div align="center">
+  <img src="./Images/image.png" width="900"/>
+  <p><em><b>Figure 1. Class distribution of tweets across cyberbullying categories.</b></em></p>
+</div>
+
+The class distribution shows that the dataset is not perfectly balanced across categories, which may influence model performance and bias predictions towards more frequent classes.
+
+To further analyze linguistic patterns, word clouds were generated for each label. A few selected word clouds for gender, religion, ethnicity, and non-cyberbullying labelled tweets are selected for illustration purposes.
+
+<div align="center">
+  <img src="./Images/gender.png" width="700"/>
+  <p><em><b>Figure 2a. Word cloud for gender category.</b></em></p>
+</div>
+
+<div align="center">
+  <img src="./Images/religion.png" width="700"/>
+  <p><em><b>Figure 2b. Word cloud for religion category.</b></em></p>
+</div>
+
+<div align="center">
+  <img src="./Images/ethnicity.png" width="700"/>
+  <p><em><b>Figure 2c. Word cloud for ethnicity category.</b></em></p>
+</div>
+
+<div align="center">
+  <img src="./Images/not_cyberbullying.png" width="700"/>
+  <p><em><b>Figure 2d. Word cloud for non-cyberbullying category.</b></em></p>
+</div>
+
+The word clouds above provides a high level view of the vocabulary used across the different labels. Certain labels, such as `religion` and `ethnicity`, exhibit more distinctive and topic specific terms that are related to identity and ideology. In contrast, categories such as `gender` and `not_cyberbullying` contains a more generic and conversational language.
+
+Given this, it should be noted that there is a substantial overlap in frequently used words across labels, including general insults and informal expressions. This suggests that lexical features by itself may not be sufficient to clearly distinguish between the labels. Furthermore, many of the words are context dependent and they may appear in both harmful and non-harmful settings. This therefore further increases the ambiguity surrounding it.
+
+Hence, these observations provides some insight as to why the models may struggle to separate closely related labels and are likely to produce confusion between certain labels during classification.
+
+---
 
