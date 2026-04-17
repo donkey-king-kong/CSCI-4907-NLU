@@ -141,8 +141,24 @@ For Bi-LSTM, word embeddings were used to provide dense semantic representations
 
 ### 3.5.1 Naive Bayes
 
-Naive Bayes was chosen as the simplest baseline model. It is computationally efficient and very easy to implement. 
+Naive Bayes was chosen as the simplest baseline model as it is simple to implement and is computationally efficient.
 
-Although the Naive Bayes independence assumption is unrealistic, it it still well-suited for high-dimensional sparse data such as TF-IDF representations. In such settings, word occurrences often provide strong signals for classification. This therefore makes it particularly effective as a benchmark model for comparing more complex approaches.
+Although the Naive Bayes independence assumption is unrealistic, it is still well suited for high-dimensional sparse data such as TF-IDF representations. In such settings, word occurrences provide strong signals for classification, making it particularly effective as a benchmark model for comparing more complex models.
 
-Naive Bayes therefore serves as a useful reference point for evaluating more advanced models. In particular, it allows us to assess whether these models better capture dependencies between words and thus improve classification performance, especially in this project.
+Naive Bayes is also suitable for this dataset as it contains short and sparse tweets where individual words often carry meaningful information despite limited context. However, as it assumes independence between features, it may struggle with ambiguous or labels that overlap each other.
+
+Nevertheless, Naive Bayes serves as a useful reference point for evaluating more advanced models. In particular, it allows us to assess whether these advanced models can better capture dependencies between words and improve classification performance, especially for closely related categories.
+
+---
+
+### 3.5.2 Logistic Regression
+
+Logistic Regression was chosen as it is also fairly simple and robust on high-dimensional sparse text representations.
+
+It is well suited for text classification tasks as it learns weighted contributions of features. This allows it to identify which words are the most indicative of each label. This makes it particularly effective when classification decisions depend on the presence of key terms.
+
+However, as a linear model it may struggle to capture complex relationships between words, especially when meaning depends on context or word combinations.
+
+Nevertheless, Logistic Regression serves as a useful comparison to Naive Bayes. This is done by evaluating whether learning feature weights can improve classification performance, particularly for closely related categories.
+
+---
