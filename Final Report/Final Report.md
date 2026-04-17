@@ -14,6 +14,7 @@ As part of our project, our team came up with the following research questions i
 ---
 
 ## 1.2 Motivation
+
 In today's world, social media platforms have become central to modern communication, but they have also contributed to the rise of cyberbullying and online harassment. Detecting harmful content in such settings is often difficult because abusive language is often expressed through subtle linguistic cues such as sarcasm, slang and implicit aggression. Even when the task is framed as assigning one primary label per tweet, the underlying language can still be ambiguous and be difficult to interpret.
 
 In reality, a single twitter post may contain multiple different forms of abuse at once. However, the dataset used in this project constrains the task to a **single-label classification**. This means that each tweet is assigned only one annotated category. This therefore makes the task more tractable for modeling while also introducing important limitations in how well the dataset reflects real cyberbullying behavior.
@@ -54,3 +55,27 @@ At the same time, researchers such as Wiegand et al. (2019) also highlighted the
 While many studies frame abusive language detection as a binary classification problem, there are fewer studies that explore fine grained multi-class classification. In such classification, distinguishing between closely related categories introduces additional complexity and ambiguity on top of existing ones.
 
 Most prior work focuses primarily on improving benchmark performance or proposing new datasets and architectures. However, there is less emphasis on understanding model behavior at a granular level. In particular, there are limited attention that has been given to how different models confuse closely related categories in multi-class cyberbullying tasks.
+ 
+---
+
+# 3. Methods
+
+## 3.1 Dataset
+
+The dataset used in this project is the [Cyberbullying Classification Dataset](https://www.kaggle.com/datasets/andrewmvd/cyberbullying-classification) from Kaggle. It consists of tweets that are labeled in the `cyberbullying_type` column. Each tweet is assigned exactly one class. The classes would include categories that different forms of cyberbullying associates with as well as a non-cyberbullying category.
+
+## 3.2 Preprocessing
+
+This is carried out so that we can standardize the tweets while retaining its linguistically meaningful content as much as possible. Since such tweets are often noisy and irregular, preprocessing is therefore neccessary in order to ensure that the data is usable for downstream models.
+
+Therefore, in order to reduce noise and improve the quality of the text representations, the following preprocessing steps were applied:
+
+- Conversion to lowercase  
+- Removal of user mentions (`@username`)  
+- Removal of URLs and picture links  
+- Removal of punctuation and numbers 
+- Removal of stray HTML entities  
+- Removal of English stopwords  
+- Removal of short words with length less than or equal to 2  
+- Removal of extra whitespace 
+
