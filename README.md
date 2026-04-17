@@ -48,8 +48,8 @@ Our dataset is taken from Kaggle: [Cyberbullying Classification](https://www.kag
    - [Random Forest Classifier](#random)
    - [Bi-LSTM](#bert)
 6) [Model Results + Comparison](#results)
-7) [Structured Error Analysis](#error-analysis)
-8) [Statistical Analysis](#statistical-analysis)
+7) [Statistical Analysis](#statistical-analysis)
+8) [Structured Error Analysis](#error-analysis)
 9) [Challenges Faced](#challenges)
 10) [Conclusion](#conclusion)
 
@@ -257,6 +257,35 @@ Among the stronger models, Logistic Regression provides the most balanced overal
 
 These findings are further supported by the confusion matrices, which show substantial misclassification between other cyberbullying and not cyberbullying. The ROC and learning curves also align with these results, indicating similar overall performance trends across models and highlighting the continued difficulty of handling nuanced and overlapping language in cyberbullying detection.
 
+## <a id="statistical-analysis">📊 Statistical Analysis</a>
+[Back to `Main` Content Page](#repository)
+
+This section presents a quantitative evaluation of model performance using class wise precision, recall, F1-score, and statistical significance testing. 
+
+### 📌 Class-wise Performance
+
+Refer to tables [above](#results).
+
+### 📊 Key Observations
+
+- All models achieve strong performance on explicit categories (religion, age, ethnicity, gender), with F1-scores close to 0.95 and above  
+- Performance drops significantly for:
+  - `other_cyberbullying`
+  - `not_cyberbullying`  
+- Naive Bayes shows the weakest performance on these ambiguous classes, particularly in recall  
+- Logistic Regression, SVM, Random Forest, and Bi-LSTM show clear improvements, but gains are relatively modest among them  
+
+### 📈 Statistical Significance Testing
+
+We conducted McNemar’s Test to compare model predictions across pairs of classifiers.
+
+- Improvements from Naive Bayes to other models are statistically significant  
+- Differences among Logistic Regression, SVM, Random Forest, and Bi-LSTM are comparatively small  
+
+This suggests that:
+- Performance improvements plateau after a certain level of model complexity  
+- Remaining errors are driven more by task ambiguity than model capability 
+
 ## <a id = "error-analysis">🧠 Structured Error Analysis</a>
 [Back to `Main` Content Page](#repository)
 
@@ -367,35 +396,6 @@ We compare model performance using class-wise precision, recall, and F1-score.
   - Suggests dataset ambiguity is the primary bottleneck  
 
 ---
-
-## <a id="statistical-analysis">📊 Statistical Analysis</a>
-[Back to `Main` Content Page](#repository)
-
-This section presents a quantitative evaluation of model performance using class wise precision, recall, F1-score, and statistical significance testing. 
-
-### 📌 Class-wise Performance
-
-Refer to tables [above](#results).
-
-### 📊 Key Observations
-
-- All models achieve strong performance on explicit categories (religion, age, ethnicity, gender), with F1-scores close to 0.95 and above  
-- Performance drops significantly for:
-  - `other_cyberbullying`
-  - `not_cyberbullying`  
-- Naive Bayes shows the weakest performance on these ambiguous classes, particularly in recall  
-- Logistic Regression, SVM, Random Forest, and Bi-LSTM show clear improvements, but gains are relatively modest among them  
-
-### 📈 Statistical Significance Testing
-
-We conducted McNemar’s Test to compare model predictions across pairs of classifiers.
-
-- Improvements from Naive Bayes to other models are statistically significant  
-- Differences among Logistic Regression, SVM, Random Forest, and Bi-LSTM are comparatively small  
-
-This suggests that:
-- Performance improvements plateau after a certain level of model complexity  
-- Remaining errors are driven more by task ambiguity than model capability 
 
 ## <a id = "challenges"> 😢 Challenges Faced</a>
 [Back to `Main` Content Page](#repository)  
