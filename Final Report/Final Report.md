@@ -38,3 +38,19 @@ This project contributes to this space by providing:
 | 4 | Joshua, Tse Ern Foo | Data Visualization, Machine Learning Models, Qualitative Error Analysis |
 
 ---
+
+# 2. Brief Literature Review
+
+Cyberbullying and abusive language detection have been widely researched in natural language processing, with extensive work spanning traditional machine learning, dataset development, and deep learning approaches.
+
+Research by Waseem and Hovy (2016) had demonstrated that traditional machine learning models, combined with textual features such as character n-grams, can be highly effective in detecting abusive content on Twitter. Their results showed that properly engineered representations, together with simple classifiers can serve as strong and competitive baselines.
+
+Subsequently, research expanded this field by introducing larger datasets and more fine grained annotation schemes. For example, Salawu et al. (2021) contributed a large dataset for cyberbullying and online abuse detection. This enabled more detailed categorization of harmful language. This is significant because it moves beyond simple abusive, non-abusive distinctions and supports a more nuanced modeling of different forms of online harm.
+
+In a similar vein, deep learning approaches have also been widely explored for moderation and abuse detection tasks. For example, Pavlopoulos et al. (2017) showed that neural network architectures are actually able to capture contextual dependencies in text more effectively than traditional methods. Whereas Park and Fung (2017) had demonstrated improvements over bag-of-words approaches for abusive language detection on Twitter in certain settings.
+
+At the same time, researchers such as Wiegand et al. (2019) also highlighted the broader challenges in abusive language detection. This includes annotation quality, dataset bias, and ambiguity in the definition the labels for abusive language. These issues are especially relevant in classification settings where confusion between classes may reflect not only model limitations, but also inherent ambiguity in the data.
+
+While many studies frame abusive language detection as a binary classification problem, there are fewer studies that explore fine grained multi-class classification. In such classification, distinguishing between closely related categories introduces additional complexity and ambiguity on top of existing ones.
+
+Most prior work focuses primarily on improving benchmark performance or proposing new datasets and architectures. However, there is less emphasis on understanding model behavior at a granular level. In particular, there are limited attention that has been given to how different models confuse closely related categories in multi-class cyberbullying tasks.
