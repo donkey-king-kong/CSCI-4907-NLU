@@ -124,3 +124,13 @@ Hence, these observations provides some insight as to why the models may struggl
 
 ---
 
+## 3.4 Feature Engineering
+
+In this project, two main text representation strategies were used:
+
+- **TF-IDF vectorization** for the classical machine learning models  
+- **Word embeddings** for the Bi-LSTM model  
+
+TF-IDF was chosen because it is a strong baseline for text classification. This is especially so when working with sparse textual features. This is because it is able to capture word importance relative to the corpus and often performs well on short text tasks.
+
+For Bi-LSTM, word embeddings were used to provide dense semantic representations of the tokens. This allows the model to not just determine the word counts but learn the contextual relationships within tweet sequences.
