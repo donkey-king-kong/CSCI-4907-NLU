@@ -286,7 +286,7 @@ This suggests that:
 - Performance improvements plateau after a certain level of model complexity  
 - Remaining errors are driven more by task ambiguity than model capability 
 
-These findings directly support the patterns observed in the Structured Error Analysis section.
+These quantitative findings motivate the deeper investigation conducted in the Structured Error Analysis section.
 
 ## <a id = "error-analysis">🧠 Structured Error Analysis</a>
 [Back to `Main` Content Page](#repository)
