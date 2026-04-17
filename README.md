@@ -3,10 +3,10 @@
 ## Team Contributors
 | S/N | Team Members | Part |
 | :-: | :- | :- |
-| 1 | Zhan You Lau | Data Preparation & Cleaning, Data Visualization, Error Partitioning, Conclusion, Consolidation |
-| 2 | Yu Chen Law | Data Preparation & Cleaning, Machine Learning Models, Master Error Table, Cross Model Behaviour Analysis |
-| 3 | Kieran E Kai Voo | Machine Learning Models, Weights saving, Misclassification Pattern Analyiss |
-| 4 | Joshua, Tse Ern Foo | Data Visualization, Machine Learning Models, Qualitative Error Analysis |
+| 1 | Zhan You Lau | Data Preparation & Cleaning, Data Visualization, Error Partitioning, Conclusion, Consolidation, Statistical Analysis, Final Report |
+| 2 | Yu Chen Law | Data Preparation & Cleaning, Machine Learning Models, Master Error Table, Cross Model Behaviour Analysis, Statistical Analysis |
+| 3 | Kieran E Kai Voo | Machine Learning Models, Weights saving, Misclassification Pattern Analysis, Bi-LSTM refinemeent, Final Report |
+| 4 | Joshua, Tse Ern Foo | Data Visualization, Machine Learning Models, Qualitative Error Analysis, LLM Benchmarking |
 
 ## About/ Problem Statement
 Social media has become ubiquitous in our everyday communication which contributes to the increased prevalence of cyberbullying. However, cyberbullying detection is particularly challenging in a multilabel setting as harmful content may belong to multiple overlapping categories like threats, insults, or implicit aggression. These categories often rely on subtle linguistic cues such as sarcasm and contextual ambiguity. This makes accurate classification difficult.
@@ -49,8 +49,9 @@ Our dataset is taken from Kaggle: [Cyberbullying Classification](https://www.kag
    - [Bi-LSTM](#bert)
 6) [Model Results + Comparison](#results)
 7) [Structured Error Analysis](#error-analysis)
-8) [Challenges Faced](#challenges)
-9) [Conclusion](#conclusion)
+8) [Statistical Analysis](#statistical-analysis)
+9) [Challenges Faced](#challenges)
+10) [Conclusion](#conclusion)
 
 ## <a id="setup"> ⚙️ Set up </a>
 [Back to `Main` Content Page](#repository)
@@ -355,7 +356,38 @@ This indicates that:
 - Improving performance requires:
   - Better contextual understanding  
   - Clearer class definitions  
-  - More expressive models  
+  - More expressive models 
+
+---
+
+## <a id="statistical-analysis">📊 Statistical Analysis</a>
+[Back to `Main` Content Page](#repository)
+
+This section presents a quantitative evaluation of model performance using class wise precision, recall, F1-score, and statistical significance testing. 
+
+### 📌 Class-wise Performance
+
+Refer to tables [above](#results).
+
+### 📊 Key Observations
+
+- All models achieve strong performance on explicit categories (religion, age, ethnicity, gender), with F1-scores close to 0.95 and above  
+- Performance drops significantly for:
+  - `other_cyberbullying`
+  - `not_cyberbullying`  
+- Naive Bayes shows the weakest performance on these ambiguous classes, particularly in recall  
+- Logistic Regression, SVM, Random Forest, and Bi-LSTM show clear improvements, but gains are relatively modest among them  
+
+### 📈 Statistical Significance Testing
+
+We conducted McNemar’s Test to compare model predictions across pairs of classifiers.
+
+- Improvements from Naive Bayes to other models are statistically significant  
+- Differences among Logistic Regression, SVM, Random Forest, and Bi-LSTM are comparatively small  
+
+This suggests that:
+- Performance improvements plateau after a certain level of model complexity  
+- Remaining errors are driven more by task ambiguity than model capability 
 
 ## <a id = "challenges"> 😢 Challenges Faced</a>
 [Back to `Main` Content Page](#repository)  
