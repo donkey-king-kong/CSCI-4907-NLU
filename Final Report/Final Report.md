@@ -200,3 +200,25 @@ However, Bi-LSTM requires way more data and computational resources. It may also
 Nevertheless, the Bi-LSTM allows us to evaluate whether incorporating contextual and sequential information can improve classification performance over classical approaches.
 
 ---
+
+# 4. Results and Evaluation
+
+## 4.1 Evaluation Metrics
+
+The models were evaluated using the following metrics:
+
+- Accuracy
+- Precision
+- Recall
+- F1-score
+
+These are standard multi-class classification metrics and were chosen because each captures a different aspect of performance.
+
+- **Accuracy** provides an overall measure of how often the classifier predicts the correct class  
+- **Precision** measures how reliable a class prediction is when the model assigns that class  
+- **Recall** measures how well the model identifies all instances of a class  
+- **F1-score** balances precision and recall and is particularly useful when some classes are harder to detect or are less evenly distributed  
+
+As cyberbullying categories may differ in frequency and difficulty, merely using accuracy alone would be insufficient. Considering precision, recall, and F1-score would therefore provide a more complete picture of model performance across categories.
+
+---
