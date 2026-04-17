@@ -220,9 +220,9 @@ Difference between Learning Curve & ROC Curve
 | Support      | 11923      | 11923               | 11923| 11923         | 11904  |
 | Running Time | 5–10s      | 1.5–2 min           | 20 min | 30 min      | 2 hours|
 
-Trading off both running time and predictive performance, Logistic Regression appears to be the most efficient model for this dataset. It achieves the highest F1-score (0.82) with significantly lower training time compared to more complex models such as SVM, Random Forest, and Bi-LSTM.
+Considering both predictive performance and computational cost, `Logistic Regression` appears to be the most efficient model for this dataset. It achieves the highest overall F1-score (0.82), the highest accuracy (0.815), and comparable precision and recall to SVM, while requiring significantly less training time than SVM, Random Forest, and Bi-LSTM.
 
-However, Bi-LSTM, due to its ability to capture sequential and contextual information, may generalize better to more complex or unseen data if trained further or on larger datasets.
+Although `SVM` achieves nearly identical overall performance, its training time is substantially longer. Random Forest and Bi-LSTM also perform competitively, but they do not provide sufficient improvement to justify their additional computational cost. Therefore, `Logistic Regression` offers the best balance between effectiveness and efficiency for this task.
 
 | PRECISION            | Religion | Age  | Ethnicity | Gender | Other Cyberbullying | Not Cyberbullying |
 |---------------------|----------|------|-----------|--------|---------------------|-------------------|
@@ -232,9 +232,29 @@ However, Bi-LSTM, due to its ability to capture sequential and contextual inform
 | Random Forest       | 0.95     | 0.97 | 0.98      | 0.90   | 0.53                | 0.57              |
 | Bi-LSTM             | 0.94     | 0.97 | 0.95      | 0.90   | 0.52                | 0.57              |
 
-We can infer that the classification models are generally strong in identifying explicit forms of cyberbullying, such as religion, age, ethnicity, and gender-based categories. This is reflected by their consistently high precision scores (typically above 0.90). However, they struggle to accurately classify more ambiguous categories, such as other cyberbullying and non-cyberbullying, where precision drops significantly.
+| RECALL               | Religion | Age  | Ethnicity | Gender | Other Cyberbullying | Not Cyberbullying |
+|----------------------|----------|------|-----------|--------|---------------------|-------------------|
+| Naive Bayes          | 0.97     | 0.99 | 0.91      | 0.82   | 0.35                | 0.32              |
+| Logistic Regression  | 0.95     | 0.97 | 0.98      | 0.83   | 0.63                | 0.55              |
+| SVM                  | 0.94     | 0.98 | 0.98      | 0.81   | 0.70                | 0.53              |
+| Random Forest        | 0.95     | 0.98 | 0.98      | 0.83   | 0.67                | 0.46              |
+| Bi-LSTM              | 0.95     | 0.98 | 0.98      | 0.79   | 0.66                | 0.51              |
 
-These patterns are further supported by the confusion matrices, which show substantial misclassification between these ambiguous classes. The ROC and learning curves also supports this, which indicate similar performance trends across models.
+| F1-SCORE            | Religion | Age  | Ethnicity | Gender | Other Cyberbullying | Not Cyberbullying |
+|---------------------|----------|------|-----------|--------|---------------------|-------------------|
+| Naive Bayes         | 0.85     | 0.78 | 0.86      | 0.81   | 0.45                | 0.43              |
+| Logistic Regression | 0.95     | 0.96 | 0.97      | 0.87   | 0.60                | 0.56              |
+| SVM                 | 0.95     | 0.97 | 0.97      | 0.86   | 0.62                | 0.53              |
+| Random Forest       | 0.95     | 0.98 | 0.98      | 0.86   | 0.59                | 0.51              |
+| Bi-LSTM             | 0.94     | 0.97 | 0.97      | 0.86   | 0.60                | 0.53              |
+
+We can infer that the classification models are generally strong in identifying more explicit forms of cyberbullying, such as religion, age, ethnicity, and gender-based categories. This is reflected by their consistently high precision, recall, and F1-scores for these classes, indicating that such categories are both accurately predicted and reliably detected across most models.
+
+In contrast, all models perform noticeably worse on the more ambiguous categories, namely other cyberbullying and not cyberbullying. These classes show substantially lower precision, recall, and F1-scores, suggesting that the models struggle both to distinguish them clearly and to capture all true instances. This is especially evident in Naive Bayes, which records particularly low recall and F1-scores for these classes, indicating weaker performance on subtle or context-dependent language.
+
+Among the stronger models, Logistic Regression provides the most balanced overall performance, combining high scores on the clearer classes with relatively better consistency across the harder categories, while remaining computationally efficient. SVM and Random Forest achieve similar strengths on explicit categories and in some cases slightly better recall for other cyberbullying, but these gains are modest when compared against their higher training cost.
+
+These findings are further supported by the confusion matrices, which show substantial misclassification between other cyberbullying and not cyberbullying. The ROC and learning curves also align with these results, indicating similar overall performance trends across models and highlighting the continued difficulty of handling nuanced and overlapping language in cyberbullying detection.
 
 ## <a id = "error-analysis">🧠 Structured Error Analysis</a>
 [Back to `Main` Content Page](#repository)
