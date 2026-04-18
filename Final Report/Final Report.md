@@ -238,13 +238,155 @@ Classification reports help compare performance across classes. Confusion matric
 
 ## 4.3 Results Summary
 
+### 4.3.1 Overall comparison of the 5 models
+
+| Model | Accuracy | Precision | Recall | F1-score | Running Time |
+|:--|--:|--:|--:|--:|:--|
+| Naive Bayes | 0.724 | 0.71 | 0.73 | 0.70 | 5–10 s |
+| Logistic Regression | 0.815 | 0.82 | 0.82 | 0.82 | 1.5–2 min |
+| SVM | 0.814 | 0.82 | 0.82 | 0.82 | 20 min |
+| Random Forest | 0.810 | 0.82 | 0.81 | 0.81 | 30 min |
+| Bi-LSTM | 0.810 | 0.81 | 0.81 | 0.81 | 2 hours |
+
+Considering both predictive performance and computational cost, `Logistic Regression` appears to be the most efficient model for this dataset. It achieves the highest overall F1-score (0.82), the highest accuracy (0.815), and comparable precision and recall to SVM, while requiring significantly less training time than SVM, Random Forest, and Bi-LSTM.
+ 
+Although `SVM` achieves nearly identical overall performance as `Logistic Regression`, its training time is substantially longer. Random Forest and Bi-LSTM also perform competitively, but they do not provide sufficient improvement to justify their additional computational cost. Therefore, `Logistic Regression` offers the best balance between effectiveness and efficiency for this task.
+
+ ### 4.3.3 Class-wise Comparison
+
+#### Class-wise Precision Comparison
+
+| Model | Religion | Age | Ethnicity | Gender | Other Cyberbullying | Not Cyberbullying |
+|:--|--:|--:|--:|--:|--:|--:|
+| Naive Bayes | 0.76 | 0.64 | 0.81 | 0.79 | 0.61 | 0.66 |
+| Logistic Regression | 0.94 | 0.95 | 0.97 | 0.92 | 0.57 | 0.58 |
+| SVM | 0.96 | 0.96 | 0.97 | 0.92 | 0.55 | 0.59 |
+| Random Forest | 0.95 | 0.97 | 0.98 | 0.90 | 0.53 | 0.57 |
+| Bi-LSTM | 0.93 | 0.97 | 0.96 | 0.93 | 0.56 | 0.55 |
+
+#### Class-wise Recall Comparison
+
+| Model | Religion | Age | Ethnicity | Gender | Other Cyberbullying | Not Cyberbullying |
+|:--|--:|--:|--:|--:|--:|--:|
+| Naive Bayes | 0.97 | 0.99 | 0.91 | 0.82 | 0.35 | 0.32 |
+| Logistic Regression | 0.95 | 0.97 | 0.98 | 0.83 | 0.63 | 0.55 |
+| SVM | 0.94 | 0.98 | 0.98 | 0.81 | 0.70 | 0.53 |
+| Random Forest | 0.95 | 0.98 | 0.98 | 0.83 | 0.67 | 0.46 |
+| Bi-LSTM | 0.95 | 0.98 | 0.98 | 0.79 | 0.66 | 0.51 |
+
+#### Class-wise F1-score Comparison
+
+| Model | Religion | Age | Ethnicity | Gender | Other Cyberbullying | Not Cyberbullying |
+|:--|--:|--:|--:|--:|--:|--:|
+| Naive Bayes | 0.85 | 0.78 | 0.86 | 0.81 | 0.45 | 0.43 |
+| Logistic Regression | 0.95 | 0.96 | 0.97 | 0.87 | 0.60 | 0.56 |
+| SVM | 0.95 | 0.97 | 0.97 | 0.86 | 0.62 | 0.53 |
+| Random Forest | 0.95 | 0.98 | 0.98 | 0.86 | 0.59 | 0.51 |
+| Bi-LSTM | 0.94 | 0.97 | 0.97 | 0.86 | 0.60 | 0.53 |
+
+From the results, we can infer that all the models are strong in indentifying explicit forms of cyberbullying, such as religion, age, ethnicity and gender based categories. This is supported by the high precision, recall and F1-scores for all these classes, which suggests that those categories are both accurately predicted and reliably detected across most models.
+
+However, all models performed noticeably worse on the more ambiguous categories, namely other cyberbullying and not cyberbulling. As seen from the table above, these two classes show substatntially lower precision, recall and F1-scores, suggesting that the models struggle in distinguishing them clearly and capturing all true instances.
+---
+## 4.4 Statistical Test
+
+We performed 3 tests to provide us more insights and basis of comparison for the various models against each other.
+
+#### Statistical Assumption
+
+All statistical tests are conducted on paired binary correctness (correct vs incorrect predictions). This ensures that the assumption of dependent samples required for both Cochran's Q test and McNemar's test is satisfied.
+
+### 4.4.1 Cochran's Q Test
+
+Cochran's Q test is used to determine whether there is an overall statistically significant difference in prediction performance across all five models on the same test set.
+
+Null hypothesis ($H_0$): All five models have the same prediction performance on the same test set.
+
+Alternative hypothesis ($H_1$): At least one model has a different prediction performance from the others on the same test set.
+
+#### Results
+
+| Test | Q Statistic | p-value |
+|:--|--:|--:|
+| Cochran’s Q Test | 1334.88 | 9.12 × 10^-288 |
+
+#### Observations
+
+From the test, we obtain an extremely small p-value obtained, hence we reject the null hypothesis and conclude that there is a statistically significant diference in performance among the five models evaluated on the same test set
+
+However, the Cochran's Q test does not indicate which specific models differ from one another. Hence, we will use McNemar's test for pairwise comparisons to identify where the differences lie.
+
+### 4.4.2 McNemar's Test
+
+McNemar's test is used to compare pairs of models and determine whether their differences in prediction performance were statistically significant. Due to the large number of pair-wise comparisons, we applied Bonferroni correction to adjust for these multiple pair-wise comparisons and reduce the risk of false positives.
+
+For each pair-wise comparison, we have the following hypotheses:
+
+Null hypothesis (**$H_0$**): The two models have the same prediction performance on the same test set.
+
+Alternative hypothesis (**$H_1$**): The two models have different prediction performance on the same test set.
+
+#### Results:
+
+|      | **NB** | **LR** | **SVM** | **RF** | **BiLSTM** |
+|:-----|---:|---:|---:|---:|---:|
+| **NB** | - | 2.75 × 10^-161 | 5.45 × 10^-143 | 1.43 × 10^-127 | 6.02 × 10^-126 |
+| **LR** |  | - | 1.000 | 0.862 | 0.224 |
+| **SVM** |  |  | - | 1.000 | 0.597 |
+| **RF** |  |  |  | - | 1.000 |
+| **BiLSTM** |  |  |  |  | - |
+
+The McNemar's test shows that all pairwise comparisons involving `Naive Bayes` remain statistically significant. This suggests that  it performs significantly worst than the other models.
+
+In contrast, there are no statistically significant differences that is observed among `Logistic Regression`, `SVM`, `Random Forest`, and `Bi-LSTM`, as their adjusted p-values exceed the 0.05 significance level. This suggests that these stronger models achieve similar levels of performance on the test set.
+
+### 4.4.3 Effect Size
+
+The effect size analysis provides us insights into the practical magnitude of performance differences between the models.
+
+#### Results
+
+| Model 1 | Model 2 | Accuracy 1 (%) | Accuracy 2 (%) | Absolute Accuracy Difference (pp) | Better Model |
+|:--|:--|--:|--:|--:|:--|
+| NB | LR | 72.39 | 81.51 | 9.13 | LR |
+| NB | SVM | 72.39 | 81.36 | 8.97 | SVM |
+| NB | RF | 72.39 | 81.02 | 8.63 | RF |
+| NB | BiLSTM | 72.39 | 80.86 | 8.47 | BiLSTM |
+| LR | BiLSTM | 81.51 | 80.86 | 0.65 | LR |
+| SVM | BiLSTM | 81.36 | 80.86 | 0.50 | SVM |
+| LR | RF | 81.51 | 81.02 | 0.49 | LR |
+| SVM | RF | 81.36 | 81.02 | 0.34 | SVM |
+| RF | BiLSTM | 81.02 | 80.86 | 0.16 | RF |
+| LR | SVM | 81.51 | 81.36 | 0.15 | LR |
+
+The effect size results show that the largest performance differences all involve `Naive Bayes`, indicating that it performed substantially worse than all the other models. In contrast, the differences among Logistic Regression, SVM, Random Forest, and Bi-LSTM were very small, ranging from only 0.15 to 0.65 percentage points. This suggests that although these four models differed slightly in overall accuracy, their practical performance was broadly similar, with Logistic Regression holding only a marginal advantage over the others.
+---
+
+#### 4.4.4 Summary of Statistical Tests
+
+All 3 tests present a consistent picture of model performance.
+
+Cochran's Q test confirms that there are statistically differences among the model. The McNemar's test shows that these differences are primarily driven by `Naive Bayes`, which performs significantly worse than all other models. Lastly, the Effect Size analysis further indicates that this gap is substantial, with accuracy differences of approximately 8.5 to 9.1 percentage points, indicating a practically meaningful difference.
+
+In contrast, the `Logistic Regression`, `SVM`, `Random Forest`, and `Bi-LSTM` show neither statistically significant nor practically meaningful differences in performance. Their accuracy differences are belower 1 percentage point. This suggests that the stronger models operate at a similar performance level.
+
+In conclusion, the poorer performance of `Naive Bayes` can be attributed to its reliance on its independence assumptions and surface level lexical features. This makes it less effective for handling complex or ambiguous inputs. Meanwhile, the comparable performance among the stronger models indicates that the remaining errors are more likely due to inherent task difficulty like class ambiguity and overlap rather than limitations of the model.
 ---
 
 # 5. Discussion and Analysis
 
 ## 5.1 Difficulty of Distinguishing Similar Classes
 
-## 5.2 Model Behvaiour Differences
+
+## 5.2 Model Behaviour Differences
+
+### 5.2.1 Naive Bayes
+
+### 5.2.2 Logistic Regression and SVM
+
+### 5.2.3 Random Forest
+
+### 5.2.4 Bi-LSTM
 
 ## 5.3 Linguistic Challenges
 
@@ -254,6 +396,33 @@ Classification reports help compare performance across classes. Confusion matric
 
 # 6. Lessons Learned
 
+## 6.1 Higher Computational Cost Does Not Always Lead to Better Performance
+
+ Although Bi-LSTM required the longest training time, it did not outperform the strongest traditional models in any substantial way. Similarly, SVM achieved performance very close to Logistic Regression, but at a much higher computational cost. This demonstrates that model selection should not be based on predictive performance alone, but should also computational efficiency.
+
+## 6.2 Accuracy Alone Is Insufficient
+
+While several models achieved similar overall performance, class-wise analysis revealed meaningful differences in how well they handled specific categories. Classes such as `Other Cyberbullying` and `Not Cyberbullying` were consistently harder to classify than the other classes. This highlights the importance of examining precision, recall, and F1-score at the class level rather than relying only on a single aggregate metric.
+
+## 6.3 Some Classes Are More Difficult To Classify Than Others
+
+Across almost all models, `Other Cyberbullying` and `Not Cyberbullying` were hardest to classify. This suggests that some label boundaries are inherently less distinct, especially when tweets are short, informal, and context-dependent. As a result, improving performance may require not only better models, but also better contextual information and clearer label definitions.
+
 # 7. Limitations
 
-# 8. Future Work
+## 7.1 Dataset and Label Ambiguity
+
+ Cyberbullying detection is inherently subjective, and the distinction between some labels may not always be clear. For example, the models tend to confuse the classes `Other Cyberbullying` and `Not Cyberbullying`. 
+ Hence, the performance of the models depend on how clear the class labels are separated.
+
+## 7.2 Lack of Context Beyond Individual Tweets
+
+The meaning of a tweet often depends on conversational context, speaker’s intent. It is difficult for any model to reliably distinguish the tone of the speech without additional context.
+
+# 8. Future Work 
+
+One possible direction for future work is the use of context-aware approaches, such as transformer-based models, as well as clearer class definitions or additional contextual information to help improve performance. This will help to capture contextual meaning and dependencies between words, oimproving the performance of the models.
+
+Future work could also involve incorporating richer contextual signals beyond the content of an isolated tweet. Including such informations helps to reduce ambiguity between overlapping labels and improve classification performance.
+
+Finally, refining the labeling guidelines or clearer class definitions can help to reduce ambiguity in the dataset. Having more consistently defined class boundaries allows the models to learn from a more reliable target source during training. This would improve classification stability and reduce repeated confusion between categories that currently overlap.
