@@ -51,7 +51,6 @@ Building on this, Salawu et al. (2021) introduced large-scale datasets with fine
 Pavlopoulos et al. (2017) and Park and Fung (2017) found that neural models can capture context more effectively than bag-of-words approaches in some settings. This supports our decision to include a Bi-LSTM as the deep learning model in our comparison. However, Wiegand et al. (2019) highlighted that label ambiguity and dataset bias impose a performance ceiling that architecture alone cannot overcome. This idea is important to our error analysis.
 
 While prior work largely focuses on binary detection or benchmark improvement, there has been limited systematic comparison of how different model families confuse closely related categories in a multi-class cyberbullying setting. This is the gap our project addresses.
-
  
 ---
 
@@ -547,11 +546,14 @@ As shown in Sections 4.3 and 5.1, `Naive Bayes` is the weakest model by a statis
 
 ## 5.4 Synthesis
 
-The aggregate metrics in Section 4 present a consistent picture where the four models performs similarly, and one falls significantly behind. However, this masks two distinct failure modes. `Naive Bayes` fails primarily due to its model design, where its independence assumption and reliance on raw word frequencies make it ill-equipped for tweets where meaning is contextual or implicit. The four stronger models, by contrast, do not fail for the same reason. Their errors are concentrated at the `not_cyberbullying`, `other_cyberbullying` boundary, which as shown in Section 5.2, is ambiguous at the data level rather than a consequence of any architectural limitation.
+The aggregate metrics in Section 4 present a consistent picture where the four models perform similarly, and one falls significantly behind. However, this masks two distinct failure modes. `Naive Bayes` fails primarily due to its model design, where its independence assumption and reliance on raw word frequencies make it ill-equipped for tweets where meaning is contextual or implicit. The four stronger models, by contrast, do not fail for the same reason. Their errors are concentrated at the `not_cyberbullying`, `other_cyberbullying` boundary, which as shown in Section 5.2, is ambiguous at the data level rather than a consequence of any architectural limitation.
 
 This distinction is most clearly illustrated by the fact that model complexity alone does not resolve the boundary problem. `Logistic Regression` and `Bi-LSTM` represent very different levels of architectural sophistication. One is a linear discriminative model, the other a sequential deep learning architecture. Yet they both achieve statistically equivalent overall accuracy. Both hit the same performance ceiling, imposed not by their design but by the inherent ambiguity of the task and the overlap between class boundaries in the dataset.
 
 The error taxonomy established in Section 5.1.3 maps cleanly onto these two root causes. Keyword triggered and lexical bias errors are characteristic of `Naive Bayes` and stem from its model limitations. Implicit abuse errors, class boundary overlap errors, and target ambiguity errors persist across all five models, pointing instead to properties of the data and label definitions that no model in this comparison was able to overcome. Hence addressing the latter category would require richer contextual signals, clearer annotation guidelines, or more expressive model inputs.
+
+Returning to our research questions, for the first question, classical models held their own against the Bi-LSTM despite being a fraction of the computational cost with all four stronger models landing within a narrow accuracy band of 80.9–81.5%. In the second question, `other_cyberbullying` and `not_cyberbullying` were clearly the hardest categories as both consistently ranked at the bottom of the evaluation metrics table across every model we tested. As for the third question, the errors traced back to a few causes: overlapping vocabularies between ambiguous classes, over-reliance on surface-level cues, short tweets lacking context, and abuse expressed too indirectly to detect reliably. None of the five models we evaluated were able to fully get around these issues.
+
 
 ---
 
