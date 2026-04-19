@@ -497,11 +497,11 @@ By focusing on the most frequent confusion patterns, we can prioritize key areas
 
 The misclassification pattern analysis shows  that the most dominant pattern across all models was the confusion between not_cyberbullying and other_cyberbullying. This occurred in both directions and was especially frequent for `Logistic Regression`, `Bi-LSTM`, and `Random Forest`. For instance, `Logistic Regression` misclassified these two classes 713 and 566 times respectively, while `Bi-LSTM` and `Random Forest` also recorded high confusion counts in both directions. This suggests that the boundary between non-abusive content and subtle or implicit cyberbullying is not clearly defined, making these categories difficult to separate even for the stronger models.
 
-A second notable pattern was that `Naive Bayes` showed a strong bias towards predicting the age category. In particular, it frequently misclassified both not_cyberbullying and other_cyberbullying as age, with 442 and 447 cases respectively. This suggests that `Naive Bayes` is highly influenced by surface-level lexical features, it is likely overfitting to keywords associated with age-related language rather than capturing deeper contextual distinctions.
+A second notable pattern was that `Naive Bayes` showed a strong bias towards predicting the `age` category. In particular, it frequently misclassified both `not_cyberbullying` and `other_cyberbullying` as `age`, with 442 and 447 cases respectively. This suggests that `Naive Bayes` is highly influenced by surface-level lexical features, it is likely overfitting to keywords associated with `age`-related language rather than capturing deeper contextual distinctions.
 
-Gender based cyberbullying was sometimes misclassified as either not_cyberbullying or other_cyberbullying. For example, `Logistic Regression` misclassified 163 gender related cases as not_cyberbullying, and `SVM` misclassified 196 such cases as other_cyberbullying. This indicates that this class lacks strong or consistent distinguishing features, possibly because gender-related abuse is expressed, or overlap with more general forms of offensive language.
+`Gender` based cyberbullying was sometimes misclassified as either `not_cyberbullying` or `other_cyberbullying`. For example, `Logistic Regression` misclassified 163 gender related cases as `not_cyberbullying`, and `SVM` misclassified 196 such cases as `other_cyberbullying`. This indicates that this class lacks strong or consistent distinguishing features, possibly because gender-related abuse is often expressed more subtly or indirectly. This causes it to overlap with more general forms of offensive language.
 
-More broadly, categories such as other_cyberbullying exhibit higher misclassification rates across all models. This suggests that these labels are semantically broad and overlap with multiple categories, making them inherently harder to model and more prone to misclassification. These patterns highlight that model errors are not random, but are concentrated in specific class boundaries and structurally ambiguous categories.
+More broadly, categories such as `other_cyberbullying` exhibit higher misclassification rates across all models. This suggests that these labels are semantically broad and overlap with multiple categories, making them inherently harder to model and more prone to misclassification. These patterns highlight that model errors are not random, but are concentrated in specific class boundaries and structurally ambiguous categories.
 
 The linguistic reasons behind these specific confusion pairs are examined in Section 5.1.3.
 
@@ -530,20 +530,69 @@ Based on these observations, the recurring error types can be grouped into the f
 - **`Lexical bias errors`**  
   Models misclassify tweets based on the presence of strong or emotionally charged words. For example, profanity. Even when no actual cyberbullying intent is present.
 
+<div align="center">
+
+| True Label | Predicted Label | Tweet |
+|---|---|---|
+| `not_cyberbullying` | `other_cyberbullying` | "fucking love her hot shit" |
+
+</div>
+
 - **`Keyword-triggered errors`**  
   Naive Bayes is particularly sensitive to isolated keywords (e.g., school or age-related terms), leading to misclassification without considering overall context.
+
+<div align="center">
+
+| True Label | Predicted Label | Tweet |
+|---|---|---|
+| `not_cyberbullying` | `age` | "throw back fridays school" |
+
+</div>
 
 - **`Target ambiguity errors`**  
   Models are able to detect offensive language but struggle to identify the specific target (e.g., gender), resulting in incorrect classification into broader categories.
 
+<div align="center">
+
+| True Label | Predicted Label | Tweet |
+|---|---|---|
+| `gender` | `not_cyberbullying` | "true women play football repeated concussions" |
+
+</div>
+
 - **`Implicit abuse errors`**  
   Subtle or indirect forms of cyberbullying without explicit indicators are difficult for all models to detect.
 
+<div align ="center">
+
+| True Label | Predicted Label | Tweet |
+|---|---|---|
+| `other_cyberbullying` | `not_cyberbullying` | "cant tell sarcasm clueless" |
+
+</div>
+
 - **`Short or context-poor text errors`**  
-  Tweets with limited context or vague wording (e.g., "long winding story") lack sufficient information for reliable classification.
+  Tweets with limited context or vague wording lack sufficient information for any model to make a reliable classification. This can be seen in posts that consist of only a few generic words with no explicit target or intent.
+
+<div align="center">
+
+| True Label | Predicted Label | Tweet |
+|---|---|---|
+| `other_cyberbullying` | `not_cyberbullying` | "kat fkn ass mkr" |
+
+</div>
 
 - **`Class boundary overlap errors`**  
   Significant overlap between `not_cyberbullying` and `other_cyberbullying` leads to frequent misclassification due to unclear boundaries.
+
+<div align="center">
+
+| True Label | Predicted Label | Tweet |
+|---|---|---|
+| `not_cyberbullying` | `other_cyberbullying` | "worked lot abused dogs past used lot work trai..." |
+| `other_cyberbullying` | `not_cyberbullying` | "fuck tim lol" |
+
+</div>
 
 More broadly, the misclassified examples highlight recurring challenges such as short or context poor text, implicit or indirect expressions of abuse, and semantically overlapping class definitions. These factors limit the ability of the models, especially those relying on bag-of-words or shallow representations to accurately capture nuanced meaning. These findings confirm that model errors are not random, but arise from systematic limitations in capturing context, intent, and nuanced linguistic patterns.
 
@@ -563,7 +612,7 @@ More broadly, the misclassified examples highlight recurring challenges such as 
    - `Logistic Regression` on the other hand shows a strong improvement over `Naive Bayes` on these ambiguous categories. 
       - This suggests that discriminative models are better able to learn decision boundaries when class separation is less explicit.
    - `BiLSTM` achieves the best performance on `other_cyberbullying` (1314) but performs worse than `Logistic Regression` on `not_cyberbullying` (1041 vs 1120). 
-      - This suggests that `SVM` may be more inclined to classify borderline cases as cyberbullying.
+      - This suggests that `Bi-LSTM` may be more inclined to classify borderline cases as cyberbullying.
       - Whereas `Logistic Regression` maintains a more conservative or balanced boundary.
    - Overall, the largest discrepancies across models occur in distinguishing between `not_cyberbullying` and `other_cyberbullying`. This indicates that the primary challenge lies in boundary ambiguity rather than identifying clearly defined categories. 
 
@@ -582,6 +631,8 @@ This structural ambiguity motivates the limitations discussed in Section 7.
 ---
 
 ## 5.3 Model Profiles
+
+Having established that the boundary between `not_cyberbullying` and `other_cyberbullying` is ambiguous at the data level, we now examine how each model responds to this constraint and where their individual strengths and weaknesses lie.
 
 As shown in Sections 4.3 and 5.1, `Naive Bayes` is the weakest model by a statistically significant margin. Its behaviour is strongly keyword driven as it over-relies on individual token frequencies and assumes independence between features, which makes it poorly suited for tweets where meaning depends on context. This is most visible in its tendency to misclassify both `not_cyberbullying` and `other_cyberbullying` as `age`, suggesting it latches onto surface level terms rather than capturing broader intent.
 
