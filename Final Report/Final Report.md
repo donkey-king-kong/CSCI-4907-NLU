@@ -665,6 +665,8 @@ Incorporating contextual signals beyond the content of individual tweets is anot
 
 Refining the annotation guidelines for ambiguous categories could reduce label inconsistency at the data level. As discussed in Section 7.1, the single-label constraint and unclear boundaries between categories mean that models are sometimes trained on inconsistently labelled examples. Clearer class definitions would provide a more reliable training signal, which may improve classification stability at the boundaries that all five models in this study struggled with.
 
+---
+
 # 9 References
 
 Park, J. H., & Fung, P. (2017). *One-step and two-step classification for abusive language detection on Twitter.* Proceedings of the First Workshop on Abusive Language Online, 41–45. https://doi.org/10.18653/v1/W17-3006
@@ -676,3 +678,87 @@ Salawu, S., He, Y., & Lumsden, J. (2021). *Approaches to automated detection of 
 Waseem, Z., & Hovy, D. (2016). *Hateful symbols or hateful people? Predictive features for hate speech detection on Twitter.* Proceedings of the NAACL Student Research Workshop, 88–93. https://doi.org/10.18653/v1/N16-2013
 
 Wiegand, M., Ruppenhofer, J., Schmidt, A., & Greenberg, C. (2019). *Inducing a lexicon of abusive words—A feature-based approach.* Proceedings of NAACL-HLT 2019, 1046–1056. https://doi.org/10.18653/v1/N19-1100
+
+---
+
+# 10 Appendix
+
+
+## 10.1 Model Output
+
+
+### 10.1.1 Naive Bayes (NB)
+
+<div align="center">
+  <img src="./Images/NB/NB_CM.png" width="700"/>
+  <p><em><b>Figure 10.1.1a. Confusion matrix for the Naive Bayes model.</b></em></p>
+</div>
+
+<div align="center">
+  <img src="./Images/NB/NB_ROC.png" width="700"/>
+  <p><em><b>Figure 10.1.1b. ROC curve for the Naive Bayes model.</b></em></p>
+</div>
+
+<div align="center">
+  <img src="./Images/NB/NB_LC.png" width="700"/>
+  <p><em><b>Figure 10.1.1c. Learning curve for the Naive Bayes model.</b></em></p>
+</div>
+
+---
+
+### 10.1.2 Logistic Regression (LR)
+
+<div align="center">
+  <img src="./Images/LR/LR_CM.png" width="700"/>
+  <p><em><b>Figure 10.1.2a. Confusion matrix for the Logistic Regression model.</b></em></p>
+</div>
+
+<div align="center">
+  <img src="./Images/LR/LR_ROC.png" width="700"/>
+  <p><em><b>Figure 10.1.2b. ROC curve for the Logistic Regression model.</b></em></p>
+</div>
+
+<div align="center">
+  <img src="./Images/LR/LR_LC.png" width="700"/>
+  <p><em><b>Figure 10.1.2c. Learning curve for the Logistic Regression model.</b></em></p>
+</div>
+
+---
+
+### 10.1.3 Support Vector Machine (SVM)
+
+<div align="center">
+  <img src="./Images/SVM/SVM_CM.png" width="700"/>
+  <p><em><b>Figure 10.1.3a. Confusion matrix for the SVM model.</b></em></p>
+</div>
+
+<div align="center">
+  <img src="./Images/SVM/SVM_ROC.png" width="700"/>
+  <p><em><b>Figure 10.1.3b. ROC curve for the SVM model.</b></em></p>
+</div>
+
+<div align="center">
+  <img src="./Images/SVM/SVM_LC.png" width="700"/>
+  <p><em><b>Figure 10.1.3c. Learning curve for the SVM model.</b></em></p>
+</div>
+
+---
+
+### 10.1.4 Random Forest (RF)
+
+<div align="center">
+  <img src="./Images/RF/RF_CM.png" width="700"/>
+  <p><em><b>Figure 10.1.4a. Confusion matrix for the Random Forest model.</b></em></p>
+</div>
+
+<div align="center">
+  <img src="./Images/RF/RF_ROC.png" width="700"/>
+  <p><em><b>Figure 10.1.4b. ROC curve for the Random Forest model.</b></em></p>
+</div>
+
+<div align="center">
+  <img src="./Images/RF/RF_LC.png" width="700"/>
+  <p><em><b>Figure 10.1.4c. Learning curve for the Random Forest model.</b></em></p>
+</div>
+
+---
