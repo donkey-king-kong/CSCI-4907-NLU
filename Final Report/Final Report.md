@@ -566,6 +566,7 @@ Beyond modelling, this project also reinforced good software engineering practic
 ## 6.4 Saving artifacts to improve efficiency
 
 To improve efficiency, we saved the artifacts produced by each model so that we would not need to rerun the entire pipeline every time. This taught us that designing the pipeline carefully, especially by saving results from expensive steps, can help us to reduce the time needed for repeated experimentation.
+
 ---
 
 # 7. Limitations
@@ -582,8 +583,14 @@ The meaning of a tweet often depends on conversational context and speaker inten
 
 # 8. Future Work 
 
-One possible direction for future work is the use of context-aware approaches, such as transformer-based models, as well as clearer class definitions or additional contextual information to help improve performance. This will help to capture contextual meaning and dependencies between words, oimproving the performance of the models.
+## 8.1 Use Transformer Models like BERT or RoBERTa
 
-Future work could also involve incorporating richer contextual signals beyond the content of an isolated tweet. Including such informations helps to reduce ambiguity between overlapping labels and improve classification performance.
+One direction for future work is the adoption of transformer-based models such as BERT or RoBERTa. Unlike the bag-of-words and sequential models explored in this project, transformers are pre-trained on large corpora and encode rich contextual representations of text. This would better equip models to distinguish between the overlapping classes that proved most challenging here, particularly `other_cyberbullying` and `not_cyberbullying`, where meaning depends heavily on context rather than individual keywords.
 
-Finally, refining the labeling guidelines or clearer class definitions can help to reduce ambiguity in the dataset. Having more consistently defined class boundaries allows the models to learn from a more reliable target source during training. This would improve classification stability and reduce repeated confusion between categories that currently overlap.
+## 8.2 Add More Context Beyond One Tweet
+
+A second direction involves incorporating contextual signals beyond the content of individual tweets. As identified in Section 7.2, models in this project classify tweets in isolation, without access to conversational thread context, user history, or metadata. Including such signals could help resolve cases where a tweet's intent or target is ambiguous when read alone, directly addressing one of the core sources of misclassification identified in the error analysis.
+
+## 8.3 Improve the Labelling Rules
+
+Finally, refining the annotation guidelines for ambiguous categories could reduce label inconsistency at the data level. As discussed in Section 7.1, the single-label constraint and unclear boundaries between categories mean that models are sometimes trained on inconsistently labelled examples. Clearer class definitions would provide a more reliable training signal, which may improve classification stability at the boundaries that all five models in this study struggled with.
