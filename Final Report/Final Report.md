@@ -1,7 +1,7 @@
 # 1. Introduction
 ## 1.1 Overview of Task & Research Questions
 
-Our project is a **single-label multi-class text classification for cyberbullying detection in tweets**. For a given tweet, the goal is to assign it exactly one category in the `cyberbullying_type` column. The labels for cyberbullying can be categorized by age, gender, religion, ethnicity, other cyberbullying or not cyberbullying. 
+Our project is a **single-label multi-class text classification for cyberbullying detection in tweets**. For a given tweet, the goal is to assign it exactly one category in the `cyberbullying_type` column. The labels for cyberbullying can be categorized by `age`, `gender`, `religion`, `ethnicity`, `other_cyberbullying` or `not_cyberbullying`. 
 
 Unlike traditional hate speech detection, which is typically framed as a binary (yes/no) classification task, our project would involve classifying each tweet into one of several closely related categories. This makes the task more challenging, as the classes often overlap in meaning. Additionally, the tweets are short, informal, and lacks context, which increases ambiguity. This therefore makes it harder for models to be able to accurately distinguish between categories.
 
@@ -94,7 +94,7 @@ Before training the models, exploratory data analysis was conducted to better un
 
 The class distribution shows that the dataset is not perfectly balanced across categories, which may influence model performance and bias predictions towards more frequent classes.
 
-To further analyze linguistic patterns, word clouds were generated for each label. A few selected word clouds for gender, religion, ethnicity, and non-cyberbullying labelled tweets are selected for illustration purposes.
+To further analyze linguistic patterns, word clouds were generated for each label. A few selected word clouds for `gender`, `religion`, `ethnicity`, and `not_cyberbullying` labelled tweets are selected for illustration purposes.
 
 <div align="center">
   <img src="./Images/gender.png" width="700"/>
@@ -133,7 +133,7 @@ In this project, two main text representation strategies were used:
 
 TF-IDF was chosen because it is a strong baseline for text classification. This is especially so when working with sparse textual features. This is because it is able to capture word importance relative to the corpus and often performs well on short text tasks.
 
-For Bi-LSTM, word embeddings were used to provide dense semantic representations of the tokens. This allows the model to not just determine the word counts but learn the contextual relationships within tweet sequences.
+For `Bi-LSTM`, word embeddings were used to provide dense semantic representations of the tokens. This allows the model to not just determine the word counts but learn the contextual relationships within tweet sequences.
 
 ---
 
@@ -141,49 +141,49 @@ For Bi-LSTM, word embeddings were used to provide dense semantic representations
 
 ### 3.5.1 Naive Bayes
 
-Naive Bayes was chosen as the simplest baseline model as it is simple to implement and is computationally efficient.
+`Naive Bayes` was chosen as the simplest baseline model as it is simple to implement and is computationally efficient.
 
-Although the Naive Bayes independence assumption is unrealistic, it is still well suited for high-dimensional sparse data such as TF-IDF representations. In such settings, word occurrences provide strong signals for classification, making it particularly effective as a benchmark model for comparing more complex models.
+Although the `Naive Bayes` independence assumption is unrealistic, it is still well suited for high-dimensional sparse data such as TF-IDF representations. In such settings, word occurrences provide strong signals for classification, making it particularly effective as a benchmark model for comparing more complex models.
 
-Naive Bayes is also suitable for this dataset as it contains short and sparse tweets where individual words often carry meaningful information despite limited context. However, as it assumes independence between features, it may struggle with ambiguous or labels that overlap each other.
+`Naive Bayes` is also suitable for this dataset as it contains short and sparse tweets where individual words often carry meaningful information despite limited context. However, as it assumes independence between features, it may struggle with ambiguous or labels that overlap each other.
 
-Nevertheless, Naive Bayes serves as a useful reference point for evaluating more advanced models. In particular, it allows us to assess whether these advanced models can better capture dependencies between words and improve classification performance, especially for closely related categories.
+Nevertheless, `Naive Bayes` serves as a useful reference point for evaluating more advanced models. In particular, it allows us to assess whether these advanced models can better capture dependencies between words and improve classification performance, especially for closely related categories.
 
 ---
 
 ### 3.5.2 Logistic Regression
 
-Logistic Regression was chosen as it is also fairly simple and robust on high-dimensional sparse text representations.
+`Logistic Regression` was chosen as it is also fairly simple and robust on high-dimensional sparse text representations.
 
 It is well suited for text classification tasks as it learns weighted contributions of features. This allows it to identify which words are the most indicative of each label. This makes it particularly effective when classification decisions depend on the presence of key terms.
 
 However, as a linear model it may struggle to capture complex relationships between words, especially when meaning depends on context or word combinations.
 
-Nevertheless, Logistic Regression serves as a useful comparison to Naive Bayes. This is done by evaluating whether learning feature weights can improve classification performance, particularly for closely related categories.
+Nevertheless, `Logistic Regression` serves as a useful comparison to `Naive Bayes`. This is done by evaluating whether learning feature weights can improve classification performance, particularly for closely related categories.
 
 ---
 
 ### 3.5.3 Support Vector Machine (SVM)
 
-SVM was selected due to its strong performance in high-dimensional feature spaces which are typical in text classification tasks.
+`SVM` was selected due to its strong performance in high-dimensional feature spaces which are typical in text classification tasks.
 
 It is well suited for text classification as it seeks to find an optimal decision boundary that maximizes the margin between classes. This makes it effective when classes are separable in feature space. This leads to strong generalization performance.
 
-SVM is also suitable for this dataset as clear decision boundaries may exist based on key features. However, similar to linear regression models, it may struggle to capture contextual relationships between words, especially in cases involving ambiguous or overlapping labels.
+`SVM` is also suitable for this dataset as clear decision boundaries may exist based on key features. However, similar to linear regression models, it may struggle to capture contextual relationships between words, especially in cases involving ambiguous or overlapping labels.
 
-Nevertheless, SVM still provides a strong benchmark for evaluating whether margin based classification can improve performance over simpler models such as Naive Bayes and Logistic Regression.
+Nevertheless, `SVM` still provides a strong benchmark for evaluating whether margin based classification can improve performance over simpler models such as `Naive Bayes` and `Logistic Regression`.
 
 ---
 
 ### 3.5.4 Random Forest
 
-Random Forest was included as an ensemble based model that is capable of capturing non-linear patterns in the data. This is done through the combination of multiple decision trees.
+`Random Forest` was included as an ensemble based model that is capable of capturing non-linear patterns in the data. This is done through the combination of multiple decision trees.
 
 It is suitable for problems where interactions between features are important. This is because it can model relationships that are not captured by linear models. This provides a useful contrast to the previous models, which rely primarily on linear decision boundaries.
 
-Random Forest is also suitable for this dataset as it is possible for it to capture patterns based on combinations of words rather than individual words. However, tree based methods are generally less effective on high-dimensional sparse text data, as they may struggle to fully utilize the TF-IDF representations and scale less efficiently.
+`Random Forest` is also suitable for this dataset as it is possible for it to capture patterns based on combinations of words rather than individual words. However, tree based methods are generally less effective on high-dimensional sparse text data, as they may struggle to fully utilize the TF-IDF representations and scale less efficiently.
 
-Nevertheless, Random Forest serves as a useful comparison to evaluate whether modeling non-linear feature interactions can improve classification performance for complex or ambiguous categories.
+Nevertheless, `Random Forest` serves as a useful comparison to evaluate whether modeling non-linear feature interactions can improve classification performance for complex or ambiguous categories.
 
 ---
 
@@ -191,13 +191,13 @@ Nevertheless, Random Forest serves as a useful comparison to evaluate whether mo
 
 The Bidirectional Long Short-Term Memory (Bi-LSTM) model was chosen as the primary deep learning architecture due to its ability to capture sequential dependencies in text.
 
-Unlike classical models that rely on bag-of-words representations, the Bi-LSTM processes text in both forward and backward directions. This allows it to incorporate word order and surrounding context into its predictions.
+Unlike classical models that rely on bag-of-words representations, the `Bi-LSTM` processes text in both forward and backward directions. This allows it to incorporate word order and surrounding context into its predictions.
 
-This is particularly relevant for this dataset as the short and ambiguous tweets meaning would depend on how words are used together rather than on isolated keywords. By modeling sequential context, the Bi-LSTM may be able to better distinguish between closely related categories.
+This is particularly relevant for this dataset as the short and ambiguous tweets meaning would depend on how words are used together rather than on isolated keywords. By modeling sequential context, the `Bi-LSTM` may be able to better distinguish between closely related categories.
 
-However, Bi-LSTM requires way more data and computational resources. It may also be sensitive to noise in informal text.
+However, `Bi-LSTM` requires way more data and computational resources. It may also be sensitive to noise in informal text.
 
-Nevertheless, the Bi-LSTM allows us to evaluate whether incorporating contextual and sequential information can improve classification performance over classical approaches.
+Nevertheless, the `Bi-LSTM` allows us to evaluate whether incorporating contextual and sequential information can improve classification performance over classical approaches.
 
 ---
 
@@ -509,7 +509,7 @@ More broadly, the misclassified examples highlight recurring challenges such as 
 ### 5.1.4 Cross-model Behaviour Analysis
 
 1) `[Observation]` Classes such as `age`, `religion`, `ethnicity`, and gender achieve consistently high correct predictions across all models.
-   - `[Evidence]` For example ethnicity: 1814 → 1946 → 1951 → 1952 → 1955 from `NB` → `LR` → `BiLSTM` → `SVM` → `RF`. 
+   - `[Evidence]` For example ethnicity: 1814 → 1946 → 1951 → 1952 → 1955 from `NB` → `LR` → `Bi-LSTM` → `SVM` → `RF`. 
    - `[Explanation]` This suggests that these categories contain strong and explicit lexical cues, making them easier to classify regardless of model complexity.
 
 2) `[Observation]` In contrast, `other_cyberbullying` and `not_cyberbullying` categories show substantially worst performance across all models.
@@ -524,7 +524,7 @@ More broadly, the misclassified examples highlight recurring challenges such as 
       - Whereas `Logistic Regression` maintains a more conservative or balanced boundary.
    - Overall, the largest discrepancies across models occur in distinguishing between `not_cyberbullying` and `other_cyberbullying`. This indicates that the primary challenge lies in boundary ambiguity rather than identifying clearly defined categories. 
 
-These findings are consistent with earlier misclassification pattern analysis and qualitative examples, where these two classes are frequently confused due to implicit aggression, vague wording, and lack of clear targets. Overall, the performance gain from `Naive Bayes` to `Logistic Regression` is substantial, while the improvement from `Logistic Regression` to `SVM` is more marginal. This suggests that linear discriminative models already capture most of the useful patterns in the dataset, with diminishing returns from more complex decision boundaries. Comparing these models to `Random Forest`, there is a substantial improvement in identifying identiy-related classes like `age` and `religion`, but effectiveness decreased when trying to distinguish `not_cyberbullying` and `other_cyberbullying`. This suggests that `Random Forest` struggles to identify subtle contextual meaning despite being stronger in clear lexical patterns. On the other hand, `BiLSTM` shows a significant improvement on `other_cyberbullying`, while struggling to identify `not_cyberbullying`. This suggests it is more prone to treating borderline non-bullying content as bullying.
+These findings are consistent with earlier misclassification pattern analysis and qualitative examples, where these two classes are frequently confused due to implicit aggression, vague wording, and lack of clear targets. Overall, the performance gain from `Naive Bayes` to `Logistic Regression` is substantial, while the improvement from `Logistic Regression` to `SVM` is more marginal. This suggests that linear discriminative models already capture most of the useful patterns in the dataset, with diminishing returns from more complex decision boundaries. Comparing these models to `Random Forest`, there is a substantial improvement in identifying identiy-related classes like `age` and `religion`, but effectiveness decreased when trying to distinguish `not_cyberbullying` and `other_cyberbullying`. This suggests that `Random Forest` struggles to identify subtle contextual meaning despite being stronger in clear lexical patterns. On the other hand, `Bi-LSTM` shows a significant improvement on `other_cyberbullying`, while struggling to identify `not_cyberbullying`. This suggests it is more prone to treating borderline non-bullying content as bullying.
 
 ---
 
@@ -566,7 +566,7 @@ The error taxonomy established in Section 5.1.3 maps cleanly onto these two root
 
 ## 6.1 Higher Computational Cost Does Not Always Lead to Better Performance
 
- Although `BiLSTM` required the longest training time, it did not outperform the strongest traditional models in any substantial way. Similarly, `SVM` achieved performance very close to `Logistic Regression`, but at a much higher computational cost. This demonstrates that model selection should not be based on predictive performance alone, but should also consider computational efficiency.
+ Although `Bi-LSTM` required the longest training time, it did not outperform the strongest traditional models in any substantial way. Similarly, `SVM` achieved performance very close to `Logistic Regression`, but at a much higher computational cost. This demonstrates that model selection should not be based on predictive performance alone, but should also consider computational efficiency.
 
 ---
 
