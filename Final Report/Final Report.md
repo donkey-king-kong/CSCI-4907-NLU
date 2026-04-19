@@ -286,7 +286,58 @@ Among the stronger models, `Logistic Regression` provides the most balanced over
 
 ---
 
-## 4.4 Statistical Test
+## 4.4 LLM Benchmarking
+
+### 4.4.1 Overall Comparison
+
+| Model | Accuracy | Precision | Recall | F1-Score |
+|:--|--:|--:|--:|--:|
+| Ollama (Qwen2.5 7B) | 0.443 | 0.524 | 0.443 | 0.428 |
+| GPT-4.1-mini | 0.521 | 0.599 | 0.521 | 0.499 |
+| BART-large-mnli | 0.450 | 0.450 | 0.450 | 0.400 |
+| ModernBERT-large | 0.570 | 0.630 | 0.570 | 0.550 |
+| DeBERTa-v3-large | 0.550 | 0.590 | 0.550 | 0.550 |
+
+All five zero-shot LLMs performed substantially worse than every trained model. Among them, `ModernBERT-large` achieved the highest accuracy (0.570) and F1-score (0.550), as it is purpose-built for zero-shot classification via NLI. The gap between the best LLM (0.570) and best trained model (0.815) exceeds 24% which shows that task specific training outperforms zero-shot prompting for this task. All LLM benchmarks were conducted under zero-shot conditions without fine-tuning, which represents an inherently disadvantaged setting compared to the trained models.
+
+---
+### 4.4.2 Class-wise Comparison
+
+**Precision Comparison**
+
+| Model | Religion | Age | Ethnicity | Gender | Other Cyberbullying | Not Cyberbullying |
+|:--|--:|--:|--:|--:|--:|--:|
+| Ollama (Qwen2.5 7B) | 0.85 | 0.51 | 0.79 | 0.48 | 0.13 | 0.39 |
+| GPT-4.1-mini | 0.92 | 0.71 | 0.85 | 0.58 | 0.14 | 0.40 |
+| BART-large-mnli | 0.86 | 0.35 | 0.52 | 0.38 | 0.34 | 0.27 |
+| ModernBERT-large | 0.89 | 0.79 | 0.77 | 0.50 | 0.47 | 0.38 |
+| DeBERTa-v3-large | 0.87 | 0.77 | 0.80 | 0.47 | 0.31 | 0.36 |
+
+**Recall Comparison**
+
+| Model | Religion | Age | Ethnicity | Gender | Other Cyberbullying | Not Cyberbullying |
+|:--|--:|--:|--:|--:|--:|--:|
+| Ollama (Qwen2.5 7B) | 0.85 | 0.02 | 0.42 | 0.44 | 0.23 | 0.69 |
+| GPT-4.1-mini | 0.82 | 0.04 | 0.87 | 0.42 | 0.19 | 0.77 |
+| BART-large-mnli | 0.49 | 0.61 | 0.83 | 0.63 | 0.07 | 0.08 |
+| ModernBERT-large | 0.69 | 0.23 | 0.81 | 0.76 | 0.20 | 0.73 |
+| DeBERTa-v3-large | 0.67 | 0.44 | 0.83 | 0.52 | 0.12 | 0.75 |
+
+**F1-Score Comparison**
+
+| Model | Religion | Age | Ethnicity | Gender | Other Cyberbullying | Not Cyberbullying |
+|:--|--:|--:|--:|--:|--:|--:|
+| Ollama (Qwen2.5 7B) | 0.85 | 0.04 | 0.55 | 0.46 | 0.17 | 0.50 |
+| GPT-4.1-mini | 0.87 | 0.08 | 0.86 | 0.49 | 0.16 | 0.53 |
+| BART-large-mnli | 0.62 | 0.44 | 0.64 | 0.48 | 0.11 | 0.12 |
+| ModernBERT-large | 0.78 | 0.35 | 0.79 | 0.60 | 0.28 | 0.50 |
+| DeBERTa-v3-large | 0.76 | 0.56 | 0.81 | 0.49 | 0.17 | 0.48 |
+
+Across all three metrics, `religion` and `ethnicity` are consistently the strongest classes for LLMs due to their distinctive vocabulary, while `other_cyberbullying` remains the weakest across all five models with recall ranging from just 0.07 to 0.20. The near-zero recall on `age` is specific to instruction following models like `Ollama (Qwen2.5 7B)` (0.02) and `GPT-4.1-mini` (0.04) whereas NLI-based models like `DeBERTa-v3-large` and `BART-large-mnli` handle `age` more reliably. Even the strongest LLM `ModernBERT-large` falls short of all trained models on `other_cyberbullying`. This confirms that this category poses a fundamental challenge regardless of model type.
+
+---
+
+## 4.5 Statistical Test
 
 We performed 3 tests to provide us more insights and basis of comparison for the various models against each other.
 
@@ -296,7 +347,7 @@ All statistical tests are conducted on paired binary correctness (correct vs inc
 
 ---
 
-### 4.4.1 Cochran's Q Test
+### 4.5.1 Cochran's Q Test
 
 Cochran's Q test is used to determine whether there is an overall statistically significant difference in prediction performance across all five models on the same test set.
 
@@ -318,7 +369,7 @@ However, the Cochran's Q test does not indicate which specific models differ fro
 
 ---
 
-### 4.4.2 McNemar's Test
+### 4.5.2 McNemar's Test
 
 McNemar's test is used to compare pairs of models and determine whether their differences in prediction performance were statistically significant. Due to the large number of pair-wise comparisons, we applied Bonferroni correction to adjust for these multiple pair-wise comparisons and reduce the risk of false positives.
 
@@ -346,7 +397,7 @@ In contrast, there are no statistically significant differences that is observed
 
 ---
 
-### 4.4.3 Effect Size
+### 4.5.3 Effect Size
 
 The effect size analysis provides us insights into the practical magnitude of performance differences between the models.
 
@@ -371,7 +422,7 @@ The effect size results show that the largest performance differences all involv
 
 ---
 
-### 4.4.4 Summary of Statistical Tests
+### 4.5.4 Summary of Statistical Tests
 
 All 3 tests present a consistent picture of model performance.
 
@@ -383,7 +434,7 @@ In conclusion, the poorer performance of `Naive Bayes` can be attributed to its 
 
 ---
 
-### 4.4.5 Limitation of Statistical Analysis
+### 4.5.5 Limitation of Statistical Analysis
 
 It is important to note that the statistical tests are based on binary correctness (correct vs incorrect predictions). THis does not capture class specific performance differences. In particular, this may mask variations in precision and recall across different categories, especially in a multi-class setting where some classes are inherently more difficult than others.
 
