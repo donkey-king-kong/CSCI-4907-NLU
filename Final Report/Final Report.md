@@ -422,6 +422,7 @@ The results show that a majority of the tweets (7,872) were classified correctly
 
 2,796 tweets fell into the mixed category, where models disagreed in their predictions. These cases highlight differences in model behaviour, with each model capturing distinct aspects of the data, from lexical cues to contextual patterns. They form the basis for the cross-model analysis in Section 5.2.
 
+---
 
 ### 5.1.2 Misclassification Pattern Analysis
 
@@ -446,6 +447,8 @@ Gender based cyberbullying was sometimes misclassified as either not_cyberbullyi
 More broadly, categories such as other_cyberbullying exhibit higher misclassification rates across all models. This suggests that these labels are semantically broad and overlap with multiple categories, making them inherently harder to model and more prone to misclassification. These patterns highlight that model errors are not random, but are concentrated in specific class boundaries and structurally ambiguous categories.
 
 The linguistic reasons behind these specific confusion pairs are examined in Section 5.1.3.
+
+---
 
 ### 5.1.3 Qualitative Error Analysis
 
@@ -587,10 +590,10 @@ The meaning of a tweet often depends on conversational context and speaker inten
 
 One direction for future work is the adoption of transformer-based models such as BERT or RoBERTa. Unlike the bag-of-words and sequential models explored in this project, transformers are pre-trained on large corpora and encode rich contextual representations of text. This would better equip models to distinguish between the overlapping classes that proved most challenging here, particularly `other_cyberbullying` and `not_cyberbullying`, where meaning depends heavily on context rather than individual keywords.
 
-## 8.2 Add More Context Beyond One Tweet
+## 8.2 Incorporate Contextual Signals Beyond Individual Tweets
 
-A second direction involves incorporating contextual signals beyond the content of individual tweets. As identified in Section 7.2, models in this project classify tweets in isolation, without access to conversational thread context, user history, or metadata. Including such signals could help resolve cases where a tweet's intent or target is ambiguous when read alone, directly addressing one of the core sources of misclassification identified in the error analysis.
+Incorporating contextual signals beyond the content of individual tweets is another promising direction. As identified in Section 7.2, models in this project classify tweets in isolation, without access to conversational thread context, user history, or metadata. Including such signals could help resolve cases where a tweet's intent or target is ambiguous when read alone, directly addressing one of the core sources of misclassification identified in the error analysis.
 
-## 8.3 Improve the Labelling Rules
+## 8.3 Refining Annotation Guidelines For Ambiguous Categories
 
-Finally, refining the annotation guidelines for ambiguous categories could reduce label inconsistency at the data level. As discussed in Section 7.1, the single-label constraint and unclear boundaries between categories mean that models are sometimes trained on inconsistently labelled examples. Clearer class definitions would provide a more reliable training signal, which may improve classification stability at the boundaries that all five models in this study struggled with.
+Refining the annotation guidelines for ambiguous categories could reduce label inconsistency at the data level. As discussed in Section 7.1, the single-label constraint and unclear boundaries between categories mean that models are sometimes trained on inconsistently labelled examples. Clearer class definitions would provide a more reliable training signal, which may improve classification stability at the boundaries that all five models in this study struggled with.
