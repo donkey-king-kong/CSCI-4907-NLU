@@ -554,7 +554,6 @@ The error taxonomy established in Section 5.1.3 maps cleanly onto these two root
 
 Returning to our research questions, for the first question, classical models held their own against the Bi-LSTM despite being a fraction of the computational cost with all four stronger models landing within a narrow accuracy band of 80.9–81.5%. In the second question, `other_cyberbullying` and `not_cyberbullying` were clearly the hardest categories as both consistently ranked at the bottom of the evaluation metrics table across every model we tested. As for the third question, the errors traced back to a few causes: overlapping vocabularies between ambiguous classes, over-reliance on surface-level cues, short tweets lacking context, and abuse expressed too indirectly to detect reliably. None of the five models we evaluated were able to fully get around these issues.
 
-
 ---
 
 # 6. Lessons Learned
@@ -614,3 +613,15 @@ Incorporating contextual signals beyond the content of individual tweets is anot
 ## 8.3 Refining Annotation Guidelines For Ambiguous Categories
 
 Refining the annotation guidelines for ambiguous categories could reduce label inconsistency at the data level. As discussed in Section 7.1, the single-label constraint and unclear boundaries between categories mean that models are sometimes trained on inconsistently labelled examples. Clearer class definitions would provide a more reliable training signal, which may improve classification stability at the boundaries that all five models in this study struggled with.
+
+# 9 References
+
+Park, J. H., & Fung, P. (2017). *One-step and two-step classification for abusive language detection on Twitter.* Proceedings of the First Workshop on Abusive Language Online, 41–45. https://doi.org/10.18653/v1/W17-3006
+
+Pavlopoulos, J., Malakasiotis, P., & Androutsopoulos, I. (2017). *Deeper attention to abusive user content moderation.* Proceedings of the 2017 Conference on Empirical Methods in Natural Language Processing (EMNLP), 1125–1135. https://doi.org/10.18653/v1/D17-1117
+
+Salawu, S., He, Y., & Lumsden, J. (2021). *Approaches to automated detection of cyberbullying: A survey.* IEEE Transactions on Affective Computing, 12(1), 3–24. https://doi.org/10.1109/TAFFC.2017.2761757
+
+Waseem, Z., & Hovy, D. (2016). *Hateful symbols or hateful people? Predictive features for hate speech detection on Twitter.* Proceedings of the NAACL Student Research Workshop, 88–93. https://doi.org/10.18653/v1/N16-2013
+
+Wiegand, M., Ruppenhofer, J., Schmidt, A., & Greenberg, C. (2019). *Inducing a lexicon of abusive words—A feature-based approach.* Proceedings of NAACL-HLT 2019, 1046–1056. https://doi.org/10.18653/v1/N19-1100
