@@ -553,32 +553,30 @@ The error taxonomy established in Section 5.1.3 maps cleanly onto these two root
 
 ## 6.2 Accuracy Alone Is Insufficient
 
-While several models achieved similar overall accuracy, class-wise analysis revealed meaningful differences in how well they handled specific categories. `other_cyberbullying` and `not_cyberbullying` were consistently the hardest to classify across all models, reflecting the fact that some label boundaries are inherently less distinct. This is particularly evident when tweets are short, informal, and context-dependent. This highlights the importance of examining precision, recall, and F1-score at the class level, and suggests that improving performance on ambiguous categories may require not only better models but also clearer label definitions and richer contextual information.
+While several models achieved similar overall accuracy, class-wise analysis revealed meaningful differences in how well they handled specific categories. `other_cyberbullying` and `not_cyberbullying` were consistently the hardest to classify across all models. This suggests that the boundary between these labels are less distinct than for other classes. A possible reason is that the tweets are often short, informal, and context-dependent. This highlights the importance of examining precision, recall, and F1-score at the class level, and suggests that improving performance on ambiguous categories may require not only better models but also clearer label definitions and richer contextual information.
 
 ---
 
 ## 6.3 Importance of Git
 
-Beyond modelling, this project also reinforced good software engineering practices. Through this project, we learned and practiced proper code management using Git by simulating a realistic development setting. This helped us understand the importance of version control to prevent issues such as version conflicts or accidental loss of work. Git is widely used in real-world projects hence this hands-on experience was extremely valuable.
+Beyond modelling, this project also reinforced good software engineering practices. We learned and practiced proper code management using Git by simulating a realistic development setting. This helped us understand the importance of version control to prevent issues such as version conflicts or accidental loss of work. Git is widely used in real-world projects hence this hands-on experience was extremely valuable.
 
 ---
 
 ## 6.4 Saving artifacts to improve efficiency
 
 To improve efficiency, we saved the artifacts produced by each model so that we would not need to rerun the entire pipeline every time. This taught us that designing the pipeline carefully, especially by saving results from expensive steps, can help us to reduce the time needed for repeated experimentation.
-
 ---
 
 # 7. Limitations
 
 ## 7.1 Dataset and Label Ambiguity
 
- Cyberbullying detection is inherently subjective, and the distinction between some labels may not always be clear. For example, the models tend to confuse the classes `Other Cyberbullying` and `Not Cyberbullying`. 
- Hence, the performance of the models depend on how clear the class labels are separated.
+ As discussed in Section 5.2, the boundary between `other_cyberbullying` and `not_cyberbullying` is ambiguous at the data level. Cyberbullying detection is inherently subjective, and without clearer annotation guidelines, different annotators may label the same tweet differently. This means models are trained on labels that may themselves be inconsistently applied, placing a ceiling on performance that cannot be overcome through better model architecture alone. More broadly, the dataset uses a single-label setting, where each tweet is assigned to exactly one category. However, this does not fully reflect reality, since a tweet may contain multiple overlapping forms of abuse at the same time. This limits how well any model trained on the dataset can generalise.
 
 ## 7.2 Lack of Context Beyond Individual Tweets
 
-The meaning of a tweet often depends on conversational context, speaker’s intent. It is difficult for any model to reliably distinguish the tone of the speech without additional context.
+The meaning of a tweet often depends on conversational context and speaker intent that is not captured within the tweet itself. A message that appears benign in isolation may be abusive within a broader thread, and vice versa. Since all models in this project classify tweets individually, they do not have access to any surrounding context. This creates a fundamental information constraint. As a result, their ability to detect implicit or indirect forms of cyberbullying is limited. This is reflected in the persistent misclassification of subtle cases, particularly within the `other_cyberbullying` and `not_cyberbullying` categories.
 
 ---
 
