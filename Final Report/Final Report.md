@@ -288,7 +288,7 @@ From the results, we can infer that all the models are strong in indentifying ex
 
 However, all models performed noticeably worse on the more ambiguous categories, namely other cyberbullying and not cyberbulling. As seen from the table above, these two classes show substatntially lower precision, recall and F1-scores, suggesting that the models struggle in distinguishing them clearly and capturing all true instances. This is especially evident in `Naive Bayes`, which records particularly low recall and F1-scores for these classes, indicating weaker performance on subtle or context-dependent language.
 
-Among the stronger models, `Logistic Regression` provides the most balanced overall performance, combining high scores on the clearer classes with relatively better consistency across the harder categories, while remaining computationally efficient. `SVM` and `Random Forest` achieve similar strengths on explicit categories and in some cases slightly better recall for other cyberbullying, bu these gains are modest when comapred against their higher training cost.
+Among the stronger models, `Logistic Regression` provides the most balanced overall performance, combining high scores on the clearer classes with relatively better consistency across the harder categories, while remaining computationally efficient. `SVM` and `Random Forest` achieve similar strengths on explicit categories and in some cases slightly better recall for other cyberbullying, but these gains are modest when comapred against their higher training cost.
 
 ---
 
@@ -373,9 +373,9 @@ The effect size results show that the largest performance differences all involv
 
 All 3 tests present a consistent picture of model performance.
 
-Cochran's Q test confirms that there are statistically differences among the model. The McNemar's test shows that these differences are primarily driven by `Naive Bayes`, which performs significantly worse than all other models. Lastly, the Effect Size analysis further indicates that this gap is substantial, with accuracy differences of approximately 8.5 to 9.1 percentage points, indicating a practically meaningful difference.
+Cochran's Q test confirms that there are statistically significant differences among the model. The McNemar's test shows that these differences are primarily driven by `Naive Bayes`, which performs significantly worse than all other models. Lastly, the Effect Size analysis further indicates that this gap is substantial, with accuracy differences of approximately 8.5 to 9.1 percentage points, indicating a practically meaningful difference.
 
-In contrast, the `Logistic Regression`, `SVM`, `Random Forest`, and `Bi-LSTM` show neither statistically significant nor practically meaningful differences in performance. Their accuracy differences are belower 1 percentage point. This suggests that the stronger models operate at a similar performance level.
+In contrast, the `Logistic Regression`, `SVM`, `Random Forest`, and `Bi-LSTM` show neither statistically significant nor practically meaningful differences in performance. Their accuracy differences are below 1 percentage point. This suggests that the stronger models operate at a similar performance level.
 
 In conclusion, the poorer performance of `Naive Bayes` can be attributed to its reliance on its independence assumptions and surface level lexical features. This makes it less effective for handling complex or ambiguous inputs. 
 
@@ -420,7 +420,8 @@ By structuring the data in this way, we move from evaluating overall accuracy to
 
 The results show that a majority of the tweets (7,872) were classified correctly by all models, indicating that a large portion of the dataset contains relatively clear and distinguishable patterns. However, 1,255 tweets were misclassified by all models, suggesting the presence of inherently difficult cases. This could be due to ambiguity, subtle language, or weak class-specific signals. The fact that all models failed on them indicates that the issue lies more with the complexity of the data than with a specific model.
 
-2,796 tweets fell into the mixed category, where models disagreed in their predictions. These cases highlight the differences in model behaviour, suggesting that each model captures different aspects of the data, such as lexical cues versus contextual patterns. These cases are where the models diverge, and they form the basis for the cross-model analysis in Section 5.2.
+2,796 tweets fell into the mixed category, where models disagreed in their predictions. These cases highlight differences in model behaviour, with each model capturing distinct aspects of the data, from lexical cues to contextual patterns. They form the basis for the cross-model analysis in Section 5.2.
+
 
 ### 5.1.2 Misclassification Pattern Analysis
 
@@ -442,7 +443,7 @@ A second notable pattern was that `Naive Bayes` showed a strong bias towards pre
 
 Gender based cyberbullying was sometimes misclassified as either not_cyberbullying or other_cyberbullying. For example, `Logistic Regression` misclassified 163 gender related cases as not_cyberbullying, and `SVM` misclassified 196 such cases as other_cyberbullying. This indicates that this class lacks strong or consistent distinguishing features, possibly because gender-related abuse is expressed, or overlap with more general forms of offensive language.
 
-More broadly, categories such as other_cyberbullying exhibit higher misclassification rates across all models. This suggests that these labels are semantically broad and overlap with multiple categories, making them inherently harder to model and more prone to misclassification. These patterns highlight that model errors are not random, but are concentrated in specific class boundaries and structually ambiguous categories.
+More broadly, categories such as other_cyberbullying exhibit higher misclassification rates across all models. This suggests that these labels are semantically broad and overlap with multiple categories, making them inherently harder to model and more prone to misclassification. These patterns highlight that model errors are not random, but are concentrated in specific class boundaries and structurally ambiguous categories.
 
 The linguistic reasons behind these specific confusion pairs are examined in Section 5.1.3.
 
@@ -489,20 +490,20 @@ More broadly, the misclassified examples highlight recurring challenges such as 
 ### 5.1.4 Cross-model Behaviour Analysis
 
 1) `[Observation]` Classes such as `age`, `religion`, `ethnicity`, and gender achieve consistently high correct predictions across all models.
-   - `[Evidence]` For example ethnicity: 1814 → 1946 → 1951 → 1952 → 1955 from NB → LR → BiLSTM → SVM → RF. 
+   - `[Evidence]` For example ethnicity: 1814 → 1946 → 1951 → 1952 → 1955 from `NB` → `LR` → `BiLSTM` → `SVM` → `RF`. 
    - `[Explanation]` This suggests that these categories contain strong and explicit lexical cues, making them easier to classify regardless of model complexity.
 
 2) `[Observation]` In contrast, `other_cyberbullying` and `not_cyberbullying` categories show substantially worst performance across all models.
-   - `[Evidence]` For example, NB (712 / 661) vs SVM (1414 / 987). 
+   - `[Evidence]` For example, `NB` (712 / 661) vs `SVM` (1414 / 987). 
    - `[Explanation]` This indicates that these classes are inherently more ambiguous and lack clear distinguishing features.
-   - Naive Bayes performs significantly worse on these difficult classes, particularly for not_cyberbullying (661) and other_cyberbullying (712). 
+   - `Naive Bayes` performs significantly worse on these difficult classes, particularly for `not_cyberbullying` (661) and `other_cyberbullying` (712). 
       - This highlights its limitation in capturing contextual nuance due to its reliance on independent word frequency assumptions.
-   - Logistic Regression on the other hand shows a strong improvement over Naive Bayes on these ambiguous categories. 
+   - `Logistic Regression` on the other hand shows a strong improvement over `Naive Bayes` on these ambiguous categories. 
       - This suggests that discriminative models are better able to learn decision boundaries when class separation is less explicit.
-   - BiLSTM achieves the best performance on other_cyberbullying (1314) but performs worse than Logistic Regression on not_cyberbullying (1041 vs 1120). 
-      - This suggests that SVM may be more inclined to classify borderline cases as cyberbullying.
-      - Whereas Logistic Regression maintains a more conservative or balanced boundary.
-   - Overall, the largest discrepancies across models occur in distinguishing between not_cyberbullying and other_cyberbullying. This indicates that the primary challenge lies in boundary ambiguity rather than identifying clearly defined categories. 
+   - `BiLSTM` achieves the best performance on `other_cyberbullying` (1314) but performs worse than `Logistic Regression` on `not_cyberbullying` (1041 vs 1120). 
+      - This suggests that `SVM` may be more inclined to classify borderline cases as cyberbullying.
+      - Whereas `Logistic Regression` maintains a more conservative or balanced boundary.
+   - Overall, the largest discrepancies across models occur in distinguishing between `not_cyberbullying` and `other_cyberbullying`. This indicates that the primary challenge lies in boundary ambiguity rather than identifying clearly defined categories. 
 
 These findings are consistent with earlier misclassification pattern analysis and qualitative examples, where these two classes are frequently confused due to implicit aggression, vague wording, and lack of clear targets. Overall, the performance gain from `Naive Bayes` to `Logistic Regression` is substantial, while the improvement from `Logistic Regression` to `SVM` is more marginal. This suggests that linear discriminative models already capture most of the useful patterns in the dataset, with diminishing returns from more complex decision boundaries. Comparing these models to `Random Forest`, there is a substantial improvement in identifying identiy-related classes like `age` and `religion`, but effectiveness decreased when trying to distinguish `not_cyberbullying` and `other_cyberbullying`. This suggests that `Random Forest` struggles to identify subtle contextual meaning despite being stronger in clear lexical patterns. On the other hand, `BiLSTM` shows a significant improvement on `other_cyberbullying`, while struggling to identify `not_cyberbullying`. This suggests it is more prone to treating borderline non-bullying content as bullying.
 
@@ -536,15 +537,9 @@ As shown in Sections 4.3 and 5.1, `Naive Bayes` is the weakest model by a statis
 
 The aggregate metrics in Section 4 present a consistent picture where the four models performs similarly, and one falls significantly behind. However, this masks two distinct failure modes. `Naive Bayes` fails primarily due to its model design, where its independence assumption and reliance on raw word frequencies make it ill-equipped for tweets where meaning is contextual or implicit. The four stronger models, by contrast, do not fail for the same reason. Their errors are concentrated at the `not_cyberbullying`, `other_cyberbullying` boundary, which as shown in Section 5.2, is ambiguous at the data level rather than a consequence of any architectural limitation.
 
-This distinction is most clearly illustrated by the fact that model complexity alone does not resolve the boundary problem. `Logistic Regression` and `Bi-LSTM` represent very different levels of architectural sophistication. One is a linear discriminative model, the other a sequential deep learning architecture. Yet they btoh achieve statistically equivalent overall accuracy. Both hit the same performance ceiling, imposed not by their design but by the inherent ambiguity of the task and the overlap between class boundaries in the dataset.
+This distinction is most clearly illustrated by the fact that model complexity alone does not resolve the boundary problem. `Logistic Regression` and `Bi-LSTM` represent very different levels of architectural sophistication. One is a linear discriminative model, the other a sequential deep learning architecture. Yet they both achieve statistically equivalent overall accuracy. Both hit the same performance ceiling, imposed not by their design but by the inherent ambiguity of the task and the overlap between class boundaries in the dataset.
 
 The error taxonomy established in Section 5.1.3 maps cleanly onto these two root causes. Keyword triggered and lexical bias errors are characteristic of `Naive Bayes` and stem from its model limitations. Implicit abuse errors, class boundary overlap errors, and target ambiguity errors persist across all five models, pointing instead to properties of the data and label definitions that no model in this comparison was able to overcome. Hence addressing the latter category would require richer contextual signals, clearer annotation guidelines, or more expressive model inputs.
-
----
-
-## 5.5 Error Patterns
-
-
 
 ---
 
