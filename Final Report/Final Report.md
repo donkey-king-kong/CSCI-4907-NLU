@@ -510,7 +510,7 @@ These findings are consistent with earlier misclassification pattern analysis an
 
 ## 5.2 Class Boundary Behaviour 
 
-The persistent confusion between `not_cyberbullying` and `other_cyberbullying` is not solely a model limitation — it reflects ambiguity at the data level. As shown in the word clouds in Section 3.3, these two classes share a significant amount of overlapping vocabulary, including general insults and informal expressions that appear across both categories. Unlike identity-based classes such as `religion` or `ethnicity`, which contain distinctive and topic-specific terms, the boundary between `not_cyberbullying` and `other_cyberbullying` is not clearly defined by any consistent set of lexical features. This means that even a well-performing model has limited signal to work with when distinguishing between them.
+The persistent confusion between `not_cyberbullying` and `other_cyberbullying` is not solely a model limitation as it reflects ambiguity at the data level. As shown in the word clouds in Section 3.3, these two classes share a significant amount of overlapping vocabulary, including general insults and informal expressions that appear across both categories. Unlike identity-based classes such as `religion` or `ethnicity`, which contain distinctive and topic-specific terms, the boundary between `not_cyberbullying` and `other_cyberbullying` is not clearly defined by any consistent set of lexical features. This means that even a well-performing model has limited signal to work with when distinguishing between them.
 
 Short tweet length compounds this further. When a tweet consists of only a few words with no explicit target, intent marker, or contextual cue, there is simply insufficient information for any model to make a reliable classification. This is a property of the data itself rather than a flaw in any particular model architecture, which explains why the confusion between these two classes persists across all five models regardless of complexity. 
 
@@ -518,16 +518,32 @@ This structural ambiguity motivates the limitations discussed in Section 7.
 
 ---
 
-## 5.3 Class Boundary Analysis
+## 5.3 Model Profiles
+
+As shown in Sections 4.3 and 5.1, `Naive Bayes` is the weakest model by a statistically significant margin. Its behaviour is strongly keyword driven as it over-relies on individual token frequencies and assumes independence between features, which makes it poorly suited for tweets where meaning depends on context. This is most visible in its tendency to misclassify both `not_cyberbullying` and `other_cyberbullying` as `age`, suggesting it latches onto surface level terms rather than capturing broader intent.
+
+`Logistic Regression` is the most balanced model across all classes. It learns weighted feature contributions rather than treating all words equally, which gives it a more calibrated decision boundary. Among the four stronger models, it performs best on `not_cyberbullying`, suggesting it maintains a more conservative threshold as it is less likely to flag borderline content as abusive when the evidence is weak. Combined with its low computational cost, it offers the best overall profile for this task.
+
+`SVM` achieves the highest recall on `other_cyberbullying` among all models, but this comes at a cost because it is more aggressive in its classification boundary and tends to pull borderline cases toward the bullying side. Its overall accuracy is nearly identical to `Logistic Regression`, but its higher training cost and more aggressive boundary make it a less practical choice despite its marginal strength on ambiguous bullying content.
+
+`Random Forest` performs strongly on identity-based classes such as `ethnicity`, `age`, and `religion`, where clear lexical patterns exist across many decision trees. However, it is the weakest of the four stronger models on `not_cyberbullying`, with a recall of only 0.46. This suggests that while it captures explicit patterns well, it does not generalise effectively to the subtle contextual distinctions that separate non-bullying from ambiguous bullying content.
+
+`Bi-LSTM` achieves the best performance on `other_cyberbullying` among all models, which reflects its ability to capture sequential context and word dependencies that bag-of-words models miss. However, it performs the worst on `not_cyberbullying` among the stronger models, with a recall of 0.51. This suggests that its sequential sensitivity makes it more prone to treating borderline non-bullying content as abusive as it picks up on tone and phrasing patterns associated with cyberbullying even when no clear target or intent is present.
 
 ---
 
 ## 5.4 Synthesis
 
+The aggregate metrics in Section 4 present a consistent picture where the four models performs similarly, and one falls significantly behind. However, this masks two distinct failure modes. `Naive Bayes` fails primarily due to its model design, where its independence assumption and reliance on raw word frequencies make it ill-equipped for tweets where meaning is contextual or implicit. The four stronger models, by contrast, do not fail for the same reason. Their errors are concentrated at the `not_cyberbullying`, `other_cyberbullying` boundary, which as shown in Section 5.2, is ambiguous at the data level rather than a consequence of any architectural limitation.
+
+This distinction is most clearly illustrated by the fact that model complexity alone does not resolve the boundary problem. `Logistic Regression` and `Bi-LSTM` represent very different levels of architectural sophistication. One is a linear discriminative model, the other a sequential deep learning architecture. Yet they btoh achieve statistically equivalent overall accuracy. Both hit the same performance ceiling, imposed not by their design but by the inherent ambiguity of the task and the overlap between class boundaries in the dataset.
+
+The error taxonomy established in Section 5.1.3 maps cleanly onto these two root causes. Keyword triggered and lexical bias errors are characteristic of `Naive Bayes` and stem from its model limitations. Implicit abuse errors, class boundary overlap errors, and target ambiguity errors persist across all five models, pointing instead to properties of the data and label definitions that no model in this comparison was able to overcome. Hence addressing the latter category would require richer contextual signals, clearer annotation guidelines, or more expressive model inputs.
 
 ---
 
 ## 5.5 Error Patterns
+
 
 
 ---
