@@ -416,13 +416,8 @@ By structuring the data in this way, we move from evaluating overall accuracy to
 |--:|--:|--:|--:|
 | 11923 | 7872 | 1255 | 2796 |
 
-**Observations**
-
-The results show that a majority of the tweets (7,872) were classified correctly by all models, indicating that a large portion of the dataset contains relatively clear and distinguishable patterns. However, 1,255 tweets were misclassified by all models, suggesting the presence of inherently difficult cases. This could be due to ambiguity, subtle language, or weak class-specific signals. The fact that all models failed on them indicates that the issue lies more with the complexity of the data than with a specific model.
-
-2,796 tweets fell into the mixed category, where models disagreed in their predictions. These cases  highlight the differences in model behaviour, suggesting that each model captures different aspects of the data, such as lexical cues versus contextual patterns. 
-
-Overall, this partitioning provides a structured foundation for subsequent analysis by distinguishing between universally easy, universally hard, and model-dependent cases.
+**Summary**
+The error partitioning results show that the dataset contains a mix of universally easy cases, universally difficult cases, and model-dependent cases. While many tweets were classified correctly by all models, there were still a small subset which were misclassified by all models. This suggests the presence of inherently difficult cases. In addition, a notable portion of the dataset fell into the mixed category, where model predictions disagreed. This highlights the differences in model behaviour
 
 ### 5.1.2 Misclassification Pattern Analysis
 
@@ -477,6 +472,7 @@ Finally, the confusion between `not_cyberbullying` and `other_cyberbullying` was
 ---
 
 ## 5.3 Model Behaviour Differences
+
 
 
 ---
@@ -546,7 +542,13 @@ While several models achieved similar overall performance, class-wise analysis r
 
 Across almost all models, `Other Cyberbullying` and `Not Cyberbullying` were hardest to classify. This suggests that some label boundaries are inherently less distinct, especially when tweets are short, informal, and context-dependent. As a result, improving performance may require not only better models, but also better contextual information and clearer label definitions.
 
-## 6.4 
+## 6.4 Importance of Git
+
+Through this project, we learned and practiced proper code management using Git by simulating a realistic development setting. This helped us understand the importance of version control to prevent issues such as version conflicts or accidental loss of work. Git is widely used in real-world projects hence this hands-on experience was extremely valuable.
+
+## 6.5 Saving artifacts to improve efficiency
+
+To improve efficiency, we saved the artifacts produced by each model so that we would not need to rerun the entire pipeline every time. This helped us to reduce repeated computation and save time, improving our workflow efficiency.
 
 ---
 
