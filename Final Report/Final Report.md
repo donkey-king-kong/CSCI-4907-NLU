@@ -42,19 +42,16 @@ This project contributes to this space by providing:
 
 # 2. Brief Literature Review
 
-Cyberbullying and abusive language detection have been widely researched in natural language processing, with extensive work spanning traditional machine learning, dataset development, and deep learning approaches.
+Cyberbullying and abusive language detection have received considerable attention in natural language processing across traditional machine learning, dataset development, and deep learning approaches.
 
-Research by Waseem and Hovy (2016) had demonstrated that traditional machine learning models, combined with textual features such as character n-grams, can be highly effective in detecting abusive content on Twitter. Their results showed that properly engineered representations, together with simple classifiers can serve as strong and competitive baselines.
+Waseem and Hovy (2016) showed that traditional machine learning models can provide strong baseline performance for detecting abusive language on Twitter when combined with features like character n-grams. Their findings motivate our inclusion of Naive Bayes, Logistic Regression, SVM, and Random Forest, as well as TF-IDF vectorization. 
 
-Subsequently, research expanded this field by introducing larger datasets and more fine grained annotation schemes. For example, Salawu et al. (2021) contributed a large dataset for cyberbullying and online abuse detection. This enabled more detailed categorization of harmful language. This is significant because it moves beyond simple abusive, non-abusive distinctions and supports a more nuanced modeling of different forms of online harm.
+Building on this, Salawu et al. (2021) introduced large-scale datasets with fine-grained annotation schemes that support multi-class labelling across specific categories of harm. This is precisely the setting our project operates in, and motivated our decision to evaluate performance at the class level rather than relying on aggregate accuracy alone.
 
-In a similar vein, deep learning approaches have also been widely explored for moderation and abuse detection tasks. For example, Pavlopoulos et al. (2017) showed that neural network architectures are actually able to capture contextual dependencies in text more effectively than traditional methods. Whereas Park and Fung (2017) had demonstrated improvements over bag-of-words approaches for abusive language detection on Twitter in certain settings.
+Pavlopoulos et al. (2017) and Park and Fung (2017) found that neural models can capture context more effectively than bag-of-words approaches in some settings. This supports our decision to include a Bi-LSTM as the deep learning model in our comparison. However, Wiegand et al. (2019) highlighted that label ambiguity and dataset bias impose a performance ceiling that architecture alone cannot overcome. This idea is important to our error analysis.
 
-At the same time, researchers such as Wiegand et al. (2019) also highlighted the broader challenges in abusive language detection. This includes annotation quality, dataset bias, and ambiguity in the definition the labels for abusive language. These issues are especially relevant in classification settings where confusion between classes may reflect not only model limitations, but also inherent ambiguity in the data.
+While prior work largely focuses on binary detection or benchmark improvement, there has been limited systematic comparison of how different model families confuse closely related categories in a multi-class cyberbullying setting. This is the gap our project addresses.
 
-While many studies frame abusive language detection as a binary classification problem, there are fewer studies that explore fine grained multi-class classification. In such classification, distinguishing between closely related categories introduces additional complexity and ambiguity on top of existing ones.
-
-Most prior work focuses primarily on improving benchmark performance or proposing new datasets and architectures. However, there is less emphasis on understanding model behavior at a granular level. In particular, there are limited attention that has been given to how different models confuse closely related categories in multi-class cyberbullying tasks.
  
 ---
 
@@ -189,15 +186,11 @@ Nevertheless, `Random Forest` serves as a useful comparison to evaluate whether 
 
 ### 3.5.5 Bidirectional Long Short-Term Memory (Bi-LSTM)
 
-The Bidirectional Long Short-Term Memory (Bi-LSTM) model was chosen as the primary deep learning architecture due to its ability to capture sequential dependencies in text.
+The `Bi-LSTM` was selected as the deep learning baseline in our comparison, as its bidirectional processing allows it to capture sequential dependencies across the full context of each tweet. This allows it to consider the word order and its surrounding context that the bag-of-words models would discard. This is useful for short, ambiguous tweets where meaning depends on how words are used together.
 
-Unlike classical models that rely on bag-of-words representations, the `Bi-LSTM` processes text in both forward and backward directions. This allows it to incorporate word order and surrounding context into its predictions.
+The architecture uses a single bidirectional LSTM layer with 100 hidden units and an embedding layer that is initialized with 200 dimensional Word2Vec vectors. An attention mechanism is then applied over the LSTM outputs, followed by a fully connected layer for classification into six classes. To prevent overfitting, a 0.5 dropout rate is set after the attention stage. We trained the model using AdamW with NLLLoss where the batch size is 32 and the sequence length is a maximum of 300 tokens. To avoid overfitting, we capped the training at 10 epochs and stopped early if validation accuracy showed no improvement for 10 consecutive epochs.
 
-This is particularly relevant for this dataset as the short and ambiguous tweets meaning would depend on how words are used together rather than on isolated keywords. By modeling sequential context, the `Bi-LSTM` may be able to better distinguish between closely related categories.
-
-However, `Bi-LSTM` requires way more data and computational resources. It may also be sensitive to noise in informal text.
-
-Nevertheless, the `Bi-LSTM` allows us to evaluate whether incorporating contextual and sequential information can improve classification performance over classical approaches.
+However, `Bi-LSTM` requires substantially more computational resources and may be sensitive to noise in informal text.
 
 ---
 
