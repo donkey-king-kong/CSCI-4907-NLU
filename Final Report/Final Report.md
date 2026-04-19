@@ -252,6 +252,8 @@ Considering both predictive performance and computational cost, `Logistic Regres
  
 Although `SVM` achieves nearly identical overall performance as `Logistic Regression`, its training time is substantially longer. `Random Forest` and `Bi-LSTM` also perform competitively, but they do not provide sufficient improvement to justify their additional computational cost. Therefore, `Logistic Regression` offers the best balance between effectiveness and efficiency for this task.
 
+---
+
 ### 4.3.2 Class-wise Comparison
 
 **Precision Comparison**
@@ -300,6 +302,8 @@ We performed 3 tests to provide us more insights and basis of comparison for the
 
 All statistical tests are conducted on paired binary correctness (correct vs incorrect predictions). This ensures that the assumption of dependent samples required for both Cochran's Q test and McNemar's test is satisfied.
 
+---
+
 ### 4.4.1 Cochran's Q Test
 
 Cochran's Q test is used to determine whether there is an overall statistically significant difference in prediction performance across all five models on the same test set.
@@ -319,6 +323,8 @@ Alternative hypothesis ($H_1$): At least one model has a different prediction pe
 From the test, we obtain an extremely small p-value obtained, hence we reject the null hypothesis and conclude that there is a statistically significant diference in performance among the five models evaluated on the same test set
 
 However, the Cochran's Q test does not indicate which specific models differ from one another. Hence, we will use McNemar's test for pairwise comparisons to identify where the differences lie.
+
+---
 
 ### 4.4.2 McNemar's Test
 
@@ -346,6 +352,8 @@ The McNemar's test shows that all pairwise comparisons involving `Naive Bayes` r
 
 In contrast, there are no statistically significant differences that is observed among `Logistic Regression`, `SVM`, `Random Forest`, and `Bi-LSTM`, as their adjusted p-values exceed the 0.05 significance level. This suggests that these stronger models achieve similar levels of performance on the test set.
 
+---
+
 ### 4.4.3 Effect Size
 
 The effect size analysis provides us insights into the practical magnitude of performance differences between the models.
@@ -369,6 +377,8 @@ The effect size analysis provides us insights into the practical magnitude of pe
 
 The effect size results show that the largest performance differences all involve `Naive Bayes`, indicating that it performed substantially worse than all the other models. In contrast, the differences among `Logistic Regression`, `SVM`, `Random Forest`, and `Bi-LSTM` were very small, ranging from only 0.15 to 0.65 percentage points. This suggests that although these four models differed slightly in overall accuracy, their practical performance was broadly similar, with `Logistic Regression` holding only a marginal advantage over the others.
 
+---
+
 ### 4.4.4 Summary of Statistical Tests
 
 All 3 tests present a consistent picture of model performance.
@@ -378,6 +388,8 @@ Cochran's Q test confirms that there are statistically significant differences a
 In contrast, the `Logistic Regression`, `SVM`, `Random Forest`, and `Bi-LSTM` show neither statistically significant nor practically meaningful differences in performance. Their accuracy differences are below 1 percentage point. This suggests that the stronger models operate at a similar performance level.
 
 In conclusion, the poorer performance of `Naive Bayes` can be attributed to its reliance on its independence assumptions and surface level lexical features. This makes it less effective for handling complex or ambiguous inputs. 
+
+---
 
 ### 4.4.5 Limitation of Statistical Analysis
 
@@ -390,6 +402,8 @@ It is important to note that the statistical tests are based on binary correctne
 To better understand the results beyond overall performance metrics, a structured error analysis was conducted. Rather than focusing only on accuracy, precision, recall, and F1-score, this analysis examines where the models fail, which classes are most commonly confused, how model behaviour differs across categories, and what linguistic properties make certain tweets difficult to classify. 
 
 The analysis is structured in four parts: a structured error analysis (5.1), a cross-model behaviour analysis (5.2), an examination of class boundary difficulty (5.3), and a synthesis of findings (5.4).
+
+---
 
 ## 5.1 Structured Error Analysis
 
@@ -490,6 +504,8 @@ Based on these observations, the recurring error types can be grouped into the f
 
 More broadly, the misclassified examples highlight recurring challenges such as short or context poor text, implicit or indirect expressions of abuse, and semantically overlapping class definitions. These factors limit the ability of the models, especially those relying on bag-of-words or shallow representations to accurately capture nuanced meaning. These findings confirm that model errors are not random, but arise from systematic limitations in capturing context, intent, and nuanced linguistic patterns.
 
+---
+
 ### 5.1.4 Cross-model Behaviour Analysis
 
 1) `[Observation]` Classes such as `age`, `religion`, `ethnicity`, and gender achieve consistently high correct predictions across all models.
@@ -578,6 +594,8 @@ To improve efficiency, we saved the artifacts produced by each model so that we 
 
  As discussed in Section 5.2, the boundary between `other_cyberbullying` and `not_cyberbullying` is ambiguous at the data level. Cyberbullying detection is inherently subjective, and without clearer annotation guidelines, different annotators may label the same tweet differently. This means models are trained on labels that may themselves be inconsistently applied, placing a ceiling on performance that cannot be overcome through better model architecture alone. More broadly, the dataset uses a single-label setting, where each tweet is assigned to exactly one category. However, this does not fully reflect reality, since a tweet may contain multiple overlapping forms of abuse at the same time. This limits how well any model trained on the dataset can generalise.
 
+---
+
 ## 7.2 Lack of Context Beyond Individual Tweets
 
 The meaning of a tweet often depends on conversational context and speaker intent that is not captured within the tweet itself. A message that appears benign in isolation may be abusive within a broader thread, and vice versa. Since all models in this project classify tweets individually, they do not have access to any surrounding context. This creates a fundamental information constraint. As a result, their ability to detect implicit or indirect forms of cyberbullying is limited. This is reflected in the persistent misclassification of subtle cases, particularly within the `other_cyberbullying` and `not_cyberbullying` categories.
@@ -590,9 +608,13 @@ The meaning of a tweet often depends on conversational context and speaker inten
 
 One direction for future work is the adoption of transformer-based models such as BERT or RoBERTa. Unlike the bag-of-words and sequential models explored in this project, transformers are pre-trained on large corpora and encode rich contextual representations of text. This would better equip models to distinguish between the overlapping classes that proved most challenging here, particularly `other_cyberbullying` and `not_cyberbullying`, where meaning depends heavily on context rather than individual keywords.
 
+---
+
 ## 8.2 Incorporate Contextual Signals Beyond Individual Tweets
 
 Incorporating contextual signals beyond the content of individual tweets is another promising direction. As identified in Section 7.2, models in this project classify tweets in isolation, without access to conversational thread context, user history, or metadata. Including such signals could help resolve cases where a tweet's intent or target is ambiguous when read alone, directly addressing one of the core sources of misclassification identified in the error analysis.
+
+---
 
 ## 8.3 Refining Annotation Guidelines For Ambiguous Categories
 
