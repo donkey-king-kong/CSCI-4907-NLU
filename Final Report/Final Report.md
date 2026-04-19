@@ -290,8 +290,6 @@ However, all models performed noticeably worse on the more ambiguous categories,
 
 Among the stronger models, `Logistic Regression` provides the most balanced overall performance, combining high scores on the clearer classes with relatively better consistency across the harder categories, while remaining computationally efficient. `SVM` and `Random Forest` achieve similar strengths on explicit categories and in some cases slightly better recall for other cyberbullying, bu these gains are modest when comapred against their higher training cost.
 
-These findings are further supported by the confusion matrices, which show substantial misclassification between other cyberbullying and not cyberbullying. THe ROC and learning curves also align with these results, indicating similar overall performance trends across models and highlighting the continued difficulty of handling nuanced and overlapping language in cyberbullying detection.
-
 ---
 
 ## 4.4 Statistical Test
@@ -379,7 +377,7 @@ Cochran's Q test confirms that there are statistically differences among the mod
 
 In contrast, the `Logistic Regression`, `SVM`, `Random Forest`, and `Bi-LSTM` show neither statistically significant nor practically meaningful differences in performance. Their accuracy differences are belower 1 percentage point. This suggests that the stronger models operate at a similar performance level.
 
-In conclusion, the poorer performance of `Naive Bayes` can be attributed to its reliance on its independence assumptions and surface level lexical features. This makes it less effective for handling complex or ambiguous inputs. Meanwhile, the comparable performance among the stronger models indicates that the remaining errors are more likely due to inherent task difficulty like class ambiguity and overlap rather than limitations of the model.
+In conclusion, the poorer performance of `Naive Bayes` can be attributed to its reliance on its independence assumptions and surface level lexical features. This makes it less effective for handling complex or ambiguous inputs. 
 
 ### 4.4.5 Limitation of Statistical Analysis
 
@@ -391,7 +389,9 @@ It is important to note that the statistical tests are based on binary correctne
 
 To better understand the results beyond overall performance metrics, a structured error analysis was conducted. Rather than focusing only on accuracy, precision, recall, and F1-score, this analysis examines where the models fail, which classes are most commonly confused, how model behaviour differs across categories, and what linguistic properties make certain tweets difficult to classify. 
 
-## 5.1 Overview of Structured Error Analysis
+The analysis is structured in four parts: a structured error analysis (5.1), a cross-model behaviour analysis (5.2), an examination of class boundary difficulty (5.3), and a synthesis of findings (5.4).
+
+## 5.1 Structured Error Analysis
 
 ### 5.1.1 Error Partitioning Analysis
 
@@ -420,9 +420,7 @@ By structuring the data in this way, we move from evaluating overall accuracy to
 
 The results show that a majority of the tweets (7,872) were classified correctly by all models, indicating that a large portion of the dataset contains relatively clear and distinguishable patterns. However, 1,255 tweets were misclassified by all models, suggesting the presence of inherently difficult cases. This could be due to ambiguity, subtle language, or weak class-specific signals. The fact that all models failed on them indicates that the issue lies more with the complexity of the data than with a specific model.
 
-2,796 tweets fell into the mixed category, where models disagreed in their predictions. These cases  highlight the differences in model behaviour, suggesting that each model captures different aspects of the data, such as lexical cues versus contextual patterns. 
-
-Overall, this partitioning provides a structured foundation for subsequent analysis by distinguishing between universally easy, universally hard, and model-dependent cases.
+2,796 tweets fell into the mixed category, where models disagreed in their predictions. These cases highlight the differences in model behaviour, suggesting that each model captures different aspects of the data, such as lexical cues versus contextual patterns. These cases are where the models diverge, and they form the basis for the cross-model analysis in Section 5.2.
 
 ### 5.1.2 Misclassification Pattern Analysis
 
@@ -440,11 +438,13 @@ By focusing on the most frequent confusion patterns, we can prioritize key areas
 
 The misclassification pattern analysis shows  that the most dominant pattern across all models was the confusion between not_cyberbullying and other_cyberbullying. This occurred in both directions and was especially frequent for `Logistic Regression`, `Bi-LSTM`, and `Random Forest`. For instance, `Logistic Regression` misclassified these two classes 713 and 566 times respectively, while `Bi-LSTM` and `Random Forest` also recorded high confusion counts in both directions. This suggests that the boundary between non-abusive content and subtle or implicit cyberbullying is not clearly defined, making these categories difficult to separate even for the stronger models.
 
-A second notable pattern was that `Naive Bayes`, showed a strong bias towards predicting the age category. In particular, it frequently misclassified both not_cyberbullying and other_cyberbullying as age, with 442 and 447 cases respectively. This suggests that `Naive Bayes` is highly influenced by surface-level lexical features, it is likely overfitting to keywords associated with age-related language rather than capturing deeper contextual distinctions.
+A second notable pattern was that `Naive Bayes` showed a strong bias towards predicting the age category. In particular, it frequently misclassified both not_cyberbullying and other_cyberbullying as age, with 442 and 447 cases respectively. This suggests that `Naive Bayes` is highly influenced by surface-level lexical features, it is likely overfitting to keywords associated with age-related language rather than capturing deeper contextual distinctions.
 
 Gender based cyberbullying was sometimes misclassified as either not_cyberbullying or other_cyberbullying. For example, `Logistic Regression` misclassified 163 gender related cases as not_cyberbullying, and `SVM` misclassified 196 such cases as other_cyberbullying. This indicates that this class lacks strong or consistent distinguishing features, possibly because gender-related abuse is expressed, or overlap with more general forms of offensive language.
 
 More broadly, categories such as other_cyberbullying exhibit higher misclassification rates across all models. This suggests that these labels are semantically broad and overlap with multiple categories, making them inherently harder to model and more prone to misclassification. These patterns highlight that model errors are not random, but are concentrated in specific class boundaries and structually ambiguous categories.
+
+The linguistic reasons behind these specific confusion pairs are examined in Section 5.1.3.
 
 ### 5.1.3 Qualitative Error Analysis
 
@@ -462,33 +462,9 @@ A second challenge is the over-reliance on isolated keywords, which is especiall
 
 The qualitative analysis also shows that `gender`-based cyberbullying is difficult to detect consistently. Some examples lacked explicit gender-related indicators and were therefore classified as `not_cyberbullying`, while others contained offensive language but were still assigned to broader categories. This suggests that the models are better at identifying general hostility than at detecting the specific target of the abuse. In other words, recognising offensive language is easier than determining whether that language is directed at gender.
 
-Finally, the confusion between `not_cyberbullying` and `other_cyberbullying` was consistently reflected in the misclassified examples. Many of these tweets were short, vague, or lacked explicit intent, making it difficult for the models to determine whether the content should be treated as abusive. This reinforces the earlier finding that the boundary between these two classes is inherently unclear.
+Finally, the confusion between `not_cyberbullying` and `other_cyberbullying` was consistently reflected in the misclassified examples. Many of these tweets were short, vague, or lacked explicit intent, making it difficult for the models to determine whether the content should be treated as abusive. This reinforces the earlier finding that the boundary between these two classes is inherently unclear. 
 
-### 5.1.4 Cross Model Behaviour Analysis
-
-
-
----
-
-## 5.2 Difficulty of Distinguishing Similar Classes
-
-
-
----
-
-## 5.3 Model Behaviour Differences
-
-
----
-
-## 5.4 Linguistic Challenges
-
-
----
-
-## 5.5 Error Patterns
-
-From the qualitative analysis above, the observed errors can be grouped into the following categories:
+Based on these observations, the recurring error types can be grouped into the following categories:
 
 - **`Lexical bias errors`**  
   Models misclassify tweets based on the presence of strong or emotionally charged words. For example, profanity. Even when no actual cyberbullying intent is present.
@@ -506,17 +482,17 @@ From the qualitative analysis above, the observed errors can be grouped into the
   Tweets with limited context or vague wording (e.g., "long winding story") lack sufficient information for reliable classification.
 
 - **`Class boundary overlap errors`**  
-  Significant overlap between not_cyberbullying and other_cyberbullying leads to frequent misclassification due to unclear boundaries.
+  Significant overlap between `not_cyberbullying` and `other_cyberbullying` leads to frequent misclassification due to unclear boundaries.
 
 More broadly, the misclassified examples highlight recurring challenges such as short or context poor text, implicit or indirect expressions of abuse, and semantically overlapping class definitions. These factors limit the ability of the models, especially those relying on bag-of-words or shallow representations to accurately capture nuanced meaning. These findings confirm that model errors are not random, but arise from systematic limitations in capturing context, intent, and nuanced linguistic patterns.
 
-## 5.4 Model Behaviour Differences
+### 5.1.4 Cross-model Behaviour Analysis
 
-1) `[Observation]` Classes such as age, religion, ethnicity, and gender achieve consistently high correct predictions across all models.
+1) `[Observation]` Classes such as `age`, `religion`, `ethnicity`, and gender achieve consistently high correct predictions across all models.
    - `[Evidence]` For example ethnicity: 1814 → 1946 → 1951 → 1952 → 1955 from NB → LR → BiLSTM → SVM → RF. 
    - `[Explanation]` This suggests that these categories contain strong and explicit lexical cues, making them easier to classify regardless of model complexity.
 
-2) `[Observation]` In contrast, other_cyberbullying and not_cyberbullying categories show substantially worst performance across all models.
+2) `[Observation]` In contrast, `other_cyberbullying` and `not_cyberbullying` categories show substantially worst performance across all models.
    - `[Evidence]` For example, NB (712 / 661) vs SVM (1414 / 987). 
    - `[Explanation]` This indicates that these classes are inherently more ambiguous and lack clear distinguishing features.
    - Naive Bayes performs significantly worse on these difficult classes, particularly for not_cyberbullying (661) and other_cyberbullying (712). 
@@ -528,7 +504,31 @@ More broadly, the misclassified examples highlight recurring challenges such as 
       - Whereas Logistic Regression maintains a more conservative or balanced boundary.
    - Overall, the largest discrepancies across models occur in distinguishing between not_cyberbullying and other_cyberbullying. This indicates that the primary challenge lies in boundary ambiguity rather than identifying clearly defined categories. 
 
-These findings are consistent with earlier misclassification pattern analysis and qualitative examples, where these two classes are frequently confused due to implicit aggression, vague wording, and lack of clear targets. Overall, the performance gain from Naive Bayes to Logistic Regression is substantial, while the improvement from Logistic Regression to SVM is more marginal. This suggests that linear discriminative models already capture most of the useful patterns in the dataset, with diminishing returns from more complex decision boundaries. Comparing these models to Random Forest, there is a substantial improvement in identifying identiy-related classes like age and religion, but effectiveness decreased when trying to distinguish not_cyberbullying and other_cyberbullying. This suggests that Random Forest struggles to identify subtle contextual meaning despite being stronger in clear lexical patterns. On the other hand, BiLSTM shows a significant improvement on other_cyberbullying, while struggling to identify not_cyberbullying. This suggests it is more prone to treating borderline non-bullying content as bullying.
+These findings are consistent with earlier misclassification pattern analysis and qualitative examples, where these two classes are frequently confused due to implicit aggression, vague wording, and lack of clear targets. Overall, the performance gain from `Naive Bayes` to `Logistic Regression` is substantial, while the improvement from `Logistic Regression` to `SVM` is more marginal. This suggests that linear discriminative models already capture most of the useful patterns in the dataset, with diminishing returns from more complex decision boundaries. Comparing these models to `Random Forest`, there is a substantial improvement in identifying identiy-related classes like `age` and `religion`, but effectiveness decreased when trying to distinguish `not_cyberbullying` and `other_cyberbullying`. This suggests that `Random Forest` struggles to identify subtle contextual meaning despite being stronger in clear lexical patterns. On the other hand, `BiLSTM` shows a significant improvement on `other_cyberbullying`, while struggling to identify `not_cyberbullying`. This suggests it is more prone to treating borderline non-bullying content as bullying.
+
+---
+
+## 5.2 Class Boundary Behaviour 
+
+The persistent confusion between `not_cyberbullying` and `other_cyberbullying` is not solely a model limitation — it reflects ambiguity at the data level. As shown in the word clouds in Section 3.3, these two classes share a significant amount of overlapping vocabulary, including general insults and informal expressions that appear across both categories. Unlike identity-based classes such as `religion` or `ethnicity`, which contain distinctive and topic-specific terms, the boundary between `not_cyberbullying` and `other_cyberbullying` is not clearly defined by any consistent set of lexical features. This means that even a well-performing model has limited signal to work with when distinguishing between them.
+
+Short tweet length compounds this further. When a tweet consists of only a few words with no explicit target, intent marker, or contextual cue, there is simply insufficient information for any model to make a reliable classification. This is a property of the data itself rather than a flaw in any particular model architecture, which explains why the confusion between these two classes persists across all five models regardless of complexity. 
+
+This structural ambiguity motivates the limitations discussed in Section 7.
+
+---
+
+## 5.3 Class Boundary Analysis
+
+---
+
+## 5.4 Synthesis
+
+
+---
+
+## 5.5 Error Patterns
+
 
 ---
 
