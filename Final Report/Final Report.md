@@ -1,7 +1,7 @@
 # 1. Introduction
 ## 1.1 Overview of Task & Research Questions
 
-Our project is a **single-label multi-class text classification for cyberbullying detection in tweets**. For a given tweet, the goal is to assign it exactly one category in the `cyberbullying_type` column. The labels for cyberbullying can be categorized by age, gender, religion, ethnicity, other cyberbullying or not cyberbullying. 
+Our project is a **single-label multi-class text classification for cyberbullying detection in tweets**. For a given tweet, the goal is to assign it exactly one category in the `cyberbullying_type` column. The labels for cyberbullying can be categorized by `age`, `gender`, `religion`, `ethnicity`, `other_cyberbullying` or `not_cyberbullying`. 
 
 Unlike traditional hate speech detection, which is typically framed as a binary (yes/no) classification task, our project would involve classifying each tweet into one of several closely related categories. This makes the task more challenging, as the classes often overlap in meaning. Additionally, the tweets are short, informal, and lacks context, which increases ambiguity. This therefore makes it harder for models to be able to accurately distinguish between categories.
 
@@ -42,19 +42,15 @@ This project contributes to this space by providing:
 
 # 2. Brief Literature Review
 
-Cyberbullying and abusive language detection have been widely researched in natural language processing, with extensive work spanning traditional machine learning, dataset development, and deep learning approaches.
+Cyberbullying and abusive language detection have received considerable attention in natural language processing across traditional machine learning, dataset development, and deep learning approaches.
 
-Research by Waseem and Hovy (2016) had demonstrated that traditional machine learning models, combined with textual features such as character n-grams, can be highly effective in detecting abusive content on Twitter. Their results showed that properly engineered representations, together with simple classifiers can serve as strong and competitive baselines.
+Waseem and Hovy (2016) showed that traditional machine learning models can provide strong baseline performance for detecting abusive language on Twitter when combined with features like character n-grams. Their findings motivate our inclusion of Naive Bayes, Logistic Regression, SVM, and Random Forest, as well as TF-IDF vectorization. 
 
-Subsequently, research expanded this field by introducing larger datasets and more fine grained annotation schemes. For example, Salawu et al. (2021) contributed a large dataset for cyberbullying and online abuse detection. This enabled more detailed categorization of harmful language. This is significant because it moves beyond simple abusive, non-abusive distinctions and supports a more nuanced modeling of different forms of online harm.
+Building on this, Salawu et al. (2021) introduced large-scale datasets with fine-grained annotation schemes that support multi-class labelling across specific categories of harm. This is precisely the setting our project operates in, and motivated our decision to evaluate performance at the class level rather than relying on aggregate accuracy alone.
 
-In a similar vein, deep learning approaches have also been widely explored for moderation and abuse detection tasks. For example, Pavlopoulos et al. (2017) showed that neural network architectures are actually able to capture contextual dependencies in text more effectively than traditional methods. Whereas Park and Fung (2017) had demonstrated improvements over bag-of-words approaches for abusive language detection on Twitter in certain settings.
+Pavlopoulos et al. (2017) and Park and Fung (2017) found that neural models can capture context more effectively than bag-of-words approaches in some settings. This supports our decision to include a Bi-LSTM as the deep learning model in our comparison. However, Wiegand et al. (2019) highlighted that label ambiguity and dataset bias impose a performance ceiling that architecture alone cannot overcome. This idea is important to our error analysis.
 
-At the same time, researchers such as Wiegand et al. (2019) also highlighted the broader challenges in abusive language detection. This includes annotation quality, dataset bias, and ambiguity in the definition the labels for abusive language. These issues are especially relevant in classification settings where confusion between classes may reflect not only model limitations, but also inherent ambiguity in the data.
-
-While many studies frame abusive language detection as a binary classification problem, there are fewer studies that explore fine grained multi-class classification. In such classification, distinguishing between closely related categories introduces additional complexity and ambiguity on top of existing ones.
-
-Most prior work focuses primarily on improving benchmark performance or proposing new datasets and architectures. However, there is less emphasis on understanding model behavior at a granular level. In particular, there are limited attention that has been given to how different models confuse closely related categories in multi-class cyberbullying tasks.
+While prior work largely focuses on binary detection or benchmark improvement, there has been limited systematic comparison of how different model families confuse closely related categories in a multi-class cyberbullying setting. This is the gap our project addresses.
  
 ---
 
@@ -94,7 +90,7 @@ Before training the models, exploratory data analysis was conducted to better un
 
 The class distribution shows that the dataset is not perfectly balanced across categories, which may influence model performance and bias predictions towards more frequent classes.
 
-To further analyze linguistic patterns, word clouds were generated for each label. A few selected word clouds for gender, religion, ethnicity, and non-cyberbullying labelled tweets are selected for illustration purposes.
+To further analyze linguistic patterns, word clouds were generated for each label. A few selected word clouds for `gender`, `religion`, `ethnicity`, and `not_cyberbullying` labelled tweets are selected for illustration purposes.
 
 <div align="center">
   <img src="./Images/gender.png" width="700"/>
@@ -133,7 +129,7 @@ In this project, two main text representation strategies were used:
 
 TF-IDF was chosen because it is a strong baseline for text classification. This is especially so when working with sparse textual features. This is because it is able to capture word importance relative to the corpus and often performs well on short text tasks.
 
-For Bi-LSTM, word embeddings were used to provide dense semantic representations of the tokens. This allows the model to not just determine the word counts but learn the contextual relationships within tweet sequences.
+For `Bi-LSTM`, word embeddings were used to provide dense semantic representations of the tokens. This allows the model to not just determine the word counts but learn the contextual relationships within tweet sequences.
 
 ---
 
@@ -141,63 +137,59 @@ For Bi-LSTM, word embeddings were used to provide dense semantic representations
 
 ### 3.5.1 Naive Bayes
 
-Naive Bayes was chosen as the simplest baseline model as it is simple to implement and is computationally efficient.
+`Naive Bayes` was chosen as the simplest baseline model as it is simple to implement and is computationally efficient.
 
-Although the Naive Bayes independence assumption is unrealistic, it is still well suited for high-dimensional sparse data such as TF-IDF representations. In such settings, word occurrences provide strong signals for classification, making it particularly effective as a benchmark model for comparing more complex models.
+Although the `Naive Bayes` independence assumption is unrealistic, it is still well suited for high-dimensional sparse data such as TF-IDF representations. In such settings, word occurrences provide strong signals for classification, making it particularly effective as a benchmark model for comparing more complex models.
 
-Naive Bayes is also suitable for this dataset as it contains short and sparse tweets where individual words often carry meaningful information despite limited context. However, as it assumes independence between features, it may struggle with ambiguous or labels that overlap each other.
+`Naive Bayes` is also suitable for this dataset as it contains short and sparse tweets where individual words often carry meaningful information despite limited context. However, as it assumes independence between features, it may struggle with ambiguous or labels that overlap each other.
 
-Nevertheless, Naive Bayes serves as a useful reference point for evaluating more advanced models. In particular, it allows us to assess whether these advanced models can better capture dependencies between words and improve classification performance, especially for closely related categories.
+Nevertheless, `Naive Bayes` serves as a useful reference point for evaluating more advanced models. In particular, it allows us to assess whether these advanced models can better capture dependencies between words and improve classification performance, especially for closely related categories.
 
 ---
 
 ### 3.5.2 Logistic Regression
 
-Logistic Regression was chosen as it is also fairly simple and robust on high-dimensional sparse text representations.
+`Logistic Regression` was chosen as it is also fairly simple and robust on high-dimensional sparse text representations.
 
 It is well suited for text classification tasks as it learns weighted contributions of features. This allows it to identify which words are the most indicative of each label. This makes it particularly effective when classification decisions depend on the presence of key terms.
 
 However, as a linear model it may struggle to capture complex relationships between words, especially when meaning depends on context or word combinations.
 
-Nevertheless, Logistic Regression serves as a useful comparison to Naive Bayes. This is done by evaluating whether learning feature weights can improve classification performance, particularly for closely related categories.
+Nevertheless, `Logistic Regression` serves as a useful comparison to `Naive Bayes`. This is done by evaluating whether learning feature weights can improve classification performance, particularly for closely related categories.
 
 ---
 
 ### 3.5.3 Support Vector Machine (SVM)
 
-SVM was selected due to its strong performance in high-dimensional feature spaces which are typical in text classification tasks.
+`SVM` was selected due to its strong performance in high-dimensional feature spaces which are typical in text classification tasks.
 
 It is well suited for text classification as it seeks to find an optimal decision boundary that maximizes the margin between classes. This makes it effective when classes are separable in feature space. This leads to strong generalization performance.
 
-SVM is also suitable for this dataset as clear decision boundaries may exist based on key features. However, similar to linear regression models, it may struggle to capture contextual relationships between words, especially in cases involving ambiguous or overlapping labels.
+`SVM` is also suitable for this dataset as clear decision boundaries may exist based on key features. However, similar to linear regression models, it may struggle to capture contextual relationships between words, especially in cases involving ambiguous or overlapping labels.
 
-Nevertheless, SVM still provides a strong benchmark for evaluating whether margin based classification can improve performance over simpler models such as Naive Bayes and Logistic Regression.
+Nevertheless, `SVM` still provides a strong benchmark for evaluating whether margin based classification can improve performance over simpler models such as `Naive Bayes` and `Logistic Regression`.
 
 ---
 
 ### 3.5.4 Random Forest
 
-Random Forest was included as an ensemble based model that is capable of capturing non-linear patterns in the data. This is done through the combination of multiple decision trees.
+`Random Forest` was included as an ensemble based model that is capable of capturing non-linear patterns in the data. This is done through the combination of multiple decision trees.
 
 It is suitable for problems where interactions between features are important. This is because it can model relationships that are not captured by linear models. This provides a useful contrast to the previous models, which rely primarily on linear decision boundaries.
 
-Random Forest is also suitable for this dataset as it is possible for it to capture patterns based on combinations of words rather than individual words. However, tree based methods are generally less effective on high-dimensional sparse text data, as they may struggle to fully utilize the TF-IDF representations and scale less efficiently.
+`Random Forest` is also suitable for this dataset as it is possible for it to capture patterns based on combinations of words rather than individual words. However, tree based methods are generally less effective on high-dimensional sparse text data, as they may struggle to fully utilize the TF-IDF representations and scale less efficiently.
 
-Nevertheless, Random Forest serves as a useful comparison to evaluate whether modeling non-linear feature interactions can improve classification performance for complex or ambiguous categories.
+Nevertheless, `Random Forest` serves as a useful comparison to evaluate whether modeling non-linear feature interactions can improve classification performance for complex or ambiguous categories.
 
 ---
 
 ### 3.5.5 Bidirectional Long Short-Term Memory (Bi-LSTM)
 
-The Bidirectional Long Short-Term Memory (Bi-LSTM) model was chosen as the primary deep learning architecture due to its ability to capture sequential dependencies in text.
+The `Bi-LSTM` was selected as the deep learning baseline in our comparison, as its bidirectional processing allows it to capture sequential dependencies across the full context of each tweet. This allows it to consider the word order and its surrounding context that the bag-of-words models would discard. This is useful for short, ambiguous tweets where meaning depends on how words are used together.
 
-Unlike classical models that rely on bag-of-words representations, the Bi-LSTM processes text in both forward and backward directions. This allows it to incorporate word order and surrounding context into its predictions.
+The architecture uses a single bidirectional LSTM layer with 100 hidden units and an embedding layer that is initialized with 200 dimensional Word2Vec vectors. An attention mechanism is then applied over the LSTM outputs, followed by a fully connected layer for classification into six classes. To prevent overfitting, a 0.5 dropout rate is set after the attention stage. We trained the model using AdamW with NLLLoss where the batch size is 32 and the sequence length is a maximum of 300 tokens. To avoid overfitting, we capped the training at 10 epochs and stopped early if validation accuracy showed no improvement for 10 consecutive epochs.
 
-This is particularly relevant for this dataset as the short and ambiguous tweets meaning would depend on how words are used together rather than on isolated keywords. By modeling sequential context, the Bi-LSTM may be able to better distinguish between closely related categories.
-
-However, Bi-LSTM requires way more data and computational resources. It may also be sensitive to noise in informal text.
-
-Nevertheless, the Bi-LSTM allows us to evaluate whether incorporating contextual and sequential information can improve classification performance over classical approaches.
+However, `Bi-LSTM` requires substantially more computational resources and may be sensitive to noise in informal text.
 
 ---
 
@@ -252,6 +244,8 @@ Considering both predictive performance and computational cost, `Logistic Regres
  
 Although `SVM` achieves nearly identical overall performance as `Logistic Regression`, its training time is substantially longer. `Random Forest` and `Bi-LSTM` also perform competitively, but they do not provide sufficient improvement to justify their additional computational cost. Therefore, `Logistic Regression` offers the best balance between effectiveness and efficiency for this task.
 
+---
+
 ### 4.3.2 Class-wise Comparison
 
 **Precision Comparison**
@@ -300,6 +294,8 @@ We performed 3 tests to provide us more insights and basis of comparison for the
 
 All statistical tests are conducted on paired binary correctness (correct vs incorrect predictions). This ensures that the assumption of dependent samples required for both Cochran's Q test and McNemar's test is satisfied.
 
+---
+
 ### 4.4.1 Cochran's Q Test
 
 Cochran's Q test is used to determine whether there is an overall statistically significant difference in prediction performance across all five models on the same test set.
@@ -319,6 +315,8 @@ Alternative hypothesis ($H_1$): At least one model has a different prediction pe
 From the test, we obtain an extremely small p-value obtained, hence we reject the null hypothesis and conclude that there is a statistically significant diference in performance among the five models evaluated on the same test set
 
 However, the Cochran's Q test does not indicate which specific models differ from one another. Hence, we will use McNemar's test for pairwise comparisons to identify where the differences lie.
+
+---
 
 ### 4.4.2 McNemar's Test
 
@@ -346,6 +344,8 @@ The McNemar's test shows that all pairwise comparisons involving `Naive Bayes` r
 
 In contrast, there are no statistically significant differences that is observed among `Logistic Regression`, `SVM`, `Random Forest`, and `Bi-LSTM`, as their adjusted p-values exceed the 0.05 significance level. This suggests that these stronger models achieve similar levels of performance on the test set.
 
+---
+
 ### 4.4.3 Effect Size
 
 The effect size analysis provides us insights into the practical magnitude of performance differences between the models.
@@ -369,6 +369,8 @@ The effect size analysis provides us insights into the practical magnitude of pe
 
 The effect size results show that the largest performance differences all involve `Naive Bayes`, indicating that it performed substantially worse than all the other models. In contrast, the differences among `Logistic Regression`, `SVM`, `Random Forest`, and `Bi-LSTM` were very small, ranging from only 0.15 to 0.65 percentage points. This suggests that although these four models differed slightly in overall accuracy, their practical performance was broadly similar, with `Logistic Regression` holding only a marginal advantage over the others.
 
+---
+
 ### 4.4.4 Summary of Statistical Tests
 
 All 3 tests present a consistent picture of model performance.
@@ -378,6 +380,8 @@ Cochran's Q test confirms that there are statistically significant differences a
 In contrast, the `Logistic Regression`, `SVM`, `Random Forest`, and `Bi-LSTM` show neither statistically significant nor practically meaningful differences in performance. Their accuracy differences are below 1 percentage point. This suggests that the stronger models operate at a similar performance level.
 
 In conclusion, the poorer performance of `Naive Bayes` can be attributed to its reliance on its independence assumptions and surface level lexical features. This makes it less effective for handling complex or ambiguous inputs. 
+
+---
 
 ### 4.4.5 Limitation of Statistical Analysis
 
@@ -390,6 +394,8 @@ It is important to note that the statistical tests are based on binary correctne
 To better understand the results beyond overall performance metrics, a structured error analysis was conducted. Rather than focusing only on accuracy, precision, recall, and F1-score, this analysis examines where the models fail, which classes are most commonly confused, how model behaviour differs across categories, and what linguistic properties make certain tweets difficult to classify. 
 
 The analysis is structured in four parts: a structured error analysis (5.1), a cross-model behaviour analysis (5.2), an examination of class boundary difficulty (5.3), and a synthesis of findings (5.4).
+
+---
 
 ## 5.1 Structured Error Analysis
 
@@ -422,6 +428,7 @@ The results show that a majority of the tweets (7,872) were classified correctly
 
 2,796 tweets fell into the mixed category, where models disagreed in their predictions. These cases highlight differences in model behaviour, with each model capturing distinct aspects of the data, from lexical cues to contextual patterns. They form the basis for the cross-model analysis in Section 5.2.
 
+---
 
 ### 5.1.2 Misclassification Pattern Analysis
 
@@ -446,6 +453,8 @@ Gender based cyberbullying was sometimes misclassified as either not_cyberbullyi
 More broadly, categories such as other_cyberbullying exhibit higher misclassification rates across all models. This suggests that these labels are semantically broad and overlap with multiple categories, making them inherently harder to model and more prone to misclassification. These patterns highlight that model errors are not random, but are concentrated in specific class boundaries and structurally ambiguous categories.
 
 The linguistic reasons behind these specific confusion pairs are examined in Section 5.1.3.
+
+---
 
 ### 5.1.3 Qualitative Error Analysis
 
@@ -487,10 +496,12 @@ Based on these observations, the recurring error types can be grouped into the f
 
 More broadly, the misclassified examples highlight recurring challenges such as short or context poor text, implicit or indirect expressions of abuse, and semantically overlapping class definitions. These factors limit the ability of the models, especially those relying on bag-of-words or shallow representations to accurately capture nuanced meaning. These findings confirm that model errors are not random, but arise from systematic limitations in capturing context, intent, and nuanced linguistic patterns.
 
+---
+
 ### 5.1.4 Cross-model Behaviour Analysis
 
 1) `[Observation]` Classes such as `age`, `religion`, `ethnicity`, and gender achieve consistently high correct predictions across all models.
-   - `[Evidence]` For example ethnicity: 1814 → 1946 → 1951 → 1952 → 1955 from `NB` → `LR` → `BiLSTM` → `SVM` → `RF`. 
+   - `[Evidence]` For example ethnicity: 1814 → 1946 → 1951 → 1952 → 1955 from `NB` → `LR` → `Bi-LSTM` → `SVM` → `RF`. 
    - `[Explanation]` This suggests that these categories contain strong and explicit lexical cues, making them easier to classify regardless of model complexity.
 
 2) `[Observation]` In contrast, `other_cyberbullying` and `not_cyberbullying` categories show substantially worst performance across all models.
@@ -505,7 +516,7 @@ More broadly, the misclassified examples highlight recurring challenges such as 
       - Whereas `Logistic Regression` maintains a more conservative or balanced boundary.
    - Overall, the largest discrepancies across models occur in distinguishing between `not_cyberbullying` and `other_cyberbullying`. This indicates that the primary challenge lies in boundary ambiguity rather than identifying clearly defined categories. 
 
-These findings are consistent with earlier misclassification pattern analysis and qualitative examples, where these two classes are frequently confused due to implicit aggression, vague wording, and lack of clear targets. Overall, the performance gain from `Naive Bayes` to `Logistic Regression` is substantial, while the improvement from `Logistic Regression` to `SVM` is more marginal. This suggests that linear discriminative models already capture most of the useful patterns in the dataset, with diminishing returns from more complex decision boundaries. Comparing these models to `Random Forest`, there is a substantial improvement in identifying identiy-related classes like `age` and `religion`, but effectiveness decreased when trying to distinguish `not_cyberbullying` and `other_cyberbullying`. This suggests that `Random Forest` struggles to identify subtle contextual meaning despite being stronger in clear lexical patterns. On the other hand, `BiLSTM` shows a significant improvement on `other_cyberbullying`, while struggling to identify `not_cyberbullying`. This suggests it is more prone to treating borderline non-bullying content as bullying.
+These findings are consistent with earlier misclassification pattern analysis and qualitative examples, where these two classes are frequently confused due to implicit aggression, vague wording, and lack of clear targets. Overall, the performance gain from `Naive Bayes` to `Logistic Regression` is substantial, while the improvement from `Logistic Regression` to `SVM` is more marginal. This suggests that linear discriminative models already capture most of the useful patterns in the dataset, with diminishing returns from more complex decision boundaries. Comparing these models to `Random Forest`, there is a substantial improvement in identifying identiy-related classes like `age` and `religion`, but effectiveness decreased when trying to distinguish `not_cyberbullying` and `other_cyberbullying`. This suggests that `Random Forest` struggles to identify subtle contextual meaning despite being stronger in clear lexical patterns. On the other hand, `Bi-LSTM` shows a significant improvement on `other_cyberbullying`, while struggling to identify `not_cyberbullying`. This suggests it is more prone to treating borderline non-bullying content as bullying.
 
 ---
 
@@ -535,11 +546,13 @@ As shown in Sections 4.3 and 5.1, `Naive Bayes` is the weakest model by a statis
 
 ## 5.4 Synthesis
 
-The aggregate metrics in Section 4 present a consistent picture where the four models performs similarly, and one falls significantly behind. However, this masks two distinct failure modes. `Naive Bayes` fails primarily due to its model design, where its independence assumption and reliance on raw word frequencies make it ill-equipped for tweets where meaning is contextual or implicit. The four stronger models, by contrast, do not fail for the same reason. Their errors are concentrated at the `not_cyberbullying`, `other_cyberbullying` boundary, which as shown in Section 5.2, is ambiguous at the data level rather than a consequence of any architectural limitation.
+The aggregate metrics in Section 4 present a consistent picture where the four models perform similarly, and one falls significantly behind. However, this masks two distinct failure modes. `Naive Bayes` fails primarily due to its model design, where its independence assumption and reliance on raw word frequencies make it ill-equipped for tweets where meaning is contextual or implicit. The four stronger models, by contrast, do not fail for the same reason. Their errors are concentrated at the `not_cyberbullying`, `other_cyberbullying` boundary, which as shown in Section 5.2, is ambiguous at the data level rather than a consequence of any architectural limitation.
 
 This distinction is most clearly illustrated by the fact that model complexity alone does not resolve the boundary problem. `Logistic Regression` and `Bi-LSTM` represent very different levels of architectural sophistication. One is a linear discriminative model, the other a sequential deep learning architecture. Yet they both achieve statistically equivalent overall accuracy. Both hit the same performance ceiling, imposed not by their design but by the inherent ambiguity of the task and the overlap between class boundaries in the dataset.
 
 The error taxonomy established in Section 5.1.3 maps cleanly onto these two root causes. Keyword triggered and lexical bias errors are characteristic of `Naive Bayes` and stem from its model limitations. Implicit abuse errors, class boundary overlap errors, and target ambiguity errors persist across all five models, pointing instead to properties of the data and label definitions that no model in this comparison was able to overcome. Hence addressing the latter category would require richer contextual signals, clearer annotation guidelines, or more expressive model inputs.
+
+Returning to our research questions, for the first question, classical models held their own against the Bi-LSTM despite being a fraction of the computational cost with all four stronger models landing within a narrow accuracy band of 80.9–81.5%. In the second question, `other_cyberbullying` and `not_cyberbullying` were clearly the hardest categories as both consistently ranked at the bottom of the evaluation metrics table across every model we tested. As for the third question, the errors traced back to a few causes: overlapping vocabularies between ambiguous classes, over-reliance on surface-level cues, short tweets lacking context, and abuse expressed too indirectly to detect reliably. None of the five models we evaluated were able to fully get around these issues.
 
 ---
 
@@ -547,17 +560,25 @@ The error taxonomy established in Section 5.1.3 maps cleanly onto these two root
 
 ## 6.1 Higher Computational Cost Does Not Always Lead to Better Performance
 
- Although Bi-LSTM required the longest training time, it did not outperform the strongest traditional models in any substantial way. Similarly, SVM achieved performance very close to Logistic Regression, but at a much higher computational cost. This demonstrates that model selection should not be based on predictive performance alone, but should also computational efficiency.
+ Although `Bi-LSTM` required the longest training time, it did not outperform the strongest traditional models in any substantial way. Similarly, `SVM` achieved performance very close to `Logistic Regression`, but at a much higher computational cost. This demonstrates that model selection should not be based on predictive performance alone, but should also consider computational efficiency.
+
+---
 
 ## 6.2 Accuracy Alone Is Insufficient
 
-While several models achieved similar overall performance, class-wise analysis revealed meaningful differences in how well they handled specific categories. Classes such as `Other Cyberbullying` and `Not Cyberbullying` were consistently harder to classify than the other classes. This highlights the importance of examining precision, recall, and F1-score at the class level rather than relying only on a single aggregate metric.
+While several models achieved similar overall accuracy, class-wise analysis revealed meaningful differences in how well they handled specific categories. `other_cyberbullying` and `not_cyberbullying` were consistently the hardest to classify across all models. This suggests that the boundary between these labels are less distinct than for other classes. A possible reason is that the tweets are often short, informal, and context-dependent. This highlights the importance of examining precision, recall, and F1-score at the class level, and suggests that improving performance on ambiguous categories may require not only better models but also clearer label definitions and richer contextual information.
 
-## 6.3 Some Classes Are More Difficult To Classify Than Others
+---
 
-Across almost all models, `Other Cyberbullying` and `Not Cyberbullying` were hardest to classify. This suggests that some label boundaries are inherently less distinct, especially when tweets are short, informal, and context-dependent. As a result, improving performance may require not only better models, but also better contextual information and clearer label definitions.
+## 6.3 Importance of Git
 
-## 6.4 
+Beyond modelling, this project also reinforced good software engineering practices. We learned and practiced proper code management using Git by simulating a realistic development setting. This helped us understand the importance of version control to prevent issues such as version conflicts or accidental loss of work. Git is widely used in real-world projects hence this hands-on experience was extremely valuable.
+
+---
+
+## 6.4 Saving artifacts to improve efficiency
+
+To improve efficiency, we saved the artifacts produced by each model so that we would not need to rerun the entire pipeline every time. This taught us that designing the pipeline carefully, especially by saving results from expensive steps, can help us to reduce the time needed for repeated experimentation.
 
 ---
 
@@ -565,19 +586,42 @@ Across almost all models, `Other Cyberbullying` and `Not Cyberbullying` were har
 
 ## 7.1 Dataset and Label Ambiguity
 
- Cyberbullying detection is inherently subjective, and the distinction between some labels may not always be clear. For example, the models tend to confuse the classes `Other Cyberbullying` and `Not Cyberbullying`. 
- Hence, the performance of the models depend on how clear the class labels are separated.
+ As discussed in Section 5.2, the boundary between `other_cyberbullying` and `not_cyberbullying` is ambiguous at the data level. Cyberbullying detection is inherently subjective, and without clearer annotation guidelines, different annotators may label the same tweet differently. This means models are trained on labels that may themselves be inconsistently applied, placing a ceiling on performance that cannot be overcome through better model architecture alone. More broadly, the dataset uses a single-label setting, where each tweet is assigned to exactly one category. However, this does not fully reflect reality, since a tweet may contain multiple overlapping forms of abuse at the same time. This limits how well any model trained on the dataset can generalise.
+
+---
 
 ## 7.2 Lack of Context Beyond Individual Tweets
 
-The meaning of a tweet often depends on conversational context, speaker’s intent. It is difficult for any model to reliably distinguish the tone of the speech without additional context.
+The meaning of a tweet often depends on conversational context and speaker intent that is not captured within the tweet itself. A message that appears benign in isolation may be abusive within a broader thread, and vice versa. Since all models in this project classify tweets individually, they do not have access to any surrounding context. This creates a fundamental information constraint. As a result, their ability to detect implicit or indirect forms of cyberbullying is limited. This is reflected in the persistent misclassification of subtle cases, particularly within the `other_cyberbullying` and `not_cyberbullying` categories.
 
 ---
 
 # 8. Future Work 
 
-One possible direction for future work is the use of context-aware approaches, such as transformer-based models, as well as clearer class definitions or additional contextual information to help improve performance. This will help to capture contextual meaning and dependencies between words, oimproving the performance of the models.
+## 8.1 Use Transformer Models like BERT or RoBERTa
 
-Future work could also involve incorporating richer contextual signals beyond the content of an isolated tweet. Including such informations helps to reduce ambiguity between overlapping labels and improve classification performance.
+One direction for future work is the adoption of transformer-based models such as BERT or RoBERTa. Unlike the bag-of-words and sequential models explored in this project, transformers are pre-trained on large corpora and encode rich contextual representations of text. This would better equip models to distinguish between the overlapping classes that proved most challenging here, particularly `other_cyberbullying` and `not_cyberbullying`, where meaning depends heavily on context rather than individual keywords.
 
-Finally, refining the labeling guidelines or clearer class definitions can help to reduce ambiguity in the dataset. Having more consistently defined class boundaries allows the models to learn from a more reliable target source during training. This would improve classification stability and reduce repeated confusion between categories that currently overlap.
+---
+
+## 8.2 Incorporate Contextual Signals Beyond Individual Tweets
+
+Incorporating contextual signals beyond the content of individual tweets is another promising direction. As identified in Section 7.2, models in this project classify tweets in isolation, without access to conversational thread context, user history, or metadata. Including such signals could help resolve cases where a tweet's intent or target is ambiguous when read alone, directly addressing one of the core sources of misclassification identified in the error analysis.
+
+---
+
+## 8.3 Refining Annotation Guidelines For Ambiguous Categories
+
+Refining the annotation guidelines for ambiguous categories could reduce label inconsistency at the data level. As discussed in Section 7.1, the single-label constraint and unclear boundaries between categories mean that models are sometimes trained on inconsistently labelled examples. Clearer class definitions would provide a more reliable training signal, which may improve classification stability at the boundaries that all five models in this study struggled with.
+
+# 9 References
+
+Park, J. H., & Fung, P. (2017). *One-step and two-step classification for abusive language detection on Twitter.* Proceedings of the First Workshop on Abusive Language Online, 41–45. https://doi.org/10.18653/v1/W17-3006
+
+Pavlopoulos, J., Malakasiotis, P., & Androutsopoulos, I. (2017). *Deeper attention to abusive user content moderation.* Proceedings of the 2017 Conference on Empirical Methods in Natural Language Processing (EMNLP), 1125–1135. https://doi.org/10.18653/v1/D17-1117
+
+Salawu, S., He, Y., & Lumsden, J. (2021). *Approaches to automated detection of cyberbullying: A survey.* IEEE Transactions on Affective Computing, 12(1), 3–24. https://doi.org/10.1109/TAFFC.2017.2761757
+
+Waseem, Z., & Hovy, D. (2016). *Hateful symbols or hateful people? Predictive features for hate speech detection on Twitter.* Proceedings of the NAACL Student Research Workshop, 88–93. https://doi.org/10.18653/v1/N16-2013
+
+Wiegand, M., Ruppenhofer, J., Schmidt, A., & Greenberg, C. (2019). *Inducing a lexicon of abusive words—A feature-based approach.* Proceedings of NAACL-HLT 2019, 1046–1056. https://doi.org/10.18653/v1/N19-1100
