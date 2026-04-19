@@ -528,7 +528,7 @@ Finally, the confusion between `not_cyberbullying` and `other_cyberbullying` was
 Based on these observations, the recurring error types can be grouped into the following categories:
 
 - **`Lexical bias errors`**  
-  Models misclassify tweets based on the presence of strong or emotionally charged words. For example, profanity. Even when no actual cyberbullying intent is present.
+  Models misclassify tweets based on the presence of strong or emotionally charged words such as profanities, even when no actual cyberbullying intent is present.
 
 <div align="center">
 
@@ -600,7 +600,7 @@ More broadly, the misclassified examples highlight recurring challenges such as 
 
 ### 5.1.4 Cross-model Behaviour Analysis
 
-1) `[Observation]` Classes such as `age`, `religion`, `ethnicity`, and gender achieve consistently high correct predictions across all models.
+1) `[Observation]` Classes such as `age`, `religion`, `ethnicity`, and `gender` achieve consistently high correct predictions across all models.
    - `[Evidence]` For example ethnicity: 1814 → 1946 → 1951 → 1952 → 1955 from `NB` → `LR` → `Bi-LSTM` → `SVM` → `RF`. 
    - `[Explanation]` This suggests that these categories contain strong and explicit lexical cues, making them easier to classify regardless of model complexity.
 
