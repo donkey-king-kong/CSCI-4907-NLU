@@ -416,17 +416,12 @@ By structuring the data in this way, we move from evaluating overall accuracy to
 |--:|--:|--:|--:|
 | 11923 | 7872 | 1255 | 2796 |
 
-<<<<<<< HEAD
-**Summary**
-The error partitioning results show that the dataset contains a mix of universally easy cases, universally difficult cases, and model-dependent cases. While many tweets were classified correctly by all models, there were still a small subset which were misclassified by all models. This suggests the presence of inherently difficult cases. In addition, a notable portion of the dataset fell into the mixed category, where model predictions disagreed. This highlights the differences in model behaviour
-=======
 **Observations**
 
 The results show that a majority of the tweets (7,872) were classified correctly by all models, indicating that a large portion of the dataset contains relatively clear and distinguishable patterns. However, 1,255 tweets were misclassified by all models, suggesting the presence of inherently difficult cases. This could be due to ambiguity, subtle language, or weak class-specific signals. The fact that all models failed on them indicates that the issue lies more with the complexity of the data than with a specific model.
 
 2,796 tweets fell into the mixed category, where models disagreed in their predictions. These cases highlight differences in model behaviour, with each model capturing distinct aspects of the data, from lexical cues to contextual patterns. They form the basis for the cross-model analysis in Section 5.2.
 
->>>>>>> 0938b9fd58047f26439aa16653bc7f47938c4e13
 
 ### 5.1.2 Misclassification Pattern Analysis
 
@@ -470,36 +465,7 @@ The qualitative analysis also shows that `gender`-based cyberbullying is difficu
 
 Finally, the confusion between `not_cyberbullying` and `other_cyberbullying` was consistently reflected in the misclassified examples. Many of these tweets were short, vague, or lacked explicit intent, making it difficult for the models to determine whether the content should be treated as abusive. This reinforces the earlier finding that the boundary between these two classes is inherently unclear. 
 
-<<<<<<< HEAD
-### 5.1.4 Cross Model Behaviour Analysis
-
-
-
----
-
-## 5.2 Difficulty of Distinguishing Similar Classes
-
-
-
----
-
-## 5.3 Model Behaviour Differences
-
-
-
----
-
-## 5.4 Linguistic Challenges
-
-
----
-
-## 5.5 Error Patterns
-
-From the qualitative analysis above, the observed errors can be grouped into the following categories:
-=======
 Based on these observations, the recurring error types can be grouped into the following categories:
->>>>>>> 0938b9fd58047f26439aa16653bc7f47938c4e13
 
 - **`Lexical bias errors`**  
   Models misclassify tweets based on the presence of strong or emotionally charged words. For example, profanity. Even when no actual cyberbullying intent is present.
@@ -581,23 +547,25 @@ The error taxonomy established in Section 5.1.3 maps cleanly onto these two root
 
 ## 6.1 Higher Computational Cost Does Not Always Lead to Better Performance
 
- Although Bi-LSTM required the longest training time, it did not outperform the strongest traditional models in any substantial way. Similarly, SVM achieved performance very close to Logistic Regression, but at a much higher computational cost. This demonstrates that model selection should not be based on predictive performance alone, but should also computational efficiency.
+ Although `BiLSTM` required the longest training time, it did not outperform the strongest traditional models in any substantial way. Similarly, `SVM` achieved performance very close to `Logistic Regression`, but at a much higher computational cost. This demonstrates that model selection should not be based on predictive performance alone, but should also consider computational efficiency.
+
+---
 
 ## 6.2 Accuracy Alone Is Insufficient
 
-While several models achieved similar overall performance, class-wise analysis revealed meaningful differences in how well they handled specific categories. Classes such as `Other Cyberbullying` and `Not Cyberbullying` were consistently harder to classify than the other classes. This highlights the importance of examining precision, recall, and F1-score at the class level rather than relying only on a single aggregate metric.
+While several models achieved similar overall accuracy, class-wise analysis revealed meaningful differences in how well they handled specific categories. `other_cyberbullying` and `not_cyberbullying` were consistently the hardest to classify across all models, reflecting the fact that some label boundaries are inherently less distinct. This is particularly evident when tweets are short, informal, and context-dependent. This highlights the importance of examining precision, recall, and F1-score at the class level, and suggests that improving performance on ambiguous categories may require not only better models but also clearer label definitions and richer contextual information.
 
-## 6.3 Some Classes Are More Difficult To Classify Than Others
+---
 
-Across almost all models, `Other Cyberbullying` and `Not Cyberbullying` were hardest to classify. This suggests that some label boundaries are inherently less distinct, especially when tweets are short, informal, and context-dependent. As a result, improving performance may require not only better models, but also better contextual information and clearer label definitions.
+## 6.3 Importance of Git
 
-## 6.4 Importance of Git
+Beyond modelling, this project also reinforced good software engineering practices. Through this project, we learned and practiced proper code management using Git by simulating a realistic development setting. This helped us understand the importance of version control to prevent issues such as version conflicts or accidental loss of work. Git is widely used in real-world projects hence this hands-on experience was extremely valuable.
 
-Through this project, we learned and practiced proper code management using Git by simulating a realistic development setting. This helped us understand the importance of version control to prevent issues such as version conflicts or accidental loss of work. Git is widely used in real-world projects hence this hands-on experience was extremely valuable.
+---
 
-## 6.5 Saving artifacts to improve efficiency
+## 6.4 Saving artifacts to improve efficiency
 
-To improve efficiency, we saved the artifacts produced by each model so that we would not need to rerun the entire pipeline every time. This helped us to reduce repeated computation and save time, improving our workflow efficiency.
+To improve efficiency, we saved the artifacts produced by each model so that we would not need to rerun the entire pipeline every time. This taught us that designing the pipeline carefully, especially by saving results from expensive steps, can help us to reduce the time needed for repeated experimentation.
 
 ---
 
