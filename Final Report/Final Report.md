@@ -313,7 +313,8 @@ Among the stronger models, `Logistic Regression` provides the most balanced over
 | ModernBERT-large | 0.570 | 0.630 | 0.570 | 0.550 |
 | DeBERTa-v3-large | 0.550 | 0.590 | 0.550 | 0.550 |
 
-All five zero-shot LLMs performed substantially worse than every trained model. Among them, `ModernBERT-large` achieved the highest accuracy (0.570) and F1-score (0.550), as it is purpose-built for zero-shot classification via NLI. The gap between the best LLM (0.570) and best trained model (0.815) exceeds 24% which shows that task specific training outperforms zero-shot prompting for this task. All LLM benchmarks were conducted under zero-shot conditions without fine-tuning, which represents an inherently disadvantaged setting compared to the trained models.
+All five zero-shot LLMs performed substantially worse than every trained model. Among them, `ModernBERT-large` achieved the highest accuracy (0.570) and F1-score All five zero-shot LLMs performed substantially worse than every trained model. The prompt used for all LLM benchmarks is provided in `Appendix A`. Among them, `ModernBERT-large` achieved the highest accuracy (0.570) and F1-score (0.550), as it is purpose-built for zero-shot classification via NLI. The gap between the best LLM (0.570) and best trained model (0.815) exceeds 24% which shows that task specific training outperforms zero-shot prompting for this task. All LLM benchmarks were conducted under zero-shot conditions without fine-tuning, which represents an inherently disadvantaged setting compared to the trained models.
+
 Notably, even under these conditions, the same ambiguous categories (`other_cyberbullying` and `not_cyberbullying`) remained the weakest across all five LLMs, a pattern consistent with the findings discussed in Section 5.
 
 ---
@@ -835,5 +836,19 @@ Wiegand, M., Ruppenhofer, J., Schmidt, A., & Greenberg, C. (2018). *Inducing a l
   <img src="./Images/RF/RF_LC.png" width="700"/>
   <p><em><b>Figure 10.1.4c. Learning curve for the Random Forest model.</b></em></p>
 </div>
+
+## 10.2 10.2 LLM Zero-Shot Prompt
+
+The following prompt was used for all five LLM benchmarks under zero-shot conditions:
+
+> You are an expert annotator for cyberbullying tweet classification.
+>
+> Valid labels: {class_names_list}
+>
+> Rules:
+> 1) Return exactly one label from the valid label list.
+> 2) Output STRICT JSON only, with this schema:
+>   {{"label": "<one_valid_label>"}}
+> 3) Do not output markdown, code fences, or any extra keys.
 
 ---
