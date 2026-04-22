@@ -736,15 +736,23 @@ Refining the annotation guidelines for ambiguous categories could reduce label i
 
 # 9 References
 
-Park, J. H., & Fung, P. (2017). One-step and two-step classification for abusive language detection on Twitter. Proceedings of the First Workshop on Abusive Language Online, 41–45. https://doi.org/10.18653/v1/W17-3006
+# 9 References
 
-Pavlopoulos, J., Malakasiotis, P., & Androutsopoulos, I. (2017). Deeper attention to abusive user content moderation. Proceedings of EMNLP 2017, 1125–1135. https://doi.org/10.18653/v1/D17-1117
+Bauer, N., Preisig, M., & Volk, M. (2024). Offensiveness, hate, emotion and GPT: Benchmarking GPT3.5 and GPT4 as classifiers on Twitter-specific datasets. In Proceedings of the Fourth Workshop on Threat, Aggression & Cyberbullying @ LREC-COLING 2024 (pp. 126–133). https://aclanthology.org/2024.trac-1.14
 
-Salawu, S., He, Y., & Lumsden, J. (2020). Approaches to automated detection of cyberbullying: A survey. IEEE Transactions on Affective Computing, 11(1), 3–24. https://doi.org/10.1109/TAFFC.2017.2761757
+Nafis, N., Kanojia, D., Saini, N., & Murthy, R. (2023). Towards safer communities: Detecting aggression and offensive language in code-mixed tweets to combat cyberbullying. In _Proceedings of the 7th Workshop on Online Abuse and Harms (WOAH 2023)_ (pp. 29–41) [https://aclanthology.org/2023.woah-1.3](https://aclanthology.org/2023.woah-1.3)
 
-Waseem, Z., & Hovy, D. (2016). Hateful symbols or hateful people? Predictive features for hate speech detection on Twitter. Proceedings of the NAACL Student Research Workshop, 88–93. https://doi.org/10.18653/v1/N16-2013
+Park, J. H., & Fung, P. (2017). *One-step and two-step classification for abusive language detection on Twitter.* Proceedings of the First Workshop on Abusive Language Online, 41–45. https://doi.org/10.18653/v1/W17-3006
 
-Wiegand, M., Ruppenhofer, J., Schmidt, A., & Greenberg, C. (2018). Inducing a lexicon of abusive words — A feature-based approach. Proceedings of NAACL-HLT 2018, 1046–1056. https://doi.org/10.18653/v1/N18-1095
+Pavlopoulos, J., Malakasiotis, P., & Androutsopoulos, I. (2017).  *Deeper Attention to Abusive User Content Moderation. In Proceedings of the 2017 Conference on Empirical Methods in Natural Language Processing, pages 1125–1135, Copenhagen, Denmark. Association for Computational Linguistics. [https://doi.org/10.18653/v1/D17-1117](https://doi.org/10.18653/v1/D17-1117)
+
+Pitsilis, G. K., Ramampiaro, H., & Langseth, H. (2018). *Effective hate-speech detection in Twitter data using recurrent neural networks. Applied Intelligence, 48(12), 4730–4742.* [https://doi.org/10.1007/s10489-018-1242-y](https://doi.org/10.1007/s10489-018-1242-y)
+
+Salawu, S., He, Y., & Lumsden, J. (2020). *Approaches to automated detection of cyberbullying: A survey.* IEEE Transactions on Affective Computing, 11(1), 3–24. https://doi.org/10.1109/TAFFC.2017.2761757
+
+Waseem, Z., & Hovy, D. (2016). *Hateful symbols or hateful people? Predictive features for hate speech detection on Twitter.* Proceedings of the NAACL Student Research Workshop, 88–93. https://doi.org/10.18653/v1/N16-2013
+
+Wiegand, M., Ruppenhofer, J., Schmidt, A., & Greenberg, C. (2018). *Inducing a lexicon of abusive words — A feature-based approach.* Proceedings of NAACL-HLT 2018, 1046–1056. https://doi.org/10.18653/v1/N18-1095
 
 ---
 
