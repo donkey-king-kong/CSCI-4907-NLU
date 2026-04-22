@@ -33,25 +33,40 @@ This project contributes to this space by providing:
 ### 1.3.1 Member Contributions
 | S/N | Team Members | Part |
 | :-: | :- | :- |
-| 1 | Zhan You Lau | Data Preparation & Cleaning, Data Visualization, Error Partitioning, Conclusion, Consolidation |
-| 2 | Yu Chen Law | Data Preparation & Cleaning, Machine Learning Models, Master Error Table, Cross Model Behaviour Analysis |
-| 3 | Kieran E Kai Voo | Machine Learning Models, Weights saving, Misclassification Pattern Analysis |
-| 4 | Joshua, Tse Ern Foo | Data Visualization, Machine Learning Models, Qualitative Error Analysis |
+| 1 | Zhan You Lau | Data Preparation & Cleaning, Data Visualization, Error Partitioning, Conclusion, Consolidation, Statistical Analysis, Final Report |
+| 2 | Yu Chen Law | Data Preparation & Cleaning, Machine Learning Models, Master Error Table, Cross Model Behaviour Analysis, Statistical Analysis |
+| 3 | Kieran E Kai Voo | Machine Learning Models, Weights saving, Misclassification Pattern Analysis, Bi-LSTM refinemeent, Final Report |
+| 4 | Joshua, Tse Ern Foo | Data Visualization, Machine Learning Models, Qualitative Error Analysis, LLM Benchmarking |
 
 ---
 
-# 2. Brief Literature Review
+# 2. Related Work
+## 2.1 Brief Literature Review
 
-Cyberbullying and abusive language detection have received considerable attention in natural language processing across traditional machine learning, dataset development, and deep learning approaches.
+Cyberbullying and abusive language detection have received considerable attention in natural language processing across traditional machine learning, dataset development, and deep learning approaches. This section examines the foundational literature that helped shape our model selection, evaluation strategy and error analysis framework.
 
-Waseem and Hovy (2016) showed that traditional machine learning models can provide strong baseline performance for detecting abusive language on Twitter when combined with features like character n-grams. Their findings motivate our inclusion of Naive Bayes, Logistic Regression, SVM, and Random Forest, as well as TF-IDF vectorization. 
+Waseem and Hovy (2016) showed that traditional machine learning models can provide strong baseline performance for detecting abusive language on Twitter when combined with features like character n-grams. A key finding is that strong performance can stem from shallow surface signals and do not generalise well across the different categories. On the other hand, classical models may perform well on certain labels by exploiting surface cues. However, they struggle on context dependent examples. This therefore motivates our inclusion of Naive Bayes, Logistic Regression, SVM, and Random Forest with TF-IDF vectorization as our baselines.
 
-Building on this, Salawu et al. (2021) introduced large-scale datasets with fine-grained annotation schemes that support multi-class labelling across specific categories of harm. This is precisely the setting our project operates in, and motivated our decision to evaluate performance at the class level rather than relying on aggregate accuracy alone.
+Building on this, Salawu et al. (2020) surveyed the different cyberbullying detection approaches across datasets that support multi-class labelling across specific categories of harm. This is precisely the setting our project operates in. Additionally, their work also highlights that model behaviour differs across the different harm categories - even when overall performance seem strong. This provides us some insights that the per-class F1-scores will vary across the six labels, and reinforces the need for a dedicated error analysis section.
 
-Pavlopoulos et al. (2017) and Park and Fung (2017) found that neural models can capture context more effectively than bag-of-words approaches in some settings. This supports our decision to include a Bi-LSTM as the deep learning model in our comparison. However, Wiegand et al. (2019) highlighted that label ambiguity and dataset bias impose a performance ceiling that architecture alone cannot overcome. This idea is important to our error analysis.
+Pavlopoulos et al. (2017) and Park and Fung (2017) found that neural models can capture context more effectively than bag-of-words approaches in some settings. Pavlopoulos et al. found that attention-based neural architectures can learn abusive-language patterns beyond surface n-grams. They also showed that deeper models can actually expose which linguistic cues drive false positives or confusion across the abusive categories. Park and Fung showed that framing abusive language detection as a direct multi-class task and as a two-step pipeline yield very similar f1-scores. This suggests that decomposing a task does not automatically improve performance. Their experiment on sexism and racism is relevant to us as it supports our decision to include a Bi-LSTM as the deep learning model in our comparison. However, Wiegand et al. (2018) highlighted that label ambiguity and dataset bias do impose a performance ceiling that architecture alone cannot overcome. This idea is important context for our error analysis.
+
+Wiegand et al. (2018) demonstrated that most of the discriminative signal in abusive language tasks is lexical in nature. This helps to explain why TF-IDF combined with classical models often remain competitive. This is relevant to our comparison as any performance differences between model families  likely reflect the differences in contextual modelling rather than vocabulary knowledge alone. This also helps us in our error analysis as misclassifications often occur when models rely too heavily on lexical cues and fail to account for negation, figurative language or the target context. Such limitations become clearer when compared against neural approaches. 
+
+Building on this, Pitsilis et al. (2018) demonstrated that recurrent neural networks combined with a semi-supervised embedding strategy can capture patterns in Twitter hate speech that bag-of-words baselines tend to miss. Their findings provides a precedent for using architecture similar to an LSTM on short, noisy social media text. This suggests that recurrent architectures are better positioned than classical models on context-dependent examples.
 
 While prior work largely focuses on binary detection or benchmark improvement, there has been limited systematic comparison of how different model families confuse closely related categories in a multi-class cyberbullying setting. This is the gap our project addresses.
- 
+
+## 2.2 State of the Art
+
+In the current landscape for cyberbullying detection, there are 2 driving trends that are present. The first is the release of larger, fine-grained datasets. Secondly, it is the adoption of transformer-based and LLM architectures that often outperform classical and recurrent models on benchmark tasks.
+
+Nafis et al. (2023) introduced a dataset that consists of 10,000 manually annotated English and Hindi-English mixed tweets that are classified for aggression and offensive language. This makes it a useful benchmark for studying cyberbullying related behaviour in a noisy multilingual social media text. In their experiment, they fine tuned a pre-trained language model that achieved a macro-f1 score of 67.87 for aggression detection and 65.45 for offensive language detection. 
+
+Building on this, Bauer et al. (2024) also benchmarked GPT-3.5 and GPT-4 as classifiers on Twitter abuse datasets, showing that general purpose LLMs can perform relatively well with minimal task specific training. This points to a growing trend in the field where instruction tuned and prompt-based systems are becoming alternatives to supervised pipelines.
+
+Together, these works underscore the foundational role of high-quality datasets and the broader architectural shift towards pre-trained language understanding.
+
 ---
 
 # 3. Methods
@@ -298,7 +313,8 @@ Among the stronger models, `Logistic Regression` provides the most balanced over
 | ModernBERT-large | 0.570 | 0.630 | 0.570 | 0.550 |
 | DeBERTa-v3-large | 0.550 | 0.590 | 0.550 | 0.550 |
 
-All five zero-shot LLMs performed substantially worse than every trained model. Among them, `ModernBERT-large` achieved the highest accuracy (0.570) and F1-score (0.550), as it is purpose-built for zero-shot classification via NLI. The gap between the best LLM (0.570) and best trained model (0.815) exceeds 24% which shows that task specific training outperforms zero-shot prompting for this task. All LLM benchmarks were conducted under zero-shot conditions without fine-tuning, which represents an inherently disadvantaged setting compared to the trained models.
+All five zero-shot LLMs performed substantially worse than every trained model. Among them, `ModernBERT-large` achieved the highest accuracy (0.570) and F1-score All five zero-shot LLMs performed substantially worse than every trained model. The prompt used for all LLM benchmarks is provided in `Appendix A`. Among them, `ModernBERT-large` achieved the highest accuracy (0.570) and F1-score (0.550), as it is purpose-built for zero-shot classification via NLI. The gap between the best LLM (0.570) and best trained model (0.815) exceeds 24% which shows that task specific training outperforms zero-shot prompting for this task. All LLM benchmarks were conducted under zero-shot conditions without fine-tuning, which represents an inherently disadvantaged setting compared to the trained models.
+
 Notably, even under these conditions, the same ambiguous categories (`other_cyberbullying` and `not_cyberbullying`) remained the weakest across all five LLMs, a pattern consistent with the findings discussed in Section 5.
 
 ---
@@ -721,15 +737,23 @@ Refining the annotation guidelines for ambiguous categories could reduce label i
 
 # 9 References
 
+# 9 References
+
+Bauer, N., Preisig, M., & Volk, M. (2024). Offensiveness, hate, emotion and GPT: Benchmarking GPT3.5 and GPT4 as classifiers on Twitter-specific datasets. In Proceedings of the Fourth Workshop on Threat, Aggression & Cyberbullying @ LREC-COLING 2024 (pp. 126–133). https://aclanthology.org/2024.trac-1.14
+
+Nafis, N., Kanojia, D., Saini, N., & Murthy, R. (2023). Towards safer communities: Detecting aggression and offensive language in code-mixed tweets to combat cyberbullying. In _Proceedings of the 7th Workshop on Online Abuse and Harms (WOAH 2023)_ (pp. 29–41) [https://aclanthology.org/2023.woah-1.3](https://aclanthology.org/2023.woah-1.3)
+
 Park, J. H., & Fung, P. (2017). *One-step and two-step classification for abusive language detection on Twitter.* Proceedings of the First Workshop on Abusive Language Online, 41–45. https://doi.org/10.18653/v1/W17-3006
 
-Pavlopoulos, J., Malakasiotis, P., & Androutsopoulos, I. (2017). *Deeper attention to abusive user content moderation.* Proceedings of the 2017 Conference on Empirical Methods in Natural Language Processing (EMNLP), 1125–1135. https://doi.org/10.18653/v1/D17-1117
+Pavlopoulos, J., Malakasiotis, P., & Androutsopoulos, I. (2017).  *Deeper Attention to Abusive User Content Moderation. In Proceedings of the 2017 Conference on Empirical Methods in Natural Language Processing, pages 1125–1135, Copenhagen, Denmark. Association for Computational Linguistics. [https://doi.org/10.18653/v1/D17-1117](https://doi.org/10.18653/v1/D17-1117)
 
-Salawu, S., He, Y., & Lumsden, J. (2021). *Approaches to automated detection of cyberbullying: A survey.* IEEE Transactions on Affective Computing, 12(1), 3–24. https://doi.org/10.1109/TAFFC.2017.2761757
+Pitsilis, G. K., Ramampiaro, H., & Langseth, H. (2018). *Effective hate-speech detection in Twitter data using recurrent neural networks. Applied Intelligence, 48(12), 4730–4742.* [https://doi.org/10.1007/s10489-018-1242-y](https://doi.org/10.1007/s10489-018-1242-y)
+
+Salawu, S., He, Y., & Lumsden, J. (2020). *Approaches to automated detection of cyberbullying: A survey.* IEEE Transactions on Affective Computing, 11(1), 3–24. https://doi.org/10.1109/TAFFC.2017.2761757
 
 Waseem, Z., & Hovy, D. (2016). *Hateful symbols or hateful people? Predictive features for hate speech detection on Twitter.* Proceedings of the NAACL Student Research Workshop, 88–93. https://doi.org/10.18653/v1/N16-2013
 
-Wiegand, M., Ruppenhofer, J., Schmidt, A., & Greenberg, C. (2019). *Inducing a lexicon of abusive words—A feature-based approach.* Proceedings of NAACL-HLT 2019, 1046–1056. https://doi.org/10.18653/v1/N19-1100
+Wiegand, M., Ruppenhofer, J., Schmidt, A., & Greenberg, C. (2018). *Inducing a lexicon of abusive words — A feature-based approach.* Proceedings of NAACL-HLT 2018, 1046–1056. https://doi.org/10.18653/v1/N18-1095
 
 ---
 
@@ -812,5 +836,19 @@ Wiegand, M., Ruppenhofer, J., Schmidt, A., & Greenberg, C. (2019). *Inducing a l
   <img src="./Images/RF/RF_LC.png" width="700"/>
   <p><em><b>Figure 10.1.4c. Learning curve for the Random Forest model.</b></em></p>
 </div>
+
+## 10.2 10.2 LLM Zero-Shot Prompt
+
+The following prompt was used for all five LLM benchmarks under zero-shot conditions:
+
+> You are an expert annotator for cyberbullying tweet classification.
+>
+> Valid labels: {class_names_list}
+>
+> Rules:
+> 1) Return exactly one label from the valid label list.
+> 2) Output STRICT JSON only, with this schema:
+>   {{"label": "<one_valid_label>"}}
+> 3) Do not output markdown, code fences, or any extra keys.
 
 ---
