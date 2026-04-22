@@ -40,7 +40,8 @@ This project contributes to this space by providing:
 
 ---
 
-# 2. Brief Literature Review
+# 2. Related Work
+## 2.1 Brief Literature Review
 
 Cyberbullying and abusive language detection have received considerable attention in natural language processing across traditional machine learning, dataset development, and deep learning approaches. This section examines the foundational literature that helped shape our model selection, evaluation strategy and error analysis framework.
 
@@ -55,7 +56,15 @@ Wiegand et al. (2018) demonstrated that most of the discriminative signal in abu
 Building on this, Pitsilis et al. (2018) demonstrated that recurrent neural networks combined with a semi-supervised embedding strategy can capture patterns in Twitter hate speech that that bag-of-words baselines tend to miss. Their findings provides a precedent for using architecture similar to an LSTM on short, noisy social media text. This is particularly relevant to our project because recurrent models tend to behave differently from linear models on subtle or examples with a lot of context. For example, implied insults or target dependent abuse. Bharathi et al. (2023) further complements this by showing that class imbalance has a measurable effect on cyberbullying classification performance where minority categories are consistently harder to learn.
 
 While prior work largely focuses on binary detection or benchmark improvement, there has been limited systematic comparison of how different model families confuse closely related categories in a multi-class cyberbullying setting. This is the gap our project addresses.
- 
+
+## 2.2 State of the Art
+
+In the current landscape for cyberbullying detection, there are 2 driving trends that are present. The first is the release of larger, fine-grained datasets. Secondly, it is the adoption of transformer-based and LLM architectures that often outperform classical and recurrent models on benchmark tasks.
+
+Nafis et al. (2023) introduced a dataset that consists of 10, 000 manually annotated English and Hindi-English mixed tweets that are classified for aggression and offensive language. This makes it a useful benchmark for studying cyberbullying related behaviour in a noisy multilingual social media text. In their experiment, they fine tuned a pre-trained language model that achieved a macro-f1 score of 67.87 for aggression detection and 65.45 for offensive language detection. 
+
+Beyond dataset development, Abu Farha and Magdy (2020) showed that a multitask CNN-BiLSTM architecture that is trained together on offensive language and hate speech remained competitive without the use of transformers. More recently, Bauer et al. (2024) benchmarked GPT-3.5 and GPT-4 as classifiers on Twitter abuse datasets. From this, it showed that general purpose LLMs require little task specific training in order to perform relatively well. This points to a growing trend in the field where instruction tuned and prompt-based systems are becoming alternatives to supervised pipelines.
+
 ---
 
 # 3. Methods
